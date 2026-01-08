@@ -1280,3 +1280,107 @@ button:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
+
+/* ===== FAQ SECTION ===== */
+.faq-section {
+    background: var(--color-background);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-12);
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.faq-question {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.faq-question svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.faq-question h3 {
+    font-size: 1.125rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.faq-answer {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+}
+
+.faq-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-primary);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: gap 0.2s ease;
+}
+
+.faq-link:hover {
+    gap: var(--space-3);
+}
+
+.faq-link svg {
+    color: var(--color-primary);
+}
+
+.faq-cta {
+    text-align: center;
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10);
+}
+
+.faq-cta p {
+    font-size: 1.125rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+    font-weight: 500;
+}
+
+/* Mobile adjustments for FAQ */
+@media (max-width: 768px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    .faq-item {
+        padding: var(--space-6);
+    }
+    
+    .faq-question h3 {
+        font-size: 1rem;
+    }
+    
+    .faq-answer {
+        font-size: 0.875rem;
+    }
+}
