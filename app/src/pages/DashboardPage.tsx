@@ -96,7 +96,8 @@ export default function DashboardPage() {
               <Link to="/new-order">
                 <Button
                   size="lg"
-                  className="bg-white hover:bg-gray-50 text-primary-600 shadow-xl hover:shadow-2xl"
+                  variant="secondary"
+                  className="!bg-white !text-primary-600 !border-0 shadow-xl hover:shadow-2xl hover:!bg-gray-50"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
@@ -223,4 +224,6 @@ export default function DashboardPage() {
           )}
         </motion.div>
       </main>
-   
+    </div>
+  )
+}

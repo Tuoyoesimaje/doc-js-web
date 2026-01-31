@@ -46,4 +46,7 @@
     @apply text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4 tracking-tight;
   }
   
-  .secti
+  .section-subtitle {
+    @apply text-lg text-gray-600 max-w-2xl mx-auto;
+  }
+}
