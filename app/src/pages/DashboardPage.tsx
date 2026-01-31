@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
@@ -9,12 +9,13 @@ import OrderCard from '../components/OrderCard'
 
 export default function DashboardPage() {
   const { user, signOut } = useAuthStore()
+  const location = useLocation()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     loadOrders()
-  }, [])
+  }, [location.pathname])
 
   const loadOrders = async () => {
     try {

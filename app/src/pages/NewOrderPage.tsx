@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
@@ -15,6 +15,7 @@ type OrderMode = 'quick' | 'visual'
 
 export default function NewOrderPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user } = useAuthStore()
   const [mode, setMode] = useState<OrderMode>('quick')
   const [services, setServices] = useState<Service[]>([])
@@ -28,7 +29,7 @@ export default function NewOrderPage() {
   useEffect(() => {
     loadServices()
     loadAddresses()
-  }, [])
+  }, [location.pathname])
 
   const loadServices = async () => {
     const { data } = await supabase

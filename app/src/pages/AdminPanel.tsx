@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import type { Order } from '../types'
 import Button from '../components/Button'
 
 export default function AdminPanel() {
+  const location = useLocation()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'pending' | 'processing' | 'ready'>('all')
 
   useEffect(() => {
     loadOrders()
-  }, [])
+  }, [location.pathname])
 
   const loadOrders = async () => {
     try {
