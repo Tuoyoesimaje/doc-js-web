@@ -1,5 +1,38 @@
 # Troubleshooting Guide
 
+## [CRITICAL] "Key is not present in table 'users'" Error
+
+**Error Message:**
+```
+POST /rest/v1/addresses 409 (Conflict)
+insert or update on table "addresses" violates foreign key constraint "addresses_user_id_fkey"
+Key is not present in table "users"
+```
+
+**What This Means:**
+Your user exists in Supabase Auth (`auth.users`) but not in your custom `users` table. This breaks foreign key relationships for addresses, orders, etc.
+
+**IMMEDIATE FIX (Do This Now!):**
+
+1. Open **Supabase Dashboard** → **SQL Editor**
+2. Copy and paste the entire contents of `FIX_CURRENT_USER.sql`
+3. Click **Run**
+4. **Refresh your app** (hard refresh: Ctrl+Shift+R or Cmd+Shift+R)
+5. Try adding an address again - it will work!
+
+**What the SQL does:**
+- Creates user records for all existing auth users
+- Adds a trigger to auto-create user records for future signups
+- Fixes the foreign key constraint issue permanently
+
+**Alternative Quick Fix (if SQL doesn't work):**
+1. Sign out of the app
+2. Sign up with a NEW account
+3. The updated code will create the user record automatically
+4. Try adding an address - should work!
+
+---
+
 ## Authentication Errors
 
 ### Error: "Unsupported provider: provider is not enabled"

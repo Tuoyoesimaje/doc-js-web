@@ -44,7 +44,7 @@ CREATE TABLE addresses (
 );
 
 CREATE INDEX idx_addresses_user_id ON addresses(user_id);
-CREATE INDEX idx_addresses_default ON addresses(user_id, is_default) WHERE is_default = TRUE;
+CREATE INDEX idx_addresses_default ON addresses(user_id) WHERE is_default = TRUE;
 
 -- ============================================
 -- SERVICES TABLE
@@ -267,12 +267,32 @@ CREATE POLICY "Users can view events for own orders"
     )
   );
 
+CREATE POLICY "Users can insert events for own orders"
+  ON order_events FOR INSERT
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM orders 
+      WHERE orders.id = order_events.order_id 
+      AND orders.user_id = auth.uid()
+    )
+  );
+
 -- ============================================
 -- PAYMENTS POLICIES
 -- ============================================
 CREATE POLICY "Users can view payments for own orders"
   ON payments FOR SELECT
   USING (
+    EXISTS (
+      SELECT 1 FROM orders 
+      WHERE orders.id = payments.order_id 
+      AND orders.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Users can insert payments for own orders"
+  ON payments FOR INSERT
+  WITH CHECK (
     EXISTS (
       SELECT 1 FROM orders 
       WHERE orders.id = payments.order_id 
@@ -301,6 +321,7 @@ CREATE POLICY "Admins can view all orders"
   ON orders FOR SELECT
   USING (
     (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
+    OR auth.uid() = user_id
   );
 
 CREATE POLICY "Admins can update all orders"
@@ -313,11 +334,49 @@ CREATE POLICY "Admins can view all order events"
   ON order_events FOR SELECT
   USING (
     (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
+    OR EXISTS (
+      SELECT 1 FROM orders 
+      WHERE orders.id = order_events.order_id 
+      AND orders.user_id = auth.uid()
+    )
   );
 
 CREATE POLICY "Admins can insert order events"
   ON order_events FOR INSERT
   WITH CHECK (
+    (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
+    OR EXISTS (
+      SELECT 1 FROM orders 
+      WHERE orders.id = order_events.order_id 
+      AND orders.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Admins can view all payments"
+  ON payments FOR SELECT
+  USING (
+    (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
+    OR EXISTS (
+      SELECT 1 FROM orders 
+      WHERE orders.id = payments.order_id 
+      AND orders.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Admins can insert payments"
+  ON payments FOR INSERT
+  WITH CHECK (
+    (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
+    OR EXISTS (
+      SELECT 1 FROM orders 
+      WHERE orders.id = payments.order_id 
+      AND orders.user_id = auth.uid()
+    )
+  );
+
+CREATE POLICY "Admins can update payments"
+  ON payments FOR UPDATE
+  USING (
     (auth.jwt() -> 'user_metadata' ->> 'role') = 'admin'
   );
 
@@ -326,6 +385,36 @@ CREATE POLICY "Admins can insert order events"
 -- ============================================
 -- Edge functions use service_role key which bypasses RLS
 -- No additional policies needed - they have full access
+
+-- ============================================
+-- TRIGGER: AUTO-CREATE USER RECORD ON AUTH SIGNUP
+-- ============================================
+-- This trigger automatically creates a user record when someone signs up
+-- SECURITY DEFINER allows it to bypass RLS
+CREATE OR REPLACE FUNCTION handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.users (id, email, phone, display_name, password_set, google_provider_id, created_at, last_login)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    NEW.phone,
+    COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.email, NEW.phone),
+    CASE WHEN NEW.email IS NOT NULL THEN TRUE ELSE FALSE END,
+    CASE WHEN NEW.raw_app_meta_data->>'provider' = 'google' THEN NEW.id ELSE NULL END,
+    NOW(),
+    NOW()
+  )
+  ON CONFLICT (id) DO NOTHING;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger on auth.users table
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION handle_new_user();
 
 -- ============================================
 -- TRIGGERS FOR UPDATED_AT

@@ -2,16 +2,20 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
+import { useAuthStore } from '../store/authStore'
 import type { Order, OrderEvent } from '../types'
 import Button from '../components/Button'
 import OrderTimeline from '../components/OrderTimeline'
+import PaymentModal from '../components/PaymentModal'
 
 export default function OrderDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useAuthStore()
   const [order, setOrder] = useState<Order | null>(null)
   const [events, setEvents] = useState<OrderEvent[]>([])
   const [loading, setLoading] = useState(true)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
 
   useEffect(() => {
     loadOrder()
@@ -47,6 +51,38 @@ export default function OrderDetailPage() {
       .order('created_at', { ascending: true })
 
     if (data) setEvents(data)
+  }
+
+  const handlePaymentSuccess = async (reference: string) => {
+    try {
+      // Update order payment status
+      await supabase
+        .from('orders')
+        .update({ payment_status: 'confirmed' })
+        .eq('id', id)
+
+      // Create payment record
+      await supabase.from('payments').insert({
+        order_id: id,
+        provider: 'monnify',
+        provider_payload: { reference },
+        amount_cents: order!.total_cents,
+        status: 'confirmed',
+      })
+
+      // Create payment event
+      await supabase.from('order_events').insert({
+        order_id: id,
+        event_type: 'payment_received',
+        note: 'Payment confirmed',
+      })
+
+      setShowPaymentModal(false)
+      loadOrder()
+      loadEvents()
+    } catch (error) {
+      console.error('Failed to update payment:', error)
+    }
   }
 
   if (loading) {
@@ -189,7 +225,12 @@ export default function OrderDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <Button fullWidth size="lg" className="shadow-2xl">
+              <Button 
+                fullWidth 
+                size="lg" 
+                className="shadow-2xl"
+                onClick={() => setShowPaymentModal(true)}
+              >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2"/>
                   <path d="M3 10h18M7 14h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -200,6 +241,17 @@ export default function OrderDetailPage() {
           )}
         </div>
       </main>
+
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        amount={order.total_cents}
+        orderId={order.id}
+        customerName={user?.display_name || user?.email || 'Customer'}
+        customerEmail={user?.email || ''}
+        onSuccess={handlePaymentSuccess}
+      />
     </div>
   )
 }

@@ -9,6 +9,7 @@ import Button from '../components/Button'
 import QuickOrderInput from '../components/QuickOrderInput'
 import VisualOrderSelect from '../components/VisualOrderSelect'
 import AddressPicker from '../components/AddressPicker'
+import AddAddressModal from '../components/AddAddressModal'
 
 type OrderMode = 'quick' | 'visual'
 
@@ -22,6 +23,7 @@ export default function NewOrderPage() {
   const [items, setItems] = useState<ParsedOrderItem[]>([])
   const [expressService, setExpressService] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [showAddAddressModal, setShowAddAddressModal] = useState(false)
 
   useEffect(() => {
     loadServices()
@@ -202,6 +204,7 @@ export default function NewOrderPage() {
               addresses={addresses}
               selected={selectedAddress}
               onSelect={setSelectedAddress}
+              onAddNew={() => setShowAddAddressModal(true)}
             />
           </motion.div>
 
@@ -376,6 +379,13 @@ export default function NewOrderPage() {
           </motion.div>
         </div>
       </main>
+
+      {/* Add Address Modal */}
+      <AddAddressModal
+        isOpen={showAddAddressModal}
+        onClose={() => setShowAddAddressModal(false)}
+        onSuccess={loadAddresses}
+      />
     </div>
   )
 }

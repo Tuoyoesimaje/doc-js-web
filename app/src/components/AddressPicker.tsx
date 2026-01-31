@@ -4,9 +4,10 @@ interface AddressPickerProps {
   addresses: Address[]
   selected: Address | null
   onSelect: (address: Address) => void
+  onAddNew: () => void
 }
 
-export default function AddressPicker({ addresses, selected, onSelect }: AddressPickerProps) {
+export default function AddressPicker({ addresses, selected, onSelect, onAddNew }: AddressPickerProps) {
   if (addresses.length === 0) {
     return (
       <div className="text-center py-12 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300">
@@ -17,7 +18,10 @@ export default function AddressPicker({ addresses, selected, onSelect }: Address
           </svg>
         </div>
         <p className="text-gray-600 font-medium mb-4">No saved addresses</p>
-        <button className="text-primary-600 hover:text-primary-700 font-semibold text-sm transition-colors">
+        <button 
+          onClick={onAddNew}
+          className="text-primary-600 hover:text-primary-700 font-semibold text-sm transition-colors"
+        >
           + Add New Address
         </button>
       </div>
@@ -70,6 +74,18 @@ export default function AddressPicker({ addresses, selected, onSelect }: Address
           </div>
         </button>
       ))}
+      
+      <button
+        onClick={onAddNew}
+        className="w-full p-5 rounded-2xl border-2 border-dashed border-gray-300 hover:border-primary-600 hover:bg-primary-50 transition-all duration-200 text-center"
+      >
+        <div className="flex items-center justify-center gap-2 text-primary-600 font-semibold">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          Add New Address
+        </div>
+      </button>
     </div>
   )
 }

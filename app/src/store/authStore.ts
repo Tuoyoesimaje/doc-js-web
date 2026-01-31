@@ -26,27 +26,46 @@ export const useAuthStore = create<AuthState>((set) => ({
       const { data: { session } } = await supabase.auth.getSession()
       
       if (session?.user) {
-        // Try to get user data from users table, fallback to auth user
+        // Try to get user data from users table
         const { data: userData } = await supabase
           .from('users')
           .select('*')
           .eq('id', session.user.id)
           .maybeSingle()
         
-        // If no user record exists, create one
+        // If no user record exists, create one (for existing users before trigger was added)
         if (!userData) {
           const newUser = {
             id: session.user.id,
             email: session.user.email,
             phone: session.user.phone,
-            display_name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0],
+            display_name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'User',
             password_set: !!session.user.email,
             google_provider_id: session.user.app_metadata?.provider === 'google' ? session.user.id : null,
             created_at: new Date().toISOString(),
+            last_login: new Date().toISOString(),
           }
           
-          await supabase.from('users').insert(newUser)
-          set({ user: newUser as User, loading: false })
+          const { error: insertError } = await supabase.from('users').insert(newUser)
+          
+          if (insertError) {
+            console.error('Failed to create user record:', insertError)
+            // If insert fails, wait a moment and try to fetch again (trigger might have created it)
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            const { data: retryData } = await supabase
+              .from('users')
+              .select('*')
+              .eq('id', session.user.id)
+              .maybeSingle()
+            
+            if (retryData) {
+              set({ user: retryData, loading: false })
+            } else {
+              set({ user: null, loading: false })
+            }
+          } else {
+            set({ user: newUser as User, loading: false })
+          }
         } else {
           set({ user: userData, loading: false })
         }
@@ -64,18 +83,32 @@ export const useAuthStore = create<AuthState>((set) => ({
             .maybeSingle()
           
           if (!userData) {
-            const newUser = {
-              id: session.user.id,
-              email: session.user.email,
-              phone: session.user.phone,
-              display_name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0],
-              password_set: !!session.user.email,
-              google_provider_id: session.user.app_metadata?.provider === 'google' ? session.user.id : null,
-              created_at: new Date().toISOString(),
-            }
+            // Wait a moment for trigger to create user record
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            const { data: retryData } = await supabase
+              .from('users')
+              .select('*')
+              .eq('id', session.user.id)
+              .maybeSingle()
             
-            await supabase.from('users').insert(newUser)
-            set({ user: newUser as User })
+            if (retryData) {
+              set({ user: retryData })
+            } else {
+              // Trigger didn't create it, try manual insert
+              const newUser = {
+                id: session.user.id,
+                email: session.user.email,
+                phone: session.user.phone,
+                display_name: session.user.user_metadata?.full_name || session.user.email?.split('@')[0] || 'User',
+                password_set: !!session.user.email,
+                google_provider_id: session.user.app_metadata?.provider === 'google' ? session.user.id : null,
+                created_at: new Date().toISOString(),
+                last_login: new Date().toISOString(),
+              }
+              
+              await supabase.from('users').insert(newUser)
+              set({ user: newUser as User })
+            }
           } else {
             set({ user: userData })
           }
@@ -120,18 +153,22 @@ export const useAuthStore = create<AuthState>((set) => ({
     
     if (error) throw error
     
-    // Create user record if doesn't exist
+    // Wait for trigger to create user record
     if (data.user) {
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
       const { data: existingUser } = await supabase
         .from('users')
         .select('*')
         .eq('id', data.user.id)
-        .single()
+        .maybeSingle()
       
       if (!existingUser) {
+        // Trigger didn't work, create manually
         await supabase.from('users').insert({
           id: data.user.id,
           phone: data.user.phone,
+          display_name: data.user.phone,
           password_set: false,
         })
       }
