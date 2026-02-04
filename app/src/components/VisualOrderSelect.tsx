@@ -47,22 +47,22 @@ export default function VisualOrderSelect({ services, onChange }: VisualOrderSel
 
   return (
     <div className="space-y-3">
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         {sortedServices.map((service) => (
           <div 
             key={service.id} 
             className="bg-gray-50 border-2 border-gray-200 rounded-xl p-3 hover:border-primary-600 transition-all duration-200"
           >
             <div className="mb-2">
-              <h4 className="font-semibold text-gray-900 text-sm mb-0.5">{service.name}</h4>
+              <h4 className="font-semibold text-gray-900 text-xs leading-tight mb-1">{service.name}</h4>
               <p className="text-xs text-primary-600 font-bold">
                 ₦{(service.base_price_cents / 100).toLocaleString()}
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={() => handleQuantityChange(service.key, (quantities[service.key] || 0) - 1)}
-                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700 text-sm"
+                className="w-7 h-7 rounded-lg bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700 text-sm flex-shrink-0"
               >
                 −
               </button>
@@ -71,11 +71,11 @@ export default function VisualOrderSelect({ services, onChange }: VisualOrderSel
                 min="0"
                 value={quantities[service.key] || 0}
                 onChange={(e) => handleQuantityChange(service.key, parseInt(e.target.value) || 0)}
-                className="flex-1 text-center border-2 border-gray-300 rounded-lg py-1.5 font-bold text-base focus:border-primary-600 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200"
+                className="flex-1 min-w-0 text-center border-2 border-gray-300 rounded-lg py-1 font-bold text-sm focus:border-primary-600 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200"
               />
               <button
                 onClick={() => handleQuantityChange(service.key, (quantities[service.key] || 0) + 1)}
-                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700 text-sm"
+                className="w-7 h-7 rounded-lg bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700 text-sm flex-shrink-0"
               >
                 +
               </button>
