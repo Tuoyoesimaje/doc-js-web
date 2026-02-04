@@ -11,6 +11,8 @@ interface PaymentModalProps {
   customerName: string
   customerEmail: string
   onSuccess: (reference: string) => void
+  paymentType?: 'full' | 'pickup' | 'final'
+  originalTotal?: number
 }
 
 export default function PaymentModal({
@@ -21,6 +23,8 @@ export default function PaymentModal({
   customerName,
   customerEmail,
   onSuccess,
+  paymentType = 'full',
+  originalTotal,
 }: PaymentModalProps) {
   const [loading, setLoading] = useState(false)
 
@@ -83,21 +87,63 @@ export default function PaymentModal({
                   </svg>
                 </motion.div>
                 <h2 className="text-3xl font-display font-bold text-gray-900 mb-2">
-                  Complete Payment
+                  {paymentType === 'pickup' ? 'Pay Pickup Fee' : paymentType === 'final' ? 'Complete Final Payment' : 'Complete Payment'}
                 </h2>
                 <p className="text-gray-600">
-                  Secure payment powered by Monnify
+                  {paymentType === 'pickup' 
+                    ? 'Pay the pickup fee now, rest when ready' 
+                    : paymentType === 'final'
+                    ? 'Your clothes are ready! Complete payment to collect'
+                    : 'Secure payment powered by Monnify'}
                 </p>
               </div>
 
               {/* Amount */}
               <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 mb-8">
-                <p className="text-sm text-gray-600 font-medium mb-2 text-center">
-                  Amount to Pay
-                </p>
-                <p className="text-5xl font-display font-bold text-gray-900 text-center">
-                  ₦{(amount / 100).toLocaleString()}
-                </p>
+                {paymentType === 'pickup' && originalTotal ? (
+                  <>
+                    <p className="text-sm text-gray-600 font-medium mb-2 text-center">
+                      Pickup Fee (Pay Now)
+                    </p>
+                    <p className="text-5xl font-display font-bold text-gray-900 text-center mb-3">
+                      ₦{(amount / 100).toLocaleString()}
+                    </p>
+                    <div className="border-t-2 border-primary-200 pt-3">
+                      <p className="text-xs text-gray-600 text-center mb-1">
+                        Remaining Balance (Pay Later)
+                      </p>
+                      <p className="text-2xl font-display font-bold text-gray-700 text-center">
+                        ₦{((originalTotal - amount) / 100).toLocaleString()}
+                      </p>
+                    </div>
+                  </>
+                ) : paymentType === 'final' && originalTotal ? (
+                  <>
+                    <p className="text-sm text-gray-600 font-medium mb-2 text-center">
+                      Final Payment
+                    </p>
+                    <p className="text-5xl font-display font-bold text-gray-900 text-center mb-3">
+                      ₦{(amount / 100).toLocaleString()}
+                    </p>
+                    <div className="border-t-2 border-primary-200 pt-3">
+                      <p className="text-xs text-gray-600 text-center mb-1">
+                        Total Order Value
+                      </p>
+                      <p className="text-2xl font-display font-bold text-gray-700 text-center">
+                        ₦{(originalTotal / 100).toLocaleString()}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm text-gray-600 font-medium mb-2 text-center">
+                      Amount to Pay
+                    </p>
+                    <p className="text-5xl font-display font-bold text-gray-900 text-center">
+                      ₦{(amount / 100).toLocaleString()}
+                    </p>
+                  </>
+                )}
               </div>
 
               {/* Payment Details */}

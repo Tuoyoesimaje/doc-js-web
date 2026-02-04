@@ -55,27 +55,130 @@ export default function OrderDetailPage() {
 
   const handlePaymentSuccess = async (reference: string) => {
     try {
-      // Update order payment status
-      await supabase
-        .from('orders')
-        .update({ payment_status: 'confirmed' })
-        .eq('id', id)
+      const isPickupFeePayment = order!.payment_method === 'postpay' && !order!.pickup_fee_paid && (order!.logistics_option === 'pickup' || order!.logistics_option === 'pickup_delivery')
+      const isPostpayFullPayment = order!.payment_method === 'postpay' && !order!.pickup_fee_paid && order!.logistics_option === 'none'
+      const isFinalPayment = order!.payment_method === 'postpay' && order!.pickup_fee_paid && order!.final_payment_pending
+      const isPrepayPayment = order!.payment_method === 'prepay' && !order!.pickup_fee_paid
+      
+      if (isPickupFeePayment) {
+        // Pickup fee payment for postpay
+        await supabase
+          .from('orders')
+          .update({ 
+            pickup_fee_paid: true,
+            payment_status: 'confirmed' // Initial payment confirmed
+          })
+          .eq('id', id)
 
-      // Create payment record
-      await supabase.from('payments').insert({
-        order_id: id,
-        provider: 'monnify',
-        provider_payload: { reference },
-        amount_cents: order!.total_cents,
-        status: 'confirmed',
-      })
+        await supabase.from('payments').insert({
+          order_id: id,
+          provider: 'monnify',
+          provider_payload: { reference, type: 'pickup_fee' },
+          amount_cents: 200000, // ₦2,000 pickup fee
+          status: 'confirmed',
+        })
 
-      // Create payment event
-      await supabase.from('order_events').insert({
-        order_id: id,
-        event_type: 'payment_received',
-        note: 'Payment confirmed',
-      })
+        await supabase.from('order_events').insert({
+          order_id: id,
+          event_type: 'payment_received',
+          note: 'Pickup fee payment confirmed (₦2,000)',
+        })
+      } else if (isPostpayFullPayment) {
+        // Full payment for postpay with no logistics (self drop-off)
+        await supabase
+          .from('orders')
+          .update({ 
+            pickup_fee_paid: true,
+            final_payment_pending: false,
+            payment_status: 'confirmed'
+          })
+          .eq('id', id)
+
+        await supabase.from('payments').insert({
+          order_id: id,
+          provider: 'monnify',
+          provider_payload: { reference, type: 'full_payment' },
+          amount_cents: order!.total_cents,
+          status: 'confirmed',
+        })
+
+        await supabase.from('order_events').insert({
+          order_id: id,
+          event_type: 'payment_received',
+          note: 'Full payment confirmed',
+        })
+      } else if (isFinalPayment) {
+        // Final payment for postpay
+        const remainingAmount = order!.total_cents - 200000
+        
+        await supabase
+          .from('orders')
+          .update({ 
+            final_payment_pending: false,
+            payment_status: 'confirmed'
+          })
+          .eq('id', id)
+
+        await supabase.from('payments').insert({
+          order_id: id,
+          provider: 'monnify',
+          provider_payload: { reference, type: 'final_payment' },
+          amount_cents: remainingAmount,
+          status: 'confirmed',
+        })
+
+        await supabase.from('order_events').insert({
+          order_id: id,
+          event_type: 'payment_received',
+          note: `Final payment confirmed (₦${(remainingAmount / 100).toLocaleString()})`,
+        })
+      } else if (isPrepayPayment) {
+        // Full prepay payment with 5% discount
+        const discountedAmount = Math.floor(order!.total_cents * 0.95)
+        
+        await supabase
+          .from('orders')
+          .update({ 
+            pickup_fee_paid: true,
+            final_payment_pending: false,
+            payment_status: 'confirmed'
+          })
+          .eq('id', id)
+
+        await supabase.from('payments').insert({
+          order_id: id,
+          provider: 'monnify',
+          provider_payload: { reference, type: 'prepay_full', discount: '5%' },
+          amount_cents: discountedAmount,
+          status: 'confirmed',
+        })
+
+        await supabase.from('order_events').insert({
+          order_id: id,
+          event_type: 'payment_received',
+          note: `Prepay payment confirmed with 5% discount (₦${(discountedAmount / 100).toLocaleString()})`,
+        })
+      } else {
+        // Fallback - shouldn't reach here
+        await supabase
+          .from('orders')
+          .update({ payment_status: 'confirmed' })
+          .eq('id', id)
+
+        await supabase.from('payments').insert({
+          order_id: id,
+          provider: 'monnify',
+          provider_payload: { reference },
+          amount_cents: order!.total_cents,
+          status: 'confirmed',
+        })
+
+        await supabase.from('order_events').insert({
+          order_id: id,
+          event_type: 'payment_received',
+          note: 'Payment confirmed',
+        })
+      }
 
       setShowPaymentModal(false)
       loadOrder()
@@ -245,13 +348,166 @@ export default function OrderDetailPage() {
             </div>
           </motion.div>
 
-          {/* Payment Status */}
-          {order.payment_status === 'pending' && (
+          {/* Initial Payment - Prepay or Postpay Pickup Fee */}
+          {order.payment_status === 'pending' && !order.pickup_fee_paid && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
+              className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-3xl border-2 border-primary-300 p-8 shadow-lg"
             >
+              {order.payment_method === 'postpay' ? (
+                <>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="6" y="10" width="20" height="14" rx="2" stroke="white" strokeWidth="2.5"/>
+                        <path d="M6 15h20M10 20h6" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">
+                        Pay Pickup Fee
+                      </h3>
+                      <p className="text-gray-700 font-medium">
+                        {order.logistics_option === 'pickup' || order.logistics_option === 'pickup_delivery'
+                          ? 'Secure your pickup slot with ₦2,000'
+                          : 'Complete payment to confirm your order'}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {(order.logistics_option === 'pickup' || order.logistics_option === 'pickup_delivery') && (
+                    <div className="bg-white rounded-2xl p-6 mb-6">
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-gray-600 font-medium">Pickup Fee (Pay Now)</span>
+                        <span className="text-2xl font-display font-bold text-primary-600">
+                          ₦2,000
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-gray-600 font-medium">Remaining Balance (Pay Later)</span>
+                        <span className="text-lg font-bold text-gray-900">
+                          ₦{((order.total_cents - 200000) / 100).toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="border-t-2 border-gray-200 pt-3 flex justify-between items-center">
+                        <span className="text-gray-900 font-bold">Total Order Value</span>
+                        <span className="text-xl font-display font-bold text-gray-900">
+                          ₦{(order.total_cents / 100).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  <Button 
+                    fullWidth 
+                    size="lg" 
+                    className="shadow-2xl"
+                    onClick={() => setShowPaymentModal(true)}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2"/>
+                      <path d="M3 10h18M7 14h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                    {order.logistics_option === 'pickup' || order.logistics_option === 'pickup_delivery'
+                      ? 'Pay Pickup Fee (₦2,000)'
+                      : `Pay Full Amount (₦${(order.total_cents / 100).toLocaleString()})`}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center">
+                      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="6" y="10" width="20" height="14" rx="2" stroke="white" strokeWidth="2.5"/>
+                        <path d="M6 15h20M10 20h6" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">
+                        Complete Payment
+                      </h3>
+                      <p className="text-gray-700 font-medium">
+                        Pay full amount now and get 5% discount + priority processing
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded-2xl p-6 mb-6">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600 font-medium">Total Amount (5% Off)</span>
+                      <div className="text-right">
+                        <span className="text-3xl font-display font-bold text-primary-600">
+                          ₦{(order.total_cents * 0.95 / 100).toLocaleString()}
+                        </span>
+                        <span className="block text-sm text-gray-500 line-through">
+                          ₦{(order.total_cents / 100).toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <Button 
+                    fullWidth 
+                    size="lg" 
+                    className="shadow-2xl"
+                    onClick={() => setShowPaymentModal(true)}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2"/>
+                      <path d="M3 10h18M7 14h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                    Pay ₦{(order.total_cents * 0.95 / 100).toLocaleString()} Now
+                  </Button>
+                </>
+              )}
+            </motion.div>
+          )}
+
+          {/* Final Payment for Postpay Orders */}
+          {order.payment_method === 'postpay' && order.pickup_fee_paid && order.final_payment_pending && order.status === 'ready' && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-gradient-to-br from-accent-50 to-accent-100 rounded-3xl border-2 border-accent-300 p-8 shadow-lg"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-accent-600 rounded-full flex items-center justify-center animate-pulse">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 8v16M8 16h16" stroke="white" strokeWidth="3" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">
+                    Your Clothes Are Ready! 🎉
+                  </h3>
+                  <p className="text-gray-700 font-medium">
+                    Complete payment to collect your fresh laundry
+                  </p>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-2xl p-6 mb-6">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-gray-600 font-medium">Pickup Fee (Paid)</span>
+                  <span className="text-gray-900 font-bold line-through">₦2,000</span>
+                </div>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-gray-600 font-medium">Remaining Balance</span>
+                  <span className="text-2xl font-display font-bold text-accent-600">
+                    ₦{((order.total_cents - 200000) / 100).toLocaleString()}
+                  </span>
+                </div>
+                <div className="border-t-2 border-gray-200 pt-3 flex justify-between items-center">
+                  <span className="text-gray-900 font-bold">Total Order Value</span>
+                  <span className="text-xl font-display font-bold text-gray-900">
+                    ₦{(order.total_cents / 100).toLocaleString()}
+                  </span>
+                </div>
+              </div>
+
               <Button 
                 fullWidth 
                 size="lg" 
@@ -262,8 +518,30 @@ export default function OrderDetailPage() {
                   <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2"/>
                   <path d="M3 10h18M7 14h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-                Complete Payment
+                Pay Remaining ₦{((order.total_cents - 200000) / 100).toLocaleString()}
               </Button>
+            </motion.div>
+          )}
+
+          {/* Payment Completed Message */}
+          {order.payment_method === 'postpay' && order.pickup_fee_paid && !order.final_payment_pending && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-3xl border-2 border-green-300 p-8 text-center"
+            >
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-600 rounded-full mb-4">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <path d="M8 16l6 6 10-10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-display font-bold text-gray-900 mb-2">
+                Payment Complete!
+              </h3>
+              <p className="text-gray-700 font-medium">
+                Thank you for your payment. Your order is fully paid.
+              </p>
             </motion.div>
           )}
         </div>
@@ -273,11 +551,29 @@ export default function OrderDetailPage() {
       <PaymentModal
         isOpen={showPaymentModal}
         onClose={() => setShowPaymentModal(false)}
-        amount={order.total_cents}
+        amount={
+          order.payment_method === 'prepay' && !order.pickup_fee_paid
+            ? Math.floor(order.total_cents * 0.95) // 5% discount for prepay
+            : order.payment_method === 'postpay' && !order.pickup_fee_paid && (order.logistics_option === 'pickup' || order.logistics_option === 'pickup_delivery')
+            ? 200000 // Pickup fee
+            : order.payment_method === 'postpay' && !order.pickup_fee_paid
+            ? order.total_cents // Full amount if no logistics
+            : order.payment_method === 'postpay' && order.pickup_fee_paid && order.final_payment_pending
+            ? order.total_cents - 200000 // Remaining balance
+            : order.total_cents // Fallback
+        }
         orderId={order.id}
         customerName={user?.display_name || user?.email || 'Customer'}
         customerEmail={user?.email || ''}
         onSuccess={handlePaymentSuccess}
+        paymentType={
+          order.payment_method === 'postpay' && !order.pickup_fee_paid && (order.logistics_option === 'pickup' || order.logistics_option === 'pickup_delivery')
+            ? 'pickup'
+            : order.payment_method === 'postpay' && order.pickup_fee_paid && order.final_payment_pending
+            ? 'final'
+            : 'full'
+        }
+        originalTotal={order.total_cents}
       />
     </div>
   )

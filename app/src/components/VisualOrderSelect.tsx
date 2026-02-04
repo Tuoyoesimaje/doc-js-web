@@ -9,6 +9,23 @@ interface VisualOrderSelectProps {
 export default function VisualOrderSelect({ services, onChange }: VisualOrderSelectProps) {
   const [quantities, setQuantities] = useState<Record<string, number>>({})
 
+  // Sort services: essentials first (tshirt, trouser), then alphabetically
+  const sortedServices = [...services].sort((a, b) => {
+    const essentials = ['tshirt', 'trouser', 'shirt', 'jeans']
+    const aIsEssential = essentials.includes(a.key.toLowerCase())
+    const bIsEssential = essentials.includes(b.key.toLowerCase())
+    
+    if (aIsEssential && !bIsEssential) return -1
+    if (!aIsEssential && bIsEssential) return 1
+    
+    // If both essential or both not, sort by order in essentials array or alphabetically
+    if (aIsEssential && bIsEssential) {
+      return essentials.indexOf(a.key.toLowerCase()) - essentials.indexOf(b.key.toLowerCase())
+    }
+    
+    return a.name.localeCompare(b.name)
+  })
+
   const handleQuantityChange = (serviceKey: string, quantity: number) => {
     const newQuantities = { ...quantities, [serviceKey]: Math.max(0, quantity) }
     setQuantities(newQuantities)
@@ -29,28 +46,23 @@ export default function VisualOrderSelect({ services, onChange }: VisualOrderSel
   }
 
   return (
-    <div className="space-y-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-4">
-        Select Items & Quantities
-      </label>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {services.map((service) => (
+    <div className="space-y-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {sortedServices.map((service) => (
           <div 
             key={service.id} 
-            className="bg-gray-50 border-2 border-gray-200 rounded-2xl p-5 hover:border-primary-600 transition-all duration-200"
+            className="bg-gray-50 border-2 border-gray-200 rounded-xl p-3 hover:border-primary-600 transition-all duration-200"
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <h4 className="font-semibold text-gray-900 mb-1">{service.name}</h4>
-                <p className="text-sm text-primary-600 font-bold">
-                  ₦{(service.base_price_cents / 100).toLocaleString()} / {service.unit}
-                </p>
-              </div>
+            <div className="mb-2">
+              <h4 className="font-semibold text-gray-900 text-sm mb-0.5">{service.name}</h4>
+              <p className="text-xs text-primary-600 font-bold">
+                ₦{(service.base_price_cents / 100).toLocaleString()}
+              </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => handleQuantityChange(service.key, (quantities[service.key] || 0) - 1)}
-                className="w-10 h-10 rounded-xl bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700"
+                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700 text-sm"
               >
                 −
               </button>
@@ -59,11 +71,11 @@ export default function VisualOrderSelect({ services, onChange }: VisualOrderSel
                 min="0"
                 value={quantities[service.key] || 0}
                 onChange={(e) => handleQuantityChange(service.key, parseInt(e.target.value) || 0)}
-                className="flex-1 text-center border-2 border-gray-300 rounded-xl py-2.5 font-bold text-lg focus:border-primary-600 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200"
+                className="flex-1 text-center border-2 border-gray-300 rounded-lg py-1.5 font-bold text-base focus:border-primary-600 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200"
               />
               <button
                 onClick={() => handleQuantityChange(service.key, (quantities[service.key] || 0) + 1)}
-                className="w-10 h-10 rounded-xl bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700"
+                className="w-8 h-8 rounded-lg bg-white border-2 border-gray-300 hover:border-primary-600 hover:bg-primary-50 flex items-center justify-center transition-all duration-200 font-bold text-gray-700 text-sm"
               >
                 +
               </button>

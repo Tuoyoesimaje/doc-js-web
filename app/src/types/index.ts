@@ -1,6 +1,7 @@
 export type OrderStatus = 'received' | 'processing' | 'ready' | 'delivered'
 export type PaymentStatus = 'pending' | 'confirmed' | 'failed' | 'refunded'
 export type LogisticsOption = 'none' | 'pickup' | 'pickup_delivery'
+export type PaymentMethod = 'prepay' | 'postpay'
 
 export interface User {
   id: string
@@ -42,6 +43,9 @@ export interface Order {
   currency: string
   status: OrderStatus
   payment_status: PaymentStatus
+  payment_method: PaymentMethod
+  pickup_fee_paid: boolean
+  final_payment_pending: boolean
   logistics_option: LogisticsOption
   logistics_fee_cents: number
   notes?: string

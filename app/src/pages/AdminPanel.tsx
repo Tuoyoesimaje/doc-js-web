@@ -78,7 +78,11 @@ export default function AdminPanel() {
     ready: orders.filter(o => o.status === 'ready').length,
     delivered: orders.filter(o => o.status === 'delivered').length,
     revenue: orders.reduce((sum, o) => sum + o.total_cents, 0),
-    pendingPayments: orders.filter(o => o.payment_status === 'pending').length,
+    pendingPayments: orders.filter(o => 
+      (o.payment_method === 'postpay' && !o.pickup_fee_paid) || 
+      (o.payment_method === 'postpay' && o.final_payment_pending) ||
+      (!o.payment_method && o.payment_status === 'pending')
+    ).length,
   }
 
   const statusConfig = {
@@ -348,11 +352,50 @@ export default function AdminPanel() {
                         <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-bold border-2 ${statusConfig[order.status].color}`}>
                           {statusConfig[order.status].label}
                         </span>
-                        {order.payment_status === 'pending' && (
+                        
+                        {/* Payment Method Badge */}
+                        {order.payment_method === 'prepay' && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 border-2 border-green-300">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                              <path d="M7 2v10M11 6H9a2 2 0 000 4h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                            </svg>
+                            Prepay (5% Off)
+                          </span>
+                        )}
+                        {order.payment_method === 'postpay' && !order.pickup_fee_paid && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-orange-100 text-orange-800 border-2 border-orange-300">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                              <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5"/>
+                              <path d="M7 4v3l2 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                            </svg>
+                            Awaiting Pickup Fee
+                          </span>
+                        )}
+                        {order.payment_method === 'postpay' && order.pickup_fee_paid && order.final_payment_pending && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-yellow-100 text-yellow-800 border-2 border-yellow-300 animate-pulse">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                              <path d="M7 3v4M7 10h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                            </svg>
+                            Final Payment Pending
+                          </span>
+                        )}
+                        {order.payment_method === 'postpay' && order.pickup_fee_paid && !order.final_payment_pending && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 border-2 border-green-300">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                              <path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            Postpay (Paid)
+                          </span>
+                        )}
+                        
+                        {/* Legacy Payment Status Badge */}
+                        {!order.payment_method && order.payment_status === 'pending' && (
                           <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-red-100 text-red-800 border-2 border-red-300">
                             Payment Pending
                           </span>
                         )}
+                        
+                        {/* Logistics Badge */}
                         {order.logistics_option !== 'none' && (
                           <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800 border-2 border-blue-300">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

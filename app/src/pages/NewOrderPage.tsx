@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
 import { parseBulkOrder, calculateTotal } from '../utils/orderParser'
-import type { Service, Address, ParsedOrderItem, LogisticsOption } from '../types'
+import type { Service, Address, ParsedOrderItem, LogisticsOption, PaymentMethod } from '../types'
 import Button from '../components/Button'
 import QuickOrderInput from '../components/QuickOrderInput'
 import VisualOrderSelect from '../components/VisualOrderSelect'
@@ -30,6 +30,7 @@ export default function NewOrderPage() {
   const [items, setItems] = useState<ParsedOrderItem[]>([])
   const [expressService, setExpressService] = useState(false)
   const [logisticsOption, setLogisticsOption] = useState<LogisticsOption>('none')
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('postpay')
   const [loading, setLoading] = useState(false)
   const [showAddAddressModal, setShowAddAddressModal] = useState(false)
 
@@ -82,6 +83,26 @@ export default function NewOrderPage() {
     return itemsTotal + logisticsFee
   }
 
+  const getPaymentAmount = () => {
+    const total = calculateOrderTotal()
+    
+    if (paymentMethod === 'prepay') {
+      return total // Full amount
+    } else {
+      // Postpay: only pickup fee if logistics selected, otherwise full amount
+      if (logisticsOption === 'pickup' || logisticsOption === 'pickup_delivery') {
+        return 200000 // ₦2,000 pickup fee
+      }
+      return total // If no logistics, must pay full (they're bringing to shop)
+    }
+  }
+
+  const getRemainingAmount = () => {
+    const total = calculateOrderTotal()
+    const paid = getPaymentAmount()
+    return total - paid
+  }
+
   const handleSubmitOrder = async () => {
     if (!selectedAddress || items.length === 0) {
       alert('Please select an address and add items')
@@ -100,6 +121,9 @@ export default function NewOrderPage() {
           total_cents: total,
           status: 'received',
           payment_status: 'pending',
+          payment_method: paymentMethod,
+          pickup_fee_paid: false, // Always false initially - payment happens on order detail page
+          final_payment_pending: paymentMethod === 'postpay' && (logisticsOption === 'pickup' || logisticsOption === 'pickup_delivery'),
           logistics_option: logisticsOption,
           logistics_fee_cents: LOGISTICS_OPTIONS[logisticsOption].fee,
         })
@@ -161,17 +185,24 @@ export default function NewOrderPage() {
               <h1 className="text-2xl font-display font-bold text-gray-900">New Order</h1>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-600 font-medium">Total</p>
-              <p className="text-2xl font-display font-bold text-primary-600">
-                ₦{(total / 100).toLocaleString()}
+              <p className="text-sm text-gray-600 font-medium">
+                {paymentMethod === 'postpay' && getRemainingAmount() > 0 ? 'Pay Now' : 'Total'}
               </p>
+              <p className="text-2xl font-display font-bold text-primary-600">
+                ₦{(paymentMethod === 'prepay' ? calculateOrderTotal() * 0.95 : getPaymentAmount()) / 100 | 0}
+              </p>
+              {paymentMethod === 'postpay' && getRemainingAmount() > 0 && (
+                <p className="text-xs text-gray-500">
+                  +₦{(getRemainingAmount() / 100).toLocaleString()} later
+                </p>
+              )}
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="space-y-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="space-y-6">
           {/* Progress Steps */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -199,19 +230,16 @@ export default function NewOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
+            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-primary-100 rounded-2xl flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#2563eb" strokeWidth="2" strokeLinejoin="round"/>
-                  <circle cx="12" cy="9" r="2.5" stroke="#2563eb" strokeWidth="2"/>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 2C7 2 4 4 4 7c0 4 6 11 6 11s6-7 6-11c0-3-3-5-6-5z" stroke="#2563eb" strokeWidth="2" strokeLinejoin="round"/>
+                  <circle cx="10" cy="7" r="2" stroke="#2563eb" strokeWidth="2"/>
                 </svg>
               </div>
-              <div>
-                <h2 className="text-xl font-display font-bold text-gray-900">Delivery Address</h2>
-                <p className="text-sm text-gray-600">Where should we deliver your order?</p>
-              </div>
+              <h2 className="text-lg font-display font-bold text-gray-900">Delivery Address</h2>
             </div>
             <AddressPicker
               addresses={addresses}
@@ -226,56 +254,38 @@ export default function NewOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
+            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-accent-100 rounded-2xl flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <rect x="5" y="7" width="14" height="13" rx="2" stroke="#10b981" strokeWidth="2"/>
-                  <path d="M8 5v4M16 5v4" stroke="#10b981" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="10" cy="14" r="1.5" fill="#10b981"/>
-                  <circle cx="14" cy="14" r="1.5" fill="#10b981"/>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-10 h-10 bg-accent-100 rounded-xl flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <rect x="4" y="6" width="12" height="11" rx="2" stroke="#10b981" strokeWidth="2"/>
+                  <path d="M7 4v3M13 4v3" stroke="#10b981" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
-              <div>
-                <h2 className="text-xl font-display font-bold text-gray-900">Add Items</h2>
-                <p className="text-sm text-gray-600">Choose your preferred input method</p>
-              </div>
+              <h2 className="text-lg font-display font-bold text-gray-900">Add Items</h2>
             </div>
 
-            <div className="flex gap-3 mb-6">
+            <div className="flex gap-2 mb-4">
               <button
                 onClick={() => setMode('quick')}
-                className={`flex-1 py-4 px-6 rounded-2xl font-semibold transition-all duration-200 ${
+                className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'quick'
                     ? 'bg-primary-600 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <div className="flex items-center justify-center gap-2">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 6h14M3 10h14M3 14h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                  Quick Input
-                </div>
+                Quick Input
               </button>
               <button
                 onClick={() => setMode('visual')}
-                className={`flex-1 py-4 px-6 rounded-2xl font-semibold transition-all duration-200 ${
+                className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'visual'
                     ? 'bg-primary-600 text-white shadow-lg'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                <div className="flex items-center justify-center gap-2">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="2"/>
-                    <rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="2"/>
-                    <rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="2"/>
-                    <rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="2"/>
-                  </svg>
-                  Visual Select
-                </div>
+                Visual Select
               </button>
             </div>
 
@@ -305,115 +315,130 @@ export default function NewOrderPage() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Express Service */}
+          {/* Express Service + Logistics + Payment - Combined */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
+            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg space-y-5"
           >
-            <label className="flex items-center gap-4 cursor-pointer group">
+            {/* Express Service */}
+            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 transition-colors">
               <input
                 type="checkbox"
                 checked={expressService}
                 onChange={(e) => setExpressService(e.target.checked)}
-                className="w-6 h-6 text-primary-600 rounded-lg focus:ring-2 focus:ring-primary-500 cursor-pointer"
+                className="w-5 h-5 text-primary-600 rounded-lg focus:ring-2 focus:ring-primary-500 cursor-pointer"
               />
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-warning-600">
-                    <path d="M10 2L12 7l5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1 2-5z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-                  </svg>
-                  <span className="font-display font-bold text-gray-900">Express Service (Same Day)</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-gray-900">Express Service</span>
+                  <span className="text-xs font-bold text-warning-600">+50%</span>
                 </div>
-                <p className="text-sm text-gray-600">Get your clothes back within 24 hours • +50% surcharge</p>
-              </div>
-              <div className="text-right">
-                <span className="text-lg font-bold text-warning-600">+50%</span>
+                <p className="text-xs text-gray-600">Same day delivery</p>
               </div>
             </label>
-          </motion.div>
 
-          {/* Logistics Options */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 }}
-            className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M13 16V6C13 4.89543 13.8954 4 15 4H19C20.1046 4 21 4.89543 21 6V16M13 16H3L5 8H11L13 16ZM13 16H21M21 16H23V18C23 19.1046 22.1046 20 21 20H19.5M13 16V18C13 19.1046 12.1046 20 11 20H9.5M9.5 20C9.5 21.3807 8.38071 22.5 7 22.5C5.61929 22.5 4.5 21.3807 4.5 20C4.5 18.6193 5.61929 17.5 7 17.5C8.38071 17.5 9.5 18.6193 9.5 20ZM19.5 20C19.5 21.3807 18.3807 22.5 17 22.5C15.6193 22.5 14.5 21.3807 14.5 20C14.5 18.6193 15.6193 17.5 17 17.5C18.3807 17.5 19.5 18.6193 19.5 20Z" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <h2 className="text-xl font-display font-bold text-gray-900">Logistics Service</h2>
-                <p className="text-sm text-gray-600">How should we handle pickup and delivery?</p>
-              </div>
-            </div>
+            <div className="border-t-2 border-gray-100"></div>
 
-            <div className="space-y-3">
-              {(Object.keys(LOGISTICS_OPTIONS) as LogisticsOption[]).map((option) => {
-                const config = LOGISTICS_OPTIONS[option]
-                return (
-                  <motion.label
-                    key={option}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                    className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all duration-200 ${
-                      logisticsOption === option
-                        ? 'border-primary-600 bg-primary-50 shadow-md'
-                        : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="logistics"
-                      value={option}
-                      checked={logisticsOption === option}
-                      onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
-                      className="w-5 h-5 text-primary-600 focus:ring-2 focus:ring-primary-500"
-                    />
-                    <div className="flex-1">
-                      <div className="font-bold text-gray-900 mb-1">{config.label}</div>
-                      <p className="text-sm text-gray-600">{config.description}</p>
-                    </div>
-                    <div className="text-right">
-                      <span className={`text-lg font-bold ${config.fee === 0 ? 'text-green-600' : 'text-primary-600'}`}>
+            {/* Logistics */}
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3 text-sm">Logistics</h3>
+              <div className="grid grid-cols-3 gap-2">
+                {(Object.keys(LOGISTICS_OPTIONS) as LogisticsOption[]).map((option) => {
+                  const config = LOGISTICS_OPTIONS[option]
+                  return (
+                    <label
+                      key={option}
+                      className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                        logisticsOption === option
+                          ? 'border-primary-600 bg-primary-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="logistics"
+                        value={option}
+                        checked={logisticsOption === option}
+                        onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
+                        className="sr-only"
+                      />
+                      <div className="text-xs font-bold text-gray-900">{config.label}</div>
+                      <div className={`text-sm font-bold ${config.fee === 0 ? 'text-green-600' : 'text-primary-600'}`}>
                         {config.fee === 0 ? 'Free' : `₦${(config.fee / 100).toLocaleString()}`}
-                      </span>
-                    </div>
-                  </motion.label>
-                )
-              })}
+                      </div>
+                    </label>
+                  )
+                })}
+              </div>
             </div>
 
-            {logisticsOption !== 'none' && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-4 p-4 bg-blue-50 rounded-2xl border-2 border-blue-200"
-              >
-                <div className="flex items-start gap-3">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-blue-600 mt-0.5">
-                    <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M10 6v4M10 14h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                  <div className="text-sm text-blue-900">
-                    <p className="font-semibold mb-1">Delivery Address:</p>
-                    <p>{selectedAddress?.line1}, {selectedAddress?.city}</p>
-                    {logisticsOption === 'pickup' && (
-                      <p className="mt-2 text-blue-700">We'll pick up your laundry. You can collect it from our shop when ready.</p>
-                    )}
-                    {logisticsOption === 'pickup_delivery' && (
-                      <p className="mt-2 text-blue-700">Full door-to-door service. We'll pick up and deliver back to you.</p>
-                    )}
+            <div className="border-t-2 border-gray-100"></div>
+
+            {/* Payment Method */}
+            <div>
+              <h3 className="font-bold text-gray-900 mb-3 text-sm">Payment</h3>
+              <div className="grid grid-cols-2 gap-2">
+                {/* Postpay */}
+                <label
+                  className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                    paymentMethod === 'postpay'
+                      ? 'border-green-600 bg-green-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="postpay"
+                    checked={paymentMethod === 'postpay'}
+                    onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
+                    className="sr-only"
+                  />
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-bold text-gray-900">Pay After</span>
+                    <span className="px-1.5 py-0.5 bg-green-600 text-white text-[10px] font-bold rounded">TOP</span>
                   </div>
-                </div>
-              </motion.div>
-            )}
+                  <div className="text-sm font-bold text-green-600">
+                    ₦{(getPaymentAmount() / 100).toLocaleString()} now
+                  </div>
+                  {getRemainingAmount() > 0 && (
+                    <div className="text-xs text-gray-600">
+                      +₦{(getRemainingAmount() / 100).toLocaleString()} later
+                    </div>
+                  )}
+                </label>
+
+                {/* Prepay */}
+                <label
+                  className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                    paymentMethod === 'prepay'
+                      ? 'border-primary-600 bg-primary-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="prepay"
+                    checked={paymentMethod === 'prepay'}
+                    onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
+                    className="sr-only"
+                  />
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-bold text-gray-900">Pay Now</span>
+                    <span className="px-1.5 py-0.5 bg-primary-600 text-white text-[10px] font-bold rounded">5% OFF</span>
+                  </div>
+                  <div className="text-sm font-bold text-primary-600">
+                    ₦{(calculateOrderTotal() * 0.95 / 100).toLocaleString()}
+                  </div>
+                  <div className="text-xs text-gray-500 line-through">
+                    ₦{(calculateOrderTotal() / 100).toLocaleString()}
+                  </div>
+                </label>
+              </div>
+            </div>
           </motion.div>
 
           {/* Order Summary */}
@@ -423,30 +448,19 @@ export default function NewOrderPage() {
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
+                className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
               >
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-primary-100 rounded-2xl flex items-center justify-center">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="#2563eb" strokeWidth="2"/>
-                        <path d="M9 12h6M9 16h6" stroke="#2563eb" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-display font-bold text-gray-900">Order Summary</h3>
-                      <p className="text-sm text-gray-600">{items.length} item{items.length !== 1 ? 's' : ''} added</p>
-                    </div>
-                  </div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-display font-bold text-gray-900">Order Summary ({items.length})</h3>
                   <button
                     onClick={() => setItems([])}
-                    className="text-sm font-semibold text-red-600 hover:text-red-700 transition-colors"
+                    className="text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
                   >
                     Clear All
                   </button>
                 </div>
 
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 mb-4">
                   <AnimatePresence mode="popLayout">
                     {items.map((item, idx) => {
                       const service = services.find(s => s.key === item.service_key)
@@ -458,7 +472,7 @@ export default function NewOrderPage() {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 20, height: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors group"
+                          className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
                         >
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
@@ -491,7 +505,7 @@ export default function NewOrderPage() {
                 </div>
 
                 {/* Subtotal and Express */}
-                <div className="space-y-3 pb-6 border-b-2 border-gray-200">
+                <div className="space-y-2 pb-4 border-b-2 border-gray-200">
                   <div className="flex justify-between items-center text-gray-700">
                     <span className="font-medium">Subtotal</span>
                     <span className="font-bold">₦{(expressService ? total / 1.5 : total) / 100 | 0}</span>
@@ -531,13 +545,13 @@ export default function NewOrderPage() {
                 </div>
 
                 {/* Total */}
-                <div className="pt-6 flex justify-between items-center">
-                  <span className="text-2xl font-display font-bold text-gray-900">Total</span>
+                <div className="pt-4 flex justify-between items-center">
+                  <span className="text-xl font-display font-bold text-gray-900">Total</span>
                   <motion.span
                     key={total}
                     initial={{ scale: 1.2, color: '#2563eb' }}
                     animate={{ scale: 1, color: '#2563eb' }}
-                    className="text-4xl font-display font-bold text-primary-600"
+                    className="text-3xl font-display font-bold text-primary-600"
                   >
                     ₦{(total / 100).toLocaleString()}
                   </motion.span>
@@ -563,7 +577,12 @@ export default function NewOrderPage() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Continue to Payment
+              {paymentMethod === 'prepay' 
+                ? `Pay ₦${(calculateOrderTotal() * 0.95 / 100).toLocaleString()} Now`
+                : getRemainingAmount() > 0
+                  ? `Pay ₦${(getPaymentAmount() / 100).toLocaleString()} to Continue`
+                  : 'Continue to Payment'
+              }
             </Button>
           </motion.div>
         </div>
