@@ -1,0 +1,8 @@
+{
+  "name": "docjs-laundry-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd app && npm install && npm run build"
+  }
+}

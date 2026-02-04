@@ -1,7 +1,6 @@
 {
-  "buildCommand": "npm install --prefix app && npm run build --prefix app",
+  "buildCommand": "npm run build",
   "outputDirectory": "app/dist",
-  "installCommand": "echo 'Skipping root install'",
   "rewrites": [
     {
       "source": "/app/:path*",
