@@ -5,6 +5,7 @@ import DashboardPage from './pages/DashboardPage'
 import NewOrderPage from './pages/NewOrderPage'
 import OrderDetailPage from './pages/OrderDetailPage'
 import AdminPanel from './pages/AdminPanel'
+import ProtectedAdminRoute from './components/ProtectedAdminRoute'
 
 function App() {
   const { user, loading } = useAuthStore()
@@ -24,8 +25,16 @@ function App() {
         <Route path="/dashboard" element={user ? <DashboardPage /> : <Navigate to="/login" />} />
         <Route path="/new-order" element={user ? <NewOrderPage /> : <Navigate to="/login" />} />
         <Route path="/orders/:id" element={user ? <OrderDetailPage /> : <Navigate to="/login" />} />
-        <Route path="/admin" element={user ? <AdminPanel /> : <Navigate to="/login" />} />
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedAdminRoute>
+              <AdminPanel />
+            </ProtectedAdminRoute>
+          } 
+        />
         <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   )

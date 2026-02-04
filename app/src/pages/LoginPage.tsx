@@ -86,13 +86,59 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      // Login first
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       })
       if (error) throw error
+
+      // Check if user is admin
+      if (data.user) {
+        const { data: userData } = await supabase
+          .from('users')
+          .select('is_admin, role')
+          .eq('id', data.user.id)
+          .single()
+
+        if (userData?.is_admin === true || userData?.role === 'admin') {
+          // User is admin, set admin_verified flag
+          sessionStorage.setItem('admin_verified', 'true')
+          
+          // Update last admin login
+          await supabase
+            .from('users')
+            .update({ last_admin_login: new Date().toISOString() })
+            .eq('id', data.user.id)
+        }
+      }
+      
+      setLoading(false)
+      
     } catch (err: any) {
       setError(err.message || 'Login failed')
+      setLoading(false)
+    }
+  }
+
+  const handleAdminOTPVerify = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        email,
+        token: adminOTP,
+        type: 'email',
+      })
+      if (error) throw error
+
+      // Set admin verified in session
+      sessionStorage.setItem('admin_verified', 'true')
+      
+      // Success - auth state will update automatically
+    } catch (err: any) {
+      setError('Invalid OTP. Please try again.')
+    } finally {
       setLoading(false)
     }
   }

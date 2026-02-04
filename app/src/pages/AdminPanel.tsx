@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import type { Order } from '../types'
@@ -7,6 +7,7 @@ import Button from '../components/Button'
 
 export default function AdminPanel() {
   const location = useLocation()
+  const navigate = useNavigate()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'pending' | 'processing' | 'ready'>('all')
@@ -138,14 +139,28 @@ export default function AdminPanel() {
                 <p className="text-sm text-gray-600 font-medium">Manage orders and track performance</p>
               </div>
             </div>
-            <Link to="/dashboard">
-              <Button variant="secondary">
+            <div className="flex items-center gap-3">
+              <Link to="/dashboard">
+                <Button variant="secondary">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 10h14M10 3l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Customer View
+                </Button>
+              </Link>
+              <Button 
+                variant="secondary"
+                onClick={() => {
+                  sessionStorage.removeItem('admin_verified')
+                  navigate('/')
+                }}
+              >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M3 10h14M10 3l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M13 16l4-4-4-4M17 12H7M7 2H5a2 2 0 00-2 2v12a2 2 0 002 2h2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-                Customer View
+                Logout
               </Button>
-            </Link>
+            </div>
           </div>
         </div>
       </header>

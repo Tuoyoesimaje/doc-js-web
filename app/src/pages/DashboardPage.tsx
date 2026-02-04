@@ -7,6 +7,7 @@ import type { Order } from '../types'
 import Button from '../components/Button'
 import OrderCard from '../components/OrderCard'
 import ProfileModal from '../components/ProfileModal'
+import SupportChat from '../components/SupportChat'
 
 export default function DashboardPage() {
   const { user, signOut } = useAuthStore()
@@ -281,6 +282,9 @@ export default function DashboardPage() {
         isOpen={showProfileModal}
         onClose={() => setShowProfileModal(false)}
       />
+
+      {/* Support Chat */}
+      <SupportChat />
     </div>
   )
 }

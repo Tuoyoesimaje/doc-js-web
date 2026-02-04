@@ -5,7 +5,10 @@ import type { User } from '../types'
 interface AuthState {
   user: User | null
   loading: boolean
+  isAdmin: boolean
   setUser: (user: User | null) => void
+  setIsAdmin: (isAdmin: boolean) => void
+  checkAdminRole: (userId: string) => Promise<boolean>
   signInWithGoogle: () => Promise<void>
   signInWithPhoneFirstTime: (phone: string) => Promise<void>
   verifyPhoneOTP: (phone: string, code: string) => Promise<void>
@@ -18,8 +21,22 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   loading: true,
+  isAdmin: false,
 
   setUser: (user) => set({ user }),
+  setIsAdmin: (isAdmin) => set({ isAdmin }),
+
+  checkAdminRole: async (userId: string): Promise<boolean> => {
+    const { data } = await supabase
+      .from('users')
+      .select('is_admin, role')
+      .eq('id', userId)
+      .single()
+    
+    const isAdmin = data?.is_admin === true || data?.role === 'admin'
+    set({ isAdmin })
+    return isAdmin
+  },
 
   initialize: async () => {
     try {
