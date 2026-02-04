@@ -78,6 +78,8 @@ CREATE TABLE orders (
   currency TEXT DEFAULT 'NGN',
   status order_status DEFAULT 'received',
   payment_status payment_status DEFAULT 'pending',
+  logistics_option TEXT CHECK (logistics_option IN ('none', 'pickup', 'pickup_delivery')) DEFAULT 'none',
+  logistics_fee_cents INTEGER DEFAULT 0,
   notes TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()

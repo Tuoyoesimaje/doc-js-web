@@ -186,6 +186,33 @@ export default function OrderDetailPage() {
                 </div>
               ))}
             </div>
+            
+            {/* Logistics Fee */}
+            {order.logistics_option !== 'none' && (
+              <div className="mt-4 p-4 bg-blue-50 rounded-2xl border-2 border-blue-200">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-blue-600">
+                      <path d="M13 16V6C13 4.89543 13.8954 4 15 4H19C20.1046 4 21 4.89543 21 6V16M13 16H3L5 8H11L13 16ZM13 16H21M21 16H23V18C23 19.1046 22.1046 20 21 20H19.5M13 16V18C13 19.1046 12.1046 20 11 20H9.5M9.5 20C9.5 21.3807 8.38071 22.5 7 22.5C5.61929 22.5 4.5 21.3807 4.5 20C4.5 18.6193 5.61929 17.5 7 17.5C8.38071 17.5 9.5 18.6193 9.5 20ZM19.5 20C19.5 21.3807 18.3807 22.5 17 22.5C15.6193 22.5 14.5 21.3807 14.5 20C14.5 18.6193 15.6193 17.5 17 17.5C18.3807 17.5 19.5 18.6193 19.5 20Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <div>
+                      <p className="font-bold text-blue-900">
+                        {order.logistics_option === 'pickup' ? 'Pickup Only' : 'Pickup & Delivery'}
+                      </p>
+                      <p className="text-sm text-blue-700">
+                        {order.logistics_option === 'pickup' 
+                          ? 'We\'ll pick up your laundry' 
+                          : 'Full door-to-door service'}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-lg font-bold text-blue-600">
+                    ₦{(order.logistics_fee_cents / 100).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            )}
+            
             <div className="border-t-2 border-gray-200 mt-6 pt-6 flex justify-between items-center">
               <span className="text-2xl font-display font-bold text-gray-900">Total</span>
               <span className="text-3xl font-display font-bold text-primary-600">

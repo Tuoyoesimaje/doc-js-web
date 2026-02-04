@@ -353,6 +353,14 @@ export default function AdminPanel() {
                             Payment Pending
                           </span>
                         )}
+                        {order.logistics_option !== 'none' && (
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800 border-2 border-blue-300">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                              <path d="M10 11V5c0-.6.4-1 1-1h1.5c.6 0 1 .4 1 1v6m-3.5 0H2l1-4h3l1 4zm0 0h3.5m0 0h.5v1c0 .5-.4 1-1 1h-.5m-3.5-2v1c0 .5-.4 1-1 1H7m-1.5 0a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0zm5.5 0a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            {order.logistics_option === 'pickup' ? 'Pickup' : 'Pickup & Delivery'}
+                          </span>
+                        )}
                       </div>
 
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">

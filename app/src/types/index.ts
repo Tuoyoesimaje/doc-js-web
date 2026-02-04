@@ -1,5 +1,6 @@
 export type OrderStatus = 'received' | 'processing' | 'ready' | 'delivered'
 export type PaymentStatus = 'pending' | 'confirmed' | 'failed' | 'refunded'
+export type LogisticsOption = 'none' | 'pickup' | 'pickup_delivery'
 
 export interface User {
   id: string
@@ -41,6 +42,8 @@ export interface Order {
   currency: string
   status: OrderStatus
   payment_status: PaymentStatus
+  logistics_option: LogisticsOption
+  logistics_fee_cents: number
   notes?: string
   created_at: string
   updated_at: string

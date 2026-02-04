@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
 import { parseBulkOrder, calculateTotal } from '../utils/orderParser'
-import type { Service, Address, ParsedOrderItem } from '../types'
+import type { Service, Address, ParsedOrderItem, LogisticsOption } from '../types'
 import Button from '../components/Button'
 import QuickOrderInput from '../components/QuickOrderInput'
 import VisualOrderSelect from '../components/VisualOrderSelect'
@@ -12,6 +12,12 @@ import AddressPicker from '../components/AddressPicker'
 import AddAddressModal from '../components/AddAddressModal'
 
 type OrderMode = 'quick' | 'visual'
+
+const LOGISTICS_OPTIONS = {
+  none: { label: 'Self Drop-off', fee: 0, description: 'Bring to our shop yourself' },
+  pickup: { label: 'Pickup Only', fee: 200000, description: 'We pick up, you collect from shop' },
+  pickup_delivery: { label: 'Pickup & Delivery', fee: 400000, description: 'Full door-to-door service' },
+}
 
 export default function NewOrderPage() {
   const navigate = useNavigate()
@@ -23,6 +29,7 @@ export default function NewOrderPage() {
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null)
   const [items, setItems] = useState<ParsedOrderItem[]>([])
   const [expressService, setExpressService] = useState(false)
+  const [logisticsOption, setLogisticsOption] = useState<LogisticsOption>('none')
   const [loading, setLoading] = useState(false)
   const [showAddAddressModal, setShowAddAddressModal] = useState(false)
 
@@ -69,7 +76,10 @@ export default function NewOrderPage() {
       return acc
     }, {} as Record<string, number>)
     
-    return calculateTotal(items, serviceMap, expressService)
+    const itemsTotal = calculateTotal(items, serviceMap, expressService)
+    const logisticsFee = LOGISTICS_OPTIONS[logisticsOption].fee
+    
+    return itemsTotal + logisticsFee
   }
 
   const handleSubmitOrder = async () => {
@@ -90,6 +100,8 @@ export default function NewOrderPage() {
           total_cents: total,
           status: 'received',
           payment_status: 'pending',
+          logistics_option: logisticsOption,
+          logistics_fee_cents: LOGISTICS_OPTIONS[logisticsOption].fee,
         })
         .select()
         .single()
@@ -322,6 +334,88 @@ export default function NewOrderPage() {
             </label>
           </motion.div>
 
+          {/* Logistics Options */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M13 16V6C13 4.89543 13.8954 4 15 4H19C20.1046 4 21 4.89543 21 6V16M13 16H3L5 8H11L13 16ZM13 16H21M21 16H23V18C23 19.1046 22.1046 20 21 20H19.5M13 16V18C13 19.1046 12.1046 20 11 20H9.5M9.5 20C9.5 21.3807 8.38071 22.5 7 22.5C5.61929 22.5 4.5 21.3807 4.5 20C4.5 18.6193 5.61929 17.5 7 17.5C8.38071 17.5 9.5 18.6193 9.5 20ZM19.5 20C19.5 21.3807 18.3807 22.5 17 22.5C15.6193 22.5 14.5 21.3807 14.5 20C14.5 18.6193 15.6193 17.5 17 17.5C18.3807 17.5 19.5 18.6193 19.5 20Z" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-xl font-display font-bold text-gray-900">Logistics Service</h2>
+                <p className="text-sm text-gray-600">How should we handle pickup and delivery?</p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {(Object.keys(LOGISTICS_OPTIONS) as LogisticsOption[]).map((option) => {
+                const config = LOGISTICS_OPTIONS[option]
+                return (
+                  <motion.label
+                    key={option}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className={`flex items-center gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all duration-200 ${
+                      logisticsOption === option
+                        ? 'border-primary-600 bg-primary-50 shadow-md'
+                        : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="logistics"
+                      value={option}
+                      checked={logisticsOption === option}
+                      onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
+                      className="w-5 h-5 text-primary-600 focus:ring-2 focus:ring-primary-500"
+                    />
+                    <div className="flex-1">
+                      <div className="font-bold text-gray-900 mb-1">{config.label}</div>
+                      <p className="text-sm text-gray-600">{config.description}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className={`text-lg font-bold ${config.fee === 0 ? 'text-green-600' : 'text-primary-600'}`}>
+                        {config.fee === 0 ? 'Free' : `₦${(config.fee / 100).toLocaleString()}`}
+                      </span>
+                    </div>
+                  </motion.label>
+                )
+              })}
+            </div>
+
+            {logisticsOption !== 'none' && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mt-4 p-4 bg-blue-50 rounded-2xl border-2 border-blue-200"
+              >
+                <div className="flex items-start gap-3">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-blue-600 mt-0.5">
+                    <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2"/>
+                    <path d="M10 6v4M10 14h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                  <div className="text-sm text-blue-900">
+                    <p className="font-semibold mb-1">Delivery Address:</p>
+                    <p>{selectedAddress?.line1}, {selectedAddress?.city}</p>
+                    {logisticsOption === 'pickup' && (
+                      <p className="mt-2 text-blue-700">We'll pick up your laundry. You can collect it from our shop when ready.</p>
+                    )}
+                    {logisticsOption === 'pickup_delivery' && (
+                      <p className="mt-2 text-blue-700">Full door-to-door service. We'll pick up and deliver back to you.</p>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+
           {/* Order Summary */}
           <AnimatePresence>
             {items.length > 0 && (
@@ -416,6 +510,22 @@ export default function NewOrderPage() {
                         <span className="font-medium">Express Service (+50%)</span>
                       </div>
                       <span className="font-bold">₦{((total - total / 1.5) / 100).toLocaleString()}</span>
+                    </motion.div>
+                  )}
+                  {logisticsOption !== 'none' && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="flex justify-between items-center text-blue-600"
+                    >
+                      <div className="flex items-center gap-2">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M10 12V5c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v7m-4 0H2l1-5h4l1 5zm0 0h4m0 0h1v1c0 .6-.4 1-1 1h-1m-4-2v1c0 .6-.4 1-1 1H8m-2 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm7 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span className="font-medium">{LOGISTICS_OPTIONS[logisticsOption].label}</span>
+                      </div>
+                      <span className="font-bold">₦{(LOGISTICS_OPTIONS[logisticsOption].fee / 100).toLocaleString()}</span>
                     </motion.div>
                   )}
                 </div>
