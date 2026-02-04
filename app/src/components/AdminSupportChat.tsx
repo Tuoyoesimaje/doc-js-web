@@ -74,6 +74,7 @@ export default function AdminSupportChat() {
       
       data?.forEach((msg: any) => {
         if (!conversationMap.has(msg.user_id)) {
+          // Calculate unread count for this user
           const unreadCount = data.filter(
             (m: any) => m.user_id === msg.user_id && !m.is_admin && !m.read_by_admin
           ).length
@@ -84,7 +85,7 @@ export default function AdminSupportChat() {
             user_email: msg.user?.email || '',
             last_message: msg.message,
             last_message_time: msg.created_at,
-            unread_count,
+            unread_count: unreadCount,
           })
         }
       })
