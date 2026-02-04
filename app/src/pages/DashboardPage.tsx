@@ -6,16 +6,23 @@ import { useAuthStore } from '../store/authStore'
 import type { Order } from '../types'
 import Button from '../components/Button'
 import OrderCard from '../components/OrderCard'
+import ProfileModal from '../components/ProfileModal'
 
 export default function DashboardPage() {
   const { user, signOut } = useAuthStore()
   const location = useLocation()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const [showProfileModal, setShowProfileModal] = useState(false)
 
   useEffect(() => {
     loadOrders()
-  }, [location.pathname])
+    
+    // Show profile modal if user hasn't set their name
+    if (user && !user.display_name) {
+      setTimeout(() => setShowProfileModal(true), 1000)
+    }
+  }, [location.pathname, user])
 
   const loadOrders = async () => {
     try {
@@ -67,21 +74,64 @@ export default function DashboardPage() {
                 </h1>
               </div>
             </div>
-            <button
-              onClick={signOut}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M13 3h3a2 2 0 012 2v10a2 2 0 01-2 2h-3M7 14l-4-4m0 0l4-4m-4 4h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Sign Out
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowProfileModal(true)}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <circle cx="10" cy="7" r="3" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M3 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                Profile
+              </button>
+              <button
+                onClick={signOut}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M13 3h3a2 2 0 012 2v10a2 2 0 01-2 2h-3M7 14l-4-4m0 0l4-4m-4 4h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Sign Out
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Welcome Banner for New Users */}
+        {user && !user.display_name && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 bg-gradient-to-r from-primary-600 to-primary-700 rounded-3xl p-6 shadow-xl text-white"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="9" r="4" stroke="white" strokeWidth="2"/>
+                    <path d="M4 20c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-display font-bold text-lg mb-1">Welcome to Doc JS Laundry!</h3>
+                  <p className="text-primary-100 text-sm">Complete your profile to personalize your experience</p>
+                </div>
+              </div>
+              <Button
+                onClick={() => setShowProfileModal(true)}
+                variant="secondary"
+                className="!bg-white !text-primary-600 !border-0 shadow-lg hover:shadow-xl"
+              >
+                Add Your Name
+              </Button>
+            </div>
+          </motion.div>
+        )}
+
         {/* Quick Actions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -225,6 +275,12 @@ export default function DashboardPage() {
           )}
         </motion.div>
       </main>
+
+      {/* Profile Modal */}
+      <ProfileModal
+        isOpen={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
+      />
     </div>
   )
 }

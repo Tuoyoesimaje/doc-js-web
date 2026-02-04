@@ -329,30 +329,108 @@ export default function NewOrderPage() {
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className="bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl p-8 shadow-2xl text-white"
+                className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
               >
-                <h3 className="text-xl font-display font-bold mb-6">Order Summary</h3>
-                <div className="space-y-3 mb-6">
-                  {items.map((item, idx) => {
-                    const service = services.find(s => s.key === item.service_key)
-                    const itemTotal = (service?.base_price_cents || 0) * item.quantity
-                    return (
-                      <div key={idx} className="flex justify-between items-center text-primary-50">
-                        <span className="font-medium">{item.text}</span>
-                        <span className="font-bold">₦{(itemTotal / 100).toLocaleString()}</span>
-                      </div>
-                    )
-                  })}
-                  {expressService && (
-                    <div className="flex justify-between items-center text-warning-200 pt-3 border-t border-primary-500">
-                      <span className="font-medium">Express Service (+50%)</span>
-                      <span className="font-bold">₦{((total - total / 1.5) / 100).toLocaleString()}</span>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-primary-100 rounded-2xl flex items-center justify-center">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="#2563eb" strokeWidth="2"/>
+                        <path d="M9 12h6M9 16h6" stroke="#2563eb" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
                     </div>
+                    <div>
+                      <h3 className="text-xl font-display font-bold text-gray-900">Order Summary</h3>
+                      <p className="text-sm text-gray-600">{items.length} item{items.length !== 1 ? 's' : ''} added</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setItems([])}
+                    className="text-sm font-semibold text-red-600 hover:text-red-700 transition-colors"
+                  >
+                    Clear All
+                  </button>
+                </div>
+
+                <div className="space-y-3 mb-6">
+                  <AnimatePresence mode="popLayout">
+                    {items.map((item, idx) => {
+                      const service = services.find(s => s.key === item.service_key)
+                      const itemTotal = (service?.base_price_cents || 0) * item.quantity
+                      return (
+                        <motion.div
+                          key={`${item.service_key}-${idx}`}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 20, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors group"
+                        >
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-bold text-gray-900">{item.text}</span>
+                              <span className="text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-0.5 rounded-lg">
+                                x{item.quantity}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-600">
+                              ₦{((service?.base_price_cents || 0) / 100).toLocaleString()} each
+                            </p>
+                          </div>
+                          <div className="text-right flex items-center gap-3">
+                            <span className="text-lg font-bold text-primary-600">
+                              ₦{(itemTotal / 100).toLocaleString()}
+                            </span>
+                            <button
+                              onClick={() => setItems(items.filter((_, i) => i !== idx))}
+                              className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors opacity-0 group-hover:opacity-100"
+                            >
+                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                              </svg>
+                            </button>
+                          </div>
+                        </motion.div>
+                      )
+                    })}
+                  </AnimatePresence>
+                </div>
+
+                {/* Subtotal and Express */}
+                <div className="space-y-3 pb-6 border-b-2 border-gray-200">
+                  <div className="flex justify-between items-center text-gray-700">
+                    <span className="font-medium">Subtotal</span>
+                    <span className="font-bold">₦{(expressService ? total / 1.5 : total) / 100 | 0}</span>
+                  </div>
+                  {expressService && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="flex justify-between items-center text-warning-600"
+                    >
+                      <div className="flex items-center gap-2">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M8 2L9.5 5.5l3.5.5-2.5 2.5.5 3.5L8 10l-3 2 .5-3.5L3 6l3.5-.5L8 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                        </svg>
+                        <span className="font-medium">Express Service (+50%)</span>
+                      </div>
+                      <span className="font-bold">₦{((total - total / 1.5) / 100).toLocaleString()}</span>
+                    </motion.div>
                   )}
                 </div>
-                <div className="border-t-2 border-primary-500 pt-6 flex justify-between items-center">
-                  <span className="text-2xl font-display font-bold">Total</span>
-                  <span className="text-4xl font-display font-bold">₦{(total / 100).toLocaleString()}</span>
+
+                {/* Total */}
+                <div className="pt-6 flex justify-between items-center">
+                  <span className="text-2xl font-display font-bold text-gray-900">Total</span>
+                  <motion.span
+                    key={total}
+                    initial={{ scale: 1.2, color: '#2563eb' }}
+                    animate={{ scale: 1, color: '#2563eb' }}
+                    className="text-4xl font-display font-bold text-primary-600"
+                  >
+                    ₦{(total / 100).toLocaleString()}
+                  </motion.span>
                 </div>
               </motion.div>
             )}

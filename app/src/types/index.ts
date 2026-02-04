@@ -46,6 +46,11 @@ export interface Order {
   updated_at: string
   address?: Address
   items?: OrderItem[]
+  user?: {
+    display_name?: string
+    email?: string
+    phone?: string
+  }
 }
 
 export interface OrderItem {
