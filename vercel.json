@@ -1,13 +1,7 @@
 {
-  "builds": [
-    {
-      "src": "app/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
+  "buildCommand": "npm install --prefix app && npm run build --prefix app",
+  "outputDirectory": "app/dist",
+  "installCommand": "echo 'Skipping root install'",
   "rewrites": [
     {
       "source": "/app/:path*",
@@ -16,17 +10,6 @@
     {
       "source": "/app",
       "destination": "/app/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/app/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
     }
   ]
 }
