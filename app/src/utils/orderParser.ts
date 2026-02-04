@@ -72,8 +72,45 @@ const SERVICE_KEYWORDS: Record<string, { keywords: string[], priority: number }>
 export function parseBulkOrder(input: string): ParsedOrderItem[] {
   const items: ParsedOrderItem[] = []
   
+  // Clean up the input - remove common filler words and phrases
+  let cleanedInput = input.toLowerCase()
+  const fillerPhrases = [
+    'i want to wash',
+    'i want to clean',
+    'i need to wash',
+    'i need to clean',
+    'please wash',
+    'please clean',
+    'can you wash',
+    'can you clean',
+    'i have',
+    'i got',
+    'wash my',
+    'clean my',
+    'laundry:',
+    'items:',
+  ]
+  
+  for (const phrase of fillerPhrases) {
+    cleanedInput = cleanedInput.replace(new RegExp(phrase, 'gi'), '')
+  }
+  
+  // Remove extra adjectives/descriptors that don't affect service type
+  const descriptors = [
+    'blank', 'white', 'black', 'blue', 'red', 'green', 'yellow', 'brown',
+    'dirty', 'clean', 'new', 'old', 'big', 'small', 'large', 'medium',
+    'nice', 'beautiful', 'good', 'bad', 'my', 'the', 'a', 'an',
+  ]
+  
+  for (const descriptor of descriptors) {
+    cleanedInput = cleanedInput.replace(new RegExp(`\\b${descriptor}\\b`, 'gi'), '')
+  }
+  
+  // Clean up extra spaces
+  cleanedInput = cleanedInput.replace(/\s+/g, ' ').trim()
+  
   // Split by common separators: comma, newline, "and"
-  const lines = input
+  const lines = cleanedInput
     .split(/[,\n]|(?:\s+and\s+)/i)
     .map(line => line.trim())
     .filter(Boolean)
@@ -85,7 +122,6 @@ export function parseBulkOrder(input: string): ParsedOrderItem[] {
       const existing = items.find(item => item.service_key === parsed.service_key)
       if (existing) {
         existing.quantity += parsed.quantity
-        existing.text += `, ${parsed.text}`
       } else {
         items.push(parsed)
       }
@@ -97,11 +133,12 @@ export function parseBulkOrder(input: string): ParsedOrderItem[] {
 
 function parseOrderLine(line: string): ParsedOrderItem | null {
   // Match various quantity patterns:
-  // "10 shirts", "5x trousers", "2 * suits", "three jeans"
+  // "10 shirts", "5x trousers", "2 * suits", "three jeans", "a shirt" (a = 1)
   const patterns = [
     /^(\d+)\s*x?\s*(.+)$/i,           // "10 shirts" or "10x shirts"
     /^(\d+)\s*\*\s*(.+)$/i,           // "10 * shirts"
     /^(one|two|three|four|five|six|seven|eight|nine|ten)\s+(.+)$/i, // "five shirts"
+    /^(a|an)\s+(.+)$/i,               // "a shirt" or "an agbada"
   ]
 
   let quantity = 1
@@ -115,6 +152,7 @@ function parseOrderLine(line: string): ParsedOrderItem | null {
       
       // Convert word numbers to digits
       const wordNumbers: Record<string, number> = {
+        'a': 1, 'an': 1,
         'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
         'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10
       }
@@ -126,7 +164,7 @@ function parseOrderLine(line: string): ParsedOrderItem | null {
   }
 
   // Find best matching service using priority-based matching
-  let bestMatch: { key: string, score: number } | null = null
+  let bestMatch: { key: string, score: number, name: string } | null = null
 
   for (const [serviceKey, config] of Object.entries(SERVICE_KEYWORDS)) {
     for (const keyword of config.keywords) {
@@ -135,7 +173,7 @@ function parseOrderLine(line: string): ParsedOrderItem | null {
         return {
           service_key: serviceKey,
           quantity,
-          text: line,
+          text: `${quantity} ${getServiceName(serviceKey)}`,
         }
       }
 
@@ -143,7 +181,7 @@ function parseOrderLine(line: string): ParsedOrderItem | null {
       if (itemText.includes(keyword)) {
         const score = config.priority + (keyword.length / itemText.length) * 10
         if (!bestMatch || score > bestMatch.score) {
-          bestMatch = { key: serviceKey, score }
+          bestMatch = { key: serviceKey, score, name: getServiceName(serviceKey) }
         }
       }
     }
@@ -153,7 +191,7 @@ function parseOrderLine(line: string): ParsedOrderItem | null {
     return {
       service_key: bestMatch.key,
       quantity,
-      text: line,
+      text: `${quantity} ${bestMatch.name}`,
     }
   }
 

@@ -359,7 +359,7 @@ export default function AdminPanel() {
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                               <path d="M7 2v10M11 6H9a2 2 0 000 4h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                             </svg>
-                            Prepay (5% Off)
+                            Prepay (2% Off)
                           </span>
                         )}
                         {order.payment_method === 'postpay' && !order.pickup_fee_paid && (

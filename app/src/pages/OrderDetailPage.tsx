@@ -133,8 +133,9 @@ export default function OrderDetailPage() {
           note: `Final payment confirmed (₦${(remainingAmount / 100).toLocaleString()})`,
         })
       } else if (isPrepayPayment) {
-        // Full prepay payment with 5% discount
-        const discountedAmount = Math.floor(order!.total_cents * 0.95)
+        // Full prepay payment with 2% discount on items only (not logistics)
+        // The order.total_cents already has the discount applied from NewOrderPage
+        const discountedAmount = order!.total_cents
         
         await supabase
           .from('orders')
@@ -148,7 +149,7 @@ export default function OrderDetailPage() {
         await supabase.from('payments').insert({
           order_id: id,
           provider: 'monnify',
-          provider_payload: { reference, type: 'prepay_full', discount: '5%' },
+          provider_payload: { reference, type: 'prepay_full', discount: '2%' },
           amount_cents: discountedAmount,
           status: 'confirmed',
         })
@@ -156,7 +157,7 @@ export default function OrderDetailPage() {
         await supabase.from('order_events').insert({
           order_id: id,
           event_type: 'payment_received',
-          note: `Prepay payment confirmed with 5% discount (₦${(discountedAmount / 100).toLocaleString()})`,
+          note: `Prepay payment confirmed with 2% discount on items (₦${(discountedAmount / 100).toLocaleString()})`,
         })
       } else {
         // Fallback - shouldn't reach here
@@ -429,17 +430,17 @@ export default function OrderDetailPage() {
                         Complete Payment
                       </h3>
                       <p className="text-gray-700 font-medium">
-                        Pay full amount now and get 5% discount + priority processing
+                        Pay full amount now and get 2% discount + priority processing
                       </p>
                     </div>
                   </div>
                   
                   <div className="bg-white rounded-2xl p-6 mb-6">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Total Amount (5% Off)</span>
+                      <span className="text-gray-600 font-medium">Total Amount (2% Off Items)</span>
                       <div className="text-right">
                         <span className="text-3xl font-display font-bold text-primary-600">
-                          ₦{(order.total_cents * 0.95 / 100).toLocaleString()}
+                          ₦{(order.total_cents / 100).toLocaleString()}
                         </span>
                         <span className="block text-sm text-gray-500 line-through">
                           ₦{(order.total_cents / 100).toLocaleString()}
@@ -458,7 +459,7 @@ export default function OrderDetailPage() {
                       <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="2"/>
                       <path d="M3 10h18M7 14h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                     </svg>
-                    Pay ₦{(order.total_cents * 0.95 / 100).toLocaleString()} Now
+                    Pay ₦{(order.total_cents / 100).toLocaleString()} Now
                   </Button>
                 </>
               )}
@@ -553,7 +554,7 @@ export default function OrderDetailPage() {
         onClose={() => setShowPaymentModal(false)}
         amount={
           order.payment_method === 'prepay' && !order.pickup_fee_paid
-            ? Math.floor(order.total_cents * 0.95) // 5% discount for prepay
+            ? order.total_cents // Already has 2% discount on items (not logistics)
             : order.payment_method === 'postpay' && !order.pickup_fee_paid && (order.logistics_option === 'pickup' || order.logistics_option === 'pickup_delivery')
             ? 200000 // Pickup fee
             : order.payment_method === 'postpay' && !order.pickup_fee_paid

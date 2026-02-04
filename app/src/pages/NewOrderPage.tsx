@@ -83,22 +83,38 @@ export default function NewOrderPage() {
     return itemsTotal + logisticsFee
   }
 
-  const getPaymentAmount = () => {
-    const total = calculateOrderTotal()
+  const getItemsTotal = () => {
+    const serviceMap = services.reduce((acc, s) => {
+      acc[s.key] = s.base_price_cents
+      return acc
+    }, {} as Record<string, number>)
     
+    return calculateTotal(items, serviceMap, expressService)
+  }
+
+  const getDiscountedTotal = () => {
+    // 2% discount only on laundry items, not logistics
+    const itemsTotal = getItemsTotal()
+    const discountedItems = Math.floor(itemsTotal * 0.98)
+    const logisticsFee = LOGISTICS_OPTIONS[logisticsOption].fee
+    
+    return discountedItems + logisticsFee
+  }
+
+  const getPaymentAmount = () => {
     if (paymentMethod === 'prepay') {
-      return total // Full amount
+      return getDiscountedTotal() // Discounted items + full logistics fee
     } else {
       // Postpay: only pickup fee if logistics selected, otherwise full amount
       if (logisticsOption === 'pickup' || logisticsOption === 'pickup_delivery') {
         return 200000 // ₦2,000 pickup fee
       }
-      return total // If no logistics, must pay full (they're bringing to shop)
+      return calculateOrderTotal() // If no logistics, must pay full (they're bringing to shop)
     }
   }
 
   const getRemainingAmount = () => {
-    const total = calculateOrderTotal()
+    const total = paymentMethod === 'prepay' ? getDiscountedTotal() : calculateOrderTotal()
     const paid = getPaymentAmount()
     return total - paid
   }
@@ -111,7 +127,14 @@ export default function NewOrderPage() {
 
     setLoading(true)
     try {
-      const total = calculateOrderTotal()
+      const total = paymentMethod === 'prepay' ? getDiscountedTotal() : calculateOrderTotal()
+
+      console.log('Creating order with:', {
+        total,
+        paymentMethod,
+        logisticsOption,
+        itemsCount: items.length
+      })
 
       const { data: order, error: orderError } = await supabase
         .from('orders')
@@ -130,7 +153,12 @@ export default function NewOrderPage() {
         .select()
         .single()
 
-      if (orderError) throw orderError
+      if (orderError) {
+        console.error('Order creation error:', orderError)
+        throw orderError
+      }
+
+      console.log('Order created:', order.id)
 
       const orderItems = items.map(item => {
         const service = services.find(s => s.key === item.service_key)
@@ -148,19 +176,27 @@ export default function NewOrderPage() {
         .from('order_items')
         .insert(orderItems)
 
-      if (itemsError) throw itemsError
+      if (itemsError) {
+        console.error('Order items error:', itemsError)
+        throw itemsError
+      }
 
-      await supabase.from('order_events').insert({
-        order_id: order.id,
-        event_type: 'created',
-        note: 'Order created',
-      })
+      // Try to create event, but don't fail if it doesn't work (RLS issue)
+      try {
+        await supabase.from('order_events').insert({
+          order_id: order.id,
+          event_type: 'created',
+          note: 'Order created',
+        })
+      } catch (eventError) {
+        console.warn('Failed to create order event (non-critical):', eventError)
+      }
 
+      console.log('Navigating to order:', order.id)
       navigate(`/orders/${order.id}`)
     } catch (error) {
       console.error('Failed to create order:', error)
-      alert('Failed to create order. Please try again.')
-    } finally {
+      alert(`Failed to create order: ${error instanceof Error ? error.message : 'Unknown error'}`)
       setLoading(false)
     }
   }
@@ -189,9 +225,9 @@ export default function NewOrderPage() {
                 {paymentMethod === 'postpay' && getRemainingAmount() > 0 ? 'Pay Now' : 'Total'}
               </p>
               <p className="text-2xl font-display font-bold text-primary-600">
-                ₦{(paymentMethod === 'prepay' ? calculateOrderTotal() * 0.95 : getPaymentAmount()) / 100 | 0}
+                ₦{items.length === 0 ? '0' : (getPaymentAmount() / 100).toLocaleString()}
               </p>
-              {paymentMethod === 'postpay' && getRemainingAmount() > 0 && (
+              {paymentMethod === 'postpay' && getRemainingAmount() > 0 && items.length > 0 && (
                 <p className="text-xs text-gray-500">
                   +₦{(getRemainingAmount() / 100).toLocaleString()} later
                 </p>
@@ -428,10 +464,10 @@ export default function NewOrderPage() {
                   />
                   <div className="flex items-center gap-1">
                     <span className="text-xs font-bold text-gray-900">Pay Now</span>
-                    <span className="px-1.5 py-0.5 bg-primary-600 text-white text-[10px] font-bold rounded">5% OFF</span>
+                    <span className="px-1.5 py-0.5 bg-primary-600 text-white text-[10px] font-bold rounded">2% OFF</span>
                   </div>
                   <div className="text-sm font-bold text-primary-600">
-                    ₦{(calculateOrderTotal() * 0.95 / 100).toLocaleString()}
+                    ₦{(getDiscountedTotal() / 100).toLocaleString()}
                   </div>
                   <div className="text-xs text-gray-500 line-through">
                     ₦{(calculateOrderTotal() / 100).toLocaleString()}
@@ -577,11 +613,13 @@ export default function NewOrderPage() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              {paymentMethod === 'prepay' 
-                ? `Pay ₦${(calculateOrderTotal() * 0.95 / 100).toLocaleString()} Now`
-                : getRemainingAmount() > 0
-                  ? `Pay ₦${(getPaymentAmount() / 100).toLocaleString()} to Continue`
-                  : 'Continue to Payment'
+              {items.length === 0 
+                ? 'Add Items to Continue'
+                : paymentMethod === 'prepay' 
+                  ? `Pay ₦${(getDiscountedTotal() / 100).toLocaleString()} Now`
+                  : getRemainingAmount() > 0
+                    ? `Pay ₦${(getPaymentAmount() / 100).toLocaleString()} to Continue`
+                    : 'Continue to Payment'
               }
             </Button>
           </motion.div>
