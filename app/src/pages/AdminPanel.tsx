@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import type { Order } from '../types'
 import Button from '../components/Button'
+import AdminSupportChat from '../components/AdminSupportChat'
 
 export default function AdminPanel() {
   const location = useLocation()
@@ -12,6 +13,7 @@ export default function AdminPanel() {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'pending' | 'processing' | 'ready'>('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [activeTab, setActiveTab] = useState<'orders' | 'support'>('orders')
 
   useEffect(() => {
     loadOrders()
@@ -284,6 +286,61 @@ export default function AdminPanel() {
           </div>
         </motion.div>
 
+        {/* Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex gap-4 mb-8"
+        >
+          <button
+            onClick={() => setActiveTab('orders')}
+            className={`px-6 py-3 rounded-2xl font-bold transition-all duration-200 ${
+              activeTab === 'orders'
+                ? 'bg-primary-600 text-white shadow-lg'
+                : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary-600'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="2"/>
+                <path d="M3 8h14M8 3v14" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+              Orders
+            </div>
+          </button>
+          
+          <button
+            onClick={() => setActiveTab('support')}
+            className={`px-6 py-3 rounded-2xl font-bold transition-all duration-200 ${
+              activeTab === 'support'
+                ? 'bg-primary-600 text-white shadow-lg'
+                : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary-600'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Support Chat
+            </div>
+          </button>
+        </motion.div>
+
+        {/* Support Chat Tab */}
+        {activeTab === 'support' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <AdminSupportChat />
+          </motion.div>
+        )}
+
+        {/* Orders Tab */}
+        {activeTab === 'orders' && (
+          <>
         {/* Search & Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -498,6 +555,8 @@ export default function AdminPanel() {
             )}
           </div>
         </motion.div>
+        </>
+        )}
       </main>
     </div>
   )
