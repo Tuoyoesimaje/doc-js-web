@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { supabase } from '../lib/supabase'
+import { getRoleBasedRedirect } from '../utils/roleBasedRedirect'
 import Button from '../components/Button'
 import Input from '../components/Input'
 
 type LoginMode = 'email' | 'phone' | 'google'
 
 export default function LoginPage() {
+  const navigate = useNavigate()
   const [mode, setMode] = useState<LoginMode>('email')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -26,9 +28,15 @@ export default function LoginPage() {
     setError('')
     try {
       await signInWithPhonePassword(phone, password)
+      
+      // Get current user and redirect based on role
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        const redirectPath = await getRoleBasedRedirect(user.id)
+        navigate(redirectPath)
+      }
     } catch (err: any) {
       setError(err.message || 'Invalid phone or password')
-    } finally {
       setLoading(false)
     }
   }
@@ -75,9 +83,11 @@ export default function LoginPage() {
             .update({ last_admin_login: new Date().toISOString() })
             .eq('id', data.user.id)
         }
+
+        // Redirect based on role
+        const redirectPath = await getRoleBasedRedirect(data.user.id)
+        navigate(redirectPath)
       }
-      
-      setLoading(false)
       
     } catch (err: any) {
       setError(err.message || 'Invalid email or password')
