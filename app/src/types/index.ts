@@ -2,6 +2,7 @@ export type OrderStatus = 'received' | 'processing' | 'ready' | 'delivered'
 export type PaymentStatus = 'pending' | 'confirmed' | 'failed' | 'refunded'
 export type LogisticsOption = 'none' | 'pickup' | 'pickup_delivery'
 export type PaymentMethod = 'prepay' | 'postpay'
+export type GarmentTagStatus = 'received' | 'processing' | 'ready' | 'delivered'
 
 export interface User {
   id: string
@@ -84,4 +85,18 @@ export interface ParsedOrderItem {
   quantity: number
   text: string
   unit_price_cents?: number
+}
+
+export interface GarmentTag {
+  id: string
+  tag_number: string
+  order_id: string
+  order_item_id?: string
+  service_name: string
+  customer_name?: string
+  customer_phone?: string
+  status: GarmentTagStatus
+  notes?: string
+  created_at: string
+  updated_at: string
 }

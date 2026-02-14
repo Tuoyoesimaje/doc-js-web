@@ -3,19 +3,23 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
-import type { Order, OrderEvent } from '../types'
+import type { Order, OrderEvent, GarmentTag } from '../types'
 import Button from '../components/Button'
 import OrderTimeline from '../components/OrderTimeline'
 import PaymentModal from '../components/PaymentModal'
+import GenerateTagsModal from '../components/GenerateTagsModal'
+import GarmentTagsPanel from '../components/GarmentTagsPanel'
 
 export default function OrderDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { user } = useAuthStore()
+  const { user, isAdmin } = useAuthStore()
   const [order, setOrder] = useState<Order | null>(null)
   const [events, setEvents] = useState<OrderEvent[]>([])
   const [loading, setLoading] = useState(true)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [showGenerateTagsModal, setShowGenerateTagsModal] = useState(false)
+  const [showGarmentTags, setShowGarmentTags] = useState(false)
 
   useEffect(() => {
     loadOrder()
@@ -545,8 +549,63 @@ export default function OrderDetailPage() {
               </p>
             </motion.div>
           )}
+
+          {/* Garment Tags Section (Admin Only) */}
+          {isAdmin && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-accent-100 rounded-2xl flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <rect x="6" y="6" width="12" height="12" rx="2" stroke="#10b981" strokeWidth="2"/>
+                      <path d="M9 9h6M9 12h6M9 15h3" stroke="#10b981" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                  </div>
+                  <h2 className="text-xl font-display font-bold text-gray-900">Garment Tags</h2>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="secondary"
+                    onClick={() => setShowGarmentTags(!showGarmentTags)}
+                  >
+                    {showGarmentTags ? 'Hide Tags' : 'View Tags'}
+                  </Button>
+                  <Button onClick={() => setShowGenerateTagsModal(true)}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M10 4v12M4 10h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                    Generate Tags
+                  </Button>
+                </div>
+              </div>
+              
+              {showGarmentTags && (
+                <div className="mt-6">
+                  <GarmentTagsPanel orderId={order.id} />
+                </div>
+              )}
+            </motion.div>
+          )}
         </div>
       </main>
+
+      {/* Generate Tags Modal */}
+      {order && (
+        <GenerateTagsModal
+          isOpen={showGenerateTagsModal}
+          onClose={() => setShowGenerateTagsModal(false)}
+          order={order}
+          onSuccess={() => {
+            setShowGenerateTagsModal(false)
+            setShowGarmentTags(true)
+          }}
+        />
+      )}
 
       {/* Payment Modal */}
       <PaymentModal
