@@ -197,7 +197,6 @@ export default function WalkInOrderPage() {
           line1: street || 'Walk-in customer',
           city: employee.pickup_location?.city || 'Warri',
           state: employee.pickup_location?.state || 'Delta',
-          phone: customerPhone,
           is_default: true,
         })
         .select()
