@@ -90,19 +90,19 @@ export default function AdminPanel() {
   const statusConfig = {
     received: { 
       label: 'Pending', 
-      color: 'bg-gray-100 text-gray-800 border-gray-300',
+      color: 'bg-gray-100 text-gray-800 border-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600',
     },
     processing: { 
       label: 'Processing', 
-      color: 'bg-amber-100 text-amber-800 border-amber-300',
+      color: 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-800',
     },
     ready: { 
       label: 'Ready', 
-      color: 'bg-purple-100 text-purple-800 border-purple-300',
+      color: 'bg-purple-100 text-purple-800 border-purple-300 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-800',
     },
     delivered: { 
       label: 'Delivered', 
-      color: 'bg-green-100 text-green-800 border-green-300',
+      color: 'bg-green-100 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800',
     },
   }
 
@@ -427,7 +427,7 @@ export default function AdminPanel() {
                         
                         {/* Payment Method Badge */}
                         {order.payment_method === 'prepay' && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 border-2 border-green-300">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 border-2 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                               <path d="M7 2v10M11 6H9a2 2 0 000 4h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                             </svg>
@@ -435,7 +435,7 @@ export default function AdminPanel() {
                           </span>
                         )}
                         {order.payment_method === 'postpay' && !order.pickup_fee_paid && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-orange-100 text-orange-800 border-2 border-orange-300">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-orange-100 text-orange-800 border-2 border-orange-300 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                               <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5"/>
                               <path d="M7 4v3l2 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -444,7 +444,7 @@ export default function AdminPanel() {
                           </span>
                         )}
                         {order.payment_method === 'postpay' && order.pickup_fee_paid && order.final_payment_pending && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-yellow-100 text-yellow-800 border-2 border-yellow-300 animate-pulse">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-yellow-100 text-yellow-800 border-2 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800 animate-pulse">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                               <path d="M7 3v4M7 10h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                             </svg>
@@ -452,7 +452,7 @@ export default function AdminPanel() {
                           </span>
                         )}
                         {order.payment_method === 'postpay' && order.pickup_fee_paid && !order.final_payment_pending && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 border-2 border-green-300">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-green-100 text-green-800 border-2 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                               <path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
@@ -462,14 +462,14 @@ export default function AdminPanel() {
                         
                         {/* Legacy Payment Status Badge */}
                         {!order.payment_method && order.payment_status === 'pending' && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-red-100 text-red-800 border-2 border-red-300">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-red-100 text-red-800 border-2 border-red-300 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800">
                             Payment Pending
                           </span>
                         )}
                         
                         {/* Logistics Badge */}
                         {order.logistics_option !== 'none' && (
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800 border-2 border-blue-300">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800 border-2 border-blue-300 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                               <path d="M10 11V5c0-.6.4-1 1-1h1.5c.6 0 1 .4 1 1v6m-3.5 0H2l1-4h3l1 4zm0 0h3.5m0 0h.5v1c0 .5-.4 1-1 1h-.5m-3.5-2v1c0 .5-.4 1-1 1H7m-1.5 0a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0zm5.5 0a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>

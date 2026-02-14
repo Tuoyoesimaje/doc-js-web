@@ -354,25 +354,34 @@ export default function GuestOrderPage() {
               <div className="grid grid-cols-3 gap-2">
                 {(Object.keys(LOGISTICS_OPTIONS) as LogisticsOption[]).map((option) => {
                   const config = LOGISTICS_OPTIONS[option]
+                  const isSelected = logisticsOption === option
                   return (
                     <label
                       key={option}
                       className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                        logisticsOption === option
+                        isSelected
                           ? 'border-primary-600 dark:border-primary-500 bg-primary-50 dark:bg-primary-900/30'
-                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                          : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500'
                       }`}
                     >
                       <input
                         type="radio"
                         name="logistics"
                         value={option}
-                        checked={logisticsOption === option}
+                        checked={isSelected}
                         onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
                         className="sr-only"
                       />
-                      <div className="text-xs font-bold text-gray-900 dark:text-white">{config.label}</div>
-                      <div className={`text-sm font-bold ${config.fee === 0 ? 'text-green-600 dark:text-green-400' : 'text-primary-600 dark:text-primary-400'}`}>
+                      <div className={`text-xs font-bold ${isSelected ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-200'}`}>
+                        {config.label}
+                      </div>
+                      <div className={`text-sm font-bold ${
+                        config.fee === 0 
+                          ? 'text-green-600 dark:text-green-400' 
+                          : isSelected 
+                            ? 'text-primary-600 dark:text-primary-400'
+                            : 'text-primary-600 dark:text-primary-300'
+                      }`}>
                         {config.fee === 0 ? 'Free' : `₦${(config.fee / 100).toLocaleString()}`}
                       </div>
                     </label>
@@ -392,7 +401,7 @@ export default function GuestOrderPage() {
                   className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                     paymentMethod === 'postpay'
                       ? 'border-green-600 dark:border-green-500 bg-green-50 dark:bg-green-900/30'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                      : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500'
                   }`}
                 >
                   <input
@@ -422,7 +431,7 @@ export default function GuestOrderPage() {
                   className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                     paymentMethod === 'prepay'
                       ? 'border-primary-600 dark:border-primary-500 bg-primary-50 dark:bg-primary-900/30'
-                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                      : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500'
                   }`}
                 >
                   <input

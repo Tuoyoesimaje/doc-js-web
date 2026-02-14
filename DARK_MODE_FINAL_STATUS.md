@@ -1,8 +1,8 @@
 # Dark Mode Implementation - Final Status
 
-## ✅ COMPLETED - All Critical Pages Updated
+## ✅ COMPLETED - All Pages & Components Updated
 
-Dark mode has been comprehensively implemented across the Doc JS Laundry Web Portal with automatic system preference detection.
+Dark mode has been comprehensively implemented across the Doc JS Laundry Web Portal with automatic system preference detection. All text visibility issues have been resolved.
 
 ## Implementation Summary
 
@@ -10,6 +10,14 @@ Dark mode has been comprehensively implemented across the Doc JS Laundry Web Por
 - **Tailwind Config**: `darkMode: 'media'` - automatically follows user's device/system preference
 - **Base Styles**: Updated `app/src/index.css` with dark mode support
 - **No Manual Toggle**: Seamlessly switches based on OS/browser dark mode setting
+
+### Latest Fixes (February 14, 2026)
+- ✅ Fixed logistics options in GuestOrderPage - added explicit backgrounds for unselected states
+- ✅ Fixed payment method cards in GuestOrderPage - proper text contrast in both modes
+- ✅ Fixed all status badges in AdminPanel - added dark mode variants
+- ✅ Fixed payment method badges in AdminPanel - proper contrast for all states
+- ✅ Fixed logistics badges in AdminPanel - visible in dark mode
+- ✅ All radio button/checkbox options now have explicit background colors
 
 ### Files Updated (29 Total)
 
@@ -76,30 +84,33 @@ Dark mode has been comprehensively implemented across the Doc JS Laundry Web Por
 - ✅ Address picker section
 - ✅ Order mode toggle (Quick/Visual)
 - ✅ Express service checkbox
-- ✅ Logistics options (all 3 options)
-- ✅ Payment method selection (Prepay/Postpay)
+- ✅ Logistics options (all 3 options with proper backgrounds)
+- ✅ Payment method selection (Prepay/Postpay with proper backgrounds)
 - ✅ Order summary with item list
 - ✅ Subtotal breakdown
 - ✅ Total display
+- ✅ All text properly visible in both modes
 
 #### GuestOrderPage
 - ✅ Info banner
 - ✅ Delivery address form
 - ✅ Order mode toggle
 - ✅ Express service
-- ✅ Logistics options
-- ✅ Payment methods
+- ✅ Logistics options (fixed: explicit backgrounds for unselected states)
+- ✅ Payment methods (fixed: proper text contrast in both modes)
 - ✅ Order summary
 - ✅ Item cards with delete buttons
 - ✅ Subtotal and total
+- ✅ All interactive elements visible
 
 #### OrderDetailPage
-- ✅ Order status section
+- ✅ Order status section with badges
 - ✅ Items list
 - ✅ Delivery address
 - ✅ Payment sections (pickup fee, remaining balance)
 - ✅ Payment complete state
 - ✅ All payment modals
+- ✅ Status badges with dark mode variants
 
 #### EmployeePortal
 - ✅ Header with employee info
