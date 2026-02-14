@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
 import { parseBulkOrder, calculateTotal } from '../utils/orderParser'
-import { getGuestOrder, clearGuestOrder } from '../utils/orderStorage'
-import type { Service, Address, ParsedOrderItem, LogisticsOption, PaymentMethod } from '../types'
+import { saveGuestOrder } from '../utils/orderStorage'
+import type { Service, ParsedOrderItem, LogisticsOption, PaymentMethod } from '../types'
 import Button from '../components/Button'
 import QuickOrderInput from '../components/QuickOrderInput'
 import VisualOrderSelect from '../components/VisualOrderSelect'
-import AddressPicker from '../components/AddressPicker'
-import AddAddressModal from '../components/AddAddressModal'
+import Input from '../components/Input'
+import QuickSignupModal from '../components/QuickSignupModal'
 
 type OrderMode = 'quick' | 'visual'
 
@@ -20,66 +20,34 @@ const LOGISTICS_OPTIONS = {
   pickup_delivery: { label: 'Pickup & Delivery', fee: 400000, description: 'Full door-to-door service' },
 }
 
-export default function NewOrderPage() {
+export default function GuestOrderPage() {
   const navigate = useNavigate()
-  const location = useLocation()
   const { user } = useAuthStore()
   const [mode, setMode] = useState<OrderMode>('quick')
   const [services, setServices] = useState<Service[]>([])
-  const [addresses, setAddresses] = useState<Address[]>([])
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null)
   const [items, setItems] = useState<ParsedOrderItem[]>([])
   const [expressService, setExpressService] = useState(false)
   const [logisticsOption, setLogisticsOption] = useState<LogisticsOption>('none')
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('postpay')
-  const [loading, setLoading] = useState(false)
-  const [showAddAddressModal, setShowAddAddressModal] = useState(false)
+  
+  // Guest address fields
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('Warri')
+  const [state, setState] = useState('Delta')
+  const [phone, setPhone] = useState('')
+  
+  const [showSignupModal, setShowSignupModal] = useState(false)
+
+  // If user is already logged in, redirect to regular order page
+  useEffect(() => {
+    if (user) {
+      navigate('/new-order')
+    }
+  }, [user, navigate])
 
   useEffect(() => {
     loadServices()
-    loadAddresses()
-    checkForGuestOrder()
-  }, [location.pathname])
-
-  const checkForGuestOrder = async () => {
-    const guestOrder = getGuestOrder()
-    if (guestOrder && user) {
-      // User just signed up from guest checkout
-      // Create address and order automatically
-      try {
-        // Create address
-        const { data: newAddress, error: addressError } = await supabase
-          .from('addresses')
-          .insert({
-            user_id: user.id,
-            street: guestOrder.address.street,
-            city: guestOrder.address.city,
-            state: guestOrder.address.state,
-            phone: guestOrder.address.phone,
-            is_default: true,
-          })
-          .select()
-          .single()
-
-        if (addressError) throw addressError
-
-        // Set the order details from guest order
-        setItems(guestOrder.items)
-        setExpressService(guestOrder.expressService)
-        setLogisticsOption(guestOrder.logisticsOption)
-        setPaymentMethod(guestOrder.paymentMethod)
-        setSelectedAddress(newAddress)
-
-        // Clear guest order from storage
-        clearGuestOrder()
-
-        // Show success message
-        console.log('Guest order loaded successfully')
-      } catch (error) {
-        console.error('Failed to load guest order:', error)
-      }
-    }
-  }
+  }, [])
 
   const loadServices = async () => {
     const { data } = await supabase
@@ -89,19 +57,6 @@ export default function NewOrderPage() {
       .order('name')
     
     if (data) setServices(data)
-  }
-
-  const loadAddresses = async () => {
-    const { data } = await supabase
-      .from('addresses')
-      .select('*')
-      .order('is_default', { ascending: false })
-    
-    if (data) {
-      setAddresses(data)
-      const defaultAddr = data.find(a => a.is_default)
-      if (defaultAddr) setSelectedAddress(defaultAddr)
-    }
   }
 
   const handleQuickOrderParse = (text: string) => {
@@ -135,7 +90,6 @@ export default function NewOrderPage() {
   }
 
   const getDiscountedTotal = () => {
-    // 2% discount only on laundry items, not logistics
     const itemsTotal = getItemsTotal()
     const discountedItems = Math.floor(itemsTotal * 0.98)
     const logisticsFee = LOGISTICS_OPTIONS[logisticsOption].fee
@@ -145,13 +99,12 @@ export default function NewOrderPage() {
 
   const getPaymentAmount = () => {
     if (paymentMethod === 'prepay') {
-      return getDiscountedTotal() // Discounted items + full logistics fee
+      return getDiscountedTotal()
     } else {
-      // Postpay: only pickup fee if logistics selected, otherwise full amount
       if (logisticsOption === 'pickup' || logisticsOption === 'pickup_delivery') {
-        return 200000 // ₦2,000 pickup fee
+        return 200000
       }
-      return calculateOrderTotal() // If no logistics, must pay full (they're bringing to shop)
+      return calculateOrderTotal()
     }
   }
 
@@ -161,86 +114,35 @@ export default function NewOrderPage() {
     return total - paid
   }
 
-  const handleSubmitOrder = async () => {
-    if (!selectedAddress || items.length === 0) {
-      alert('Please select an address and add items')
+  const handleProceedToCheckout = () => {
+    if (!street || !phone || items.length === 0) {
+      alert('Please fill in all address fields and add items')
       return
     }
 
-    setLoading(true)
-    try {
-      const total = paymentMethod === 'prepay' ? getDiscountedTotal() : calculateOrderTotal()
+    // Save order to localStorage
+    saveGuestOrder({
+      items,
+      expressService,
+      logisticsOption,
+      paymentMethod,
+      address: {
+        street,
+        city,
+        state,
+        phone,
+      },
+      timestamp: Date.now(),
+    })
 
-      console.log('Creating order with:', {
-        total,
-        paymentMethod,
-        logisticsOption,
-        itemsCount: items.length
-      })
+    // Show signup modal
+    setShowSignupModal(true)
+  }
 
-      const { data: order, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          user_id: user!.id,
-          address_id: selectedAddress.id,
-          total_cents: total,
-          status: 'received',
-          payment_status: 'pending',
-          payment_method: paymentMethod,
-          pickup_fee_paid: false, // Always false initially - payment happens on order detail page
-          final_payment_pending: paymentMethod === 'postpay' && (logisticsOption === 'pickup' || logisticsOption === 'pickup_delivery'),
-          logistics_option: logisticsOption,
-          logistics_fee_cents: LOGISTICS_OPTIONS[logisticsOption].fee,
-        })
-        .select()
-        .single()
-
-      if (orderError) {
-        console.error('Order creation error:', orderError)
-        throw orderError
-      }
-
-      console.log('Order created:', order.id)
-
-      const orderItems = items.map(item => {
-        const service = services.find(s => s.key === item.service_key)
-        return {
-          order_id: order.id,
-          service_id: service?.id,
-          description: item.text,
-          quantity: item.quantity,
-          unit_price_cents: service?.base_price_cents || 0,
-          modifiers: expressService ? { express: true } : {},
-        }
-      })
-
-      const { error: itemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems)
-
-      if (itemsError) {
-        console.error('Order items error:', itemsError)
-        throw itemsError
-      }
-
-      // Try to create event, but don't fail if it doesn't work (RLS issue)
-      try {
-        await supabase.from('order_events').insert({
-          order_id: order.id,
-          event_type: 'created',
-          note: 'Order created',
-        })
-      } catch (eventError) {
-        console.warn('Failed to create order event (non-critical):', eventError)
-      }
-
-      console.log('Navigating to order:', order.id)
-      navigate(`/orders/${order.id}`)
-    } catch (error) {
-      console.error('Failed to create order:', error)
-      alert(`Failed to create order: ${error instanceof Error ? error.message : 'Unknown error'}`)
-      setLoading(false)
-    }
+  const handleSignupSuccess = () => {
+    // After successful signup, redirect to new order page
+    // The new order page will check for guest order in localStorage
+    navigate('/new-order')
   }
 
   const total = calculateOrderTotal()
@@ -253,14 +155,17 @@ export default function NewOrderPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => navigate('/dashboard')}
+                onClick={() => window.location.href = '/'}
                 className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M12 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <h1 className="text-2xl font-display font-bold text-gray-900">New Order</h1>
+              <div>
+                <h1 className="text-2xl font-display font-bold text-gray-900">New Order</h1>
+                <p className="text-xs text-gray-600">Create account at checkout</p>
+              </div>
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-600 font-medium">
@@ -281,29 +186,29 @@ export default function NewOrderPage() {
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-6">
-          {/* Progress Steps */}
+          {/* Info Banner */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-center gap-4 mb-8"
+            className="bg-primary-50 border-2 border-primary-200 rounded-2xl p-4"
           >
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-sm">1</div>
-              <span className="text-sm font-semibold text-gray-900">Address</span>
-            </div>
-            <div className="w-12 h-0.5 bg-gray-300"></div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-sm">2</div>
-              <span className="text-sm font-semibold text-gray-900">Items</span>
-            </div>
-            <div className="w-12 h-0.5 bg-gray-300"></div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-sm">3</div>
-              <span className="text-sm font-medium text-gray-500">Payment</span>
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <circle cx="10" cy="10" r="8" stroke="white" strokeWidth="2"/>
+                  <path d="M10 6v4M10 14h.01" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-gray-900 mb-1">No Account Needed Yet!</h3>
+                <p className="text-sm text-gray-700">
+                  Select your services first. We'll create your account during checkout - quick and easy.
+                </p>
+              </div>
             </div>
           </motion.div>
 
-          {/* Address Selection */}
+          {/* Delivery Address */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -319,12 +224,36 @@ export default function NewOrderPage() {
               </div>
               <h2 className="text-lg font-display font-bold text-gray-900">Delivery Address</h2>
             </div>
-            <AddressPicker
-              addresses={addresses}
-              selected={selectedAddress}
-              onSelect={setSelectedAddress}
-              onAddNew={() => setShowAddAddressModal(true)}
-            />
+            
+            <div className="space-y-4">
+              <Input
+                label="Street Address"
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
+                placeholder="123 Main Street, Apartment 4B"
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <Input
+                  label="City"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder="Warri"
+                />
+                <Input
+                  label="State"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  placeholder="Delta"
+                />
+              </div>
+              <Input
+                label="Phone Number"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="08012345678"
+              />
+            </div>
           </motion.div>
 
           {/* Order Mode Toggle */}
@@ -645,9 +574,8 @@ export default function NewOrderPage() {
             transition={{ delay: 0.4 }}
           >
             <Button
-              onClick={handleSubmitOrder}
-              loading={loading}
-              disabled={!selectedAddress || items.length === 0}
+              onClick={handleProceedToCheckout}
+              disabled={!street || !phone || items.length === 0}
               fullWidth
               size="lg"
               className="shadow-2xl"
@@ -657,22 +585,25 @@ export default function NewOrderPage() {
               </svg>
               {items.length === 0 
                 ? 'Add Items to Continue'
-                : paymentMethod === 'prepay' 
-                  ? `Pay ₦${(getDiscountedTotal() / 100).toLocaleString()} Now`
-                  : getRemainingAmount() > 0
-                    ? `Pay ₦${(getPaymentAmount() / 100).toLocaleString()} to Continue`
-                    : 'Continue to Payment'
+                : 'Proceed to Checkout'
               }
             </Button>
+            
+            {items.length > 0 && (
+              <p className="text-center text-sm text-gray-600 mt-3">
+                You'll create your account in the next step
+              </p>
+            )}
           </motion.div>
         </div>
       </main>
 
-      {/* Add Address Modal */}
-      <AddAddressModal
-        isOpen={showAddAddressModal}
-        onClose={() => setShowAddAddressModal(false)}
-        onSuccess={loadAddresses}
+      {/* Quick Signup Modal */}
+      <QuickSignupModal
+        isOpen={showSignupModal}
+        onClose={() => setShowSignupModal(false)}
+        onSuccess={handleSignupSuccess}
+        prefillPhone={phone}
       />
     </div>
   )

@@ -3,6 +3,7 @@ import { useAuthStore } from './store/authStore'
 import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 import NewOrderPage from './pages/NewOrderPage'
+import GuestOrderPage from './pages/GuestOrderPage'
 import OrderDetailPage from './pages/OrderDetailPage'
 import AdminPanel from './pages/AdminPanel'
 import ProtectedAdminRoute from './components/ProtectedAdminRoute'
@@ -21,6 +22,7 @@ function App() {
   return (
     <BrowserRouter basename="/app">
       <Routes>
+        <Route path="/order" element={<GuestOrderPage />} />
         <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={user ? <DashboardPage /> : <Navigate to="/login" />} />
         <Route path="/new-order" element={user ? <NewOrderPage /> : <Navigate to="/login" />} />
@@ -33,7 +35,7 @@ function App() {
             </ProtectedAdminRoute>
           } 
         />
-        <Route path="/" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+        <Route path="/" element={<Navigate to={user ? "/dashboard" : "/order"} />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
