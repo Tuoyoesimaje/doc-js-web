@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import { useAuthStore } from '../store/authStore'
@@ -12,7 +12,6 @@ import SupportChat from '../components/SupportChat'
 export default function DashboardPage() {
   const { user, signOut } = useAuthStore()
   const location = useLocation()
-  const navigate = useNavigate()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [showProfileModal, setShowProfileModal] = useState(false)
@@ -90,7 +89,7 @@ export default function DashboardPage() {
               <button
                 onClick={async () => {
                   await signOut()
-                  navigate('/login')
+                  window.location.href = '/app/login'
                 }}
                 className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200"
               >

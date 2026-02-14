@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate, Link } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { supabase } from '../lib/supabase'
 import type { Order } from '../types'
@@ -8,7 +8,6 @@ import AdminSupportChat from '../components/AdminSupportChat'
 
 export default function AdminPanel() {
   const location = useLocation()
-  const navigate = useNavigate()
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'pending' | 'processing' | 'ready'>('all')
@@ -155,7 +154,7 @@ export default function AdminPanel() {
                 onClick={async () => {
                   sessionStorage.removeItem('admin_verified')
                   await supabase.auth.signOut()
-                  navigate('/login')
+                  window.location.href = '/app/login'
                 }}
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

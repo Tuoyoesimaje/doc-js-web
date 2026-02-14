@@ -59,10 +59,10 @@ export default function EmployeePortal() {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
     sessionStorage.removeItem('employee_verified')
     sessionStorage.removeItem('employee_data')
-    navigate('/employee/login')
+    await supabase.auth.signOut()
+    window.location.href = '/app/employee/login'
   }
 
   const filteredOrders = orders.filter(order => {
