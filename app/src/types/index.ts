@@ -100,3 +100,29 @@ export interface GarmentTag {
   created_at: string
   updated_at: string
 }
+
+export interface PickupLocation {
+  id: string
+  name: string
+  address: string
+  city: string
+  state: string
+  phone?: string
+  email?: string
+  is_active: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface Employee {
+  id: string
+  user_id: string
+  pickup_location_id?: string
+  employee_name: string
+  phone?: string
+  role: 'staff' | 'manager' | 'admin'
+  is_active: boolean
+  created_at: string
+  updated_at: string
+  pickup_location?: PickupLocation
+}

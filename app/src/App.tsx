@@ -6,7 +6,11 @@ import NewOrderPage from './pages/NewOrderPage'
 import GuestOrderPage from './pages/GuestOrderPage'
 import OrderDetailPage from './pages/OrderDetailPage'
 import AdminPanel from './pages/AdminPanel'
+import EmployeeLoginPage from './pages/EmployeeLoginPage'
+import EmployeePortal from './pages/EmployeePortal'
+import WalkInOrderPage from './pages/WalkInOrderPage'
 import ProtectedAdminRoute from './components/ProtectedAdminRoute'
+import ProtectedEmployeeRoute from './components/ProtectedEmployeeRoute'
 
 function App() {
   const { user, loading } = useAuthStore()
@@ -33,6 +37,23 @@ function App() {
             <ProtectedAdminRoute>
               <AdminPanel />
             </ProtectedAdminRoute>
+          } 
+        />
+        <Route path="/employee/login" element={<EmployeeLoginPage />} />
+        <Route 
+          path="/employee" 
+          element={
+            <ProtectedEmployeeRoute>
+              <EmployeePortal />
+            </ProtectedEmployeeRoute>
+          } 
+        />
+        <Route 
+          path="/employee/walk-in" 
+          element={
+            <ProtectedEmployeeRoute>
+              <WalkInOrderPage />
+            </ProtectedEmployeeRoute>
           } 
         />
         <Route path="/" element={<Navigate to={user ? "/dashboard" : "/order"} />} />
