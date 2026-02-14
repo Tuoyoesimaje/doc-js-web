@@ -9,7 +9,6 @@ import Input from '../components/Input'
 type SignupMode = 'email' | 'phone' | 'google' | 'otp-verify' | 'set-password'
 
 export default function SignupPage() {
-  const navigate = useNavigate()
   const [mode, setMode] = useState<SignupMode>('email')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')

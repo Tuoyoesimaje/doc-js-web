@@ -101,7 +101,7 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/app/dashboard`,
+          emailRedirectTo: `${window.location.origin}/app`,
         },
       })
 
@@ -126,7 +126,7 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/app/dashboard`,
+          redirectTo: `${window.location.origin}/app`,
         },
       })
       
