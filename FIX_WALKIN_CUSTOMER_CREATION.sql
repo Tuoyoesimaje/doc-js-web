@@ -1,6 +1,18 @@
 -- Fix RLS policy to allow employees to create walk-in customer users
 -- This allows employees to create user records for walk-in customers
 
+-- First, ensure the users table has proper defaults for id column
+-- The id should be auto-generated as UUID
+ALTER TABLE users 
+ALTER COLUMN id SET DEFAULT gen_random_uuid();
+
+-- Also ensure created_at and last_login have defaults
+ALTER TABLE users 
+ALTER COLUMN created_at SET DEFAULT now();
+
+ALTER TABLE users 
+ALTER COLUMN last_login SET DEFAULT now();
+
 -- Drop existing insert policy if it exists
 DROP POLICY IF EXISTS "employees_can_create_walkin_customers" ON users;
 

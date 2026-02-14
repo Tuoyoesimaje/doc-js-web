@@ -131,24 +131,61 @@ export default function WalkInOrderPage() {
       if (existingUser) {
         userId = existingUser.id
       } else {
-        // Create user record for walk-in customer
-        // Note: RLS policy must allow employees to insert into users table
-        const { data: newUser, error: userError } = await supabase
-          .from('users')
-          .insert({
-            phone: normalizedPhone,
-            email: customerEmail || null,
-            display_name: customerName,
-            password_set: false,
-          })
-          .select()
-          .single()
+        // Create auth user for walk-in customer with a temporary password
+        // They can reset it later if they want to use the app
+        const tempPassword = `WalkIn${Math.random().toString(36).slice(2, 10)}!`
+        
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email: customerEmail || `${normalizedPhone.replace(/\+/g, '')}@walkin.docjslaundry.com`,
+          password: tempPassword,
+          phone: normalizedPhone,
+          options: {
+            data: {
+              display_name: customerName,
+              is_walkin: true,
+            }
+          }
+        })
 
-        if (userError) {
-          console.error('User creation error:', userError)
-          throw new Error(`Failed to create customer record: ${userError.message}. Please ensure RLS policies allow employee access.`)
+        if (authError) {
+          console.error('Auth user creation error:', authError)
+          throw new Error(`Failed to create customer account: ${authError.message}`)
         }
-        userId = newUser.id
+
+        if (!authData.user) {
+          throw new Error('Failed to create customer account: No user returned')
+        }
+
+        userId = authData.user.id
+
+        // The users table record should be created automatically by a trigger
+        // Wait a moment for it to be created
+        await new Promise(resolve => setTimeout(resolve, 500))
+        
+        // Verify the user record was created
+        const { data: verifyUser } = await supabase
+          .from('users')
+          .select('id')
+          .eq('id', userId)
+          .maybeSingle()
+        
+        if (!verifyUser) {
+          // If trigger didn't create it, create it manually
+          const { error: userError } = await supabase
+            .from('users')
+            .insert({
+              id: userId,
+              phone: normalizedPhone,
+              email: customerEmail || null,
+              display_name: customerName,
+              password_set: true,
+            })
+          
+          if (userError) {
+            console.error('User record creation error:', userError)
+            throw new Error(`Failed to create customer record: ${userError.message}`)
+          }
+        }
       }
 
       // Create address for customer
