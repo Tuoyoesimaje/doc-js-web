@@ -327,30 +327,30 @@ export default function GuestOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg space-y-5"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg space-y-5"
           >
             {/* Express Service */}
-            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 transition-colors">
+            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
               <input
                 type="checkbox"
                 checked={expressService}
                 onChange={(e) => setExpressService(e.target.checked)}
-                className="w-5 h-5 text-primary-600 rounded-lg focus:ring-2 focus:ring-primary-500 cursor-pointer"
+                className="w-5 h-5 text-primary-600 dark:text-primary-500 rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 cursor-pointer"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-gray-900">Express Service</span>
-                  <span className="text-xs font-bold text-warning-600">+50%</span>
+                  <span className="font-bold text-gray-900 dark:text-white">Express Service</span>
+                  <span className="text-xs font-bold text-warning-600 dark:text-warning-400">+50%</span>
                 </div>
-                <p className="text-xs text-gray-600">Same day delivery</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Same day delivery</p>
               </div>
             </label>
 
-            <div className="border-t-2 border-gray-100"></div>
+            <div className="border-t-2 border-gray-100 dark:border-gray-700"></div>
 
             {/* Logistics */}
             <div>
-              <h3 className="font-bold text-gray-900 mb-3 text-sm">Logistics</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-sm">Logistics</h3>
               <div className="grid grid-cols-3 gap-2">
                 {(Object.keys(LOGISTICS_OPTIONS) as LogisticsOption[]).map((option) => {
                   const config = LOGISTICS_OPTIONS[option]
@@ -359,8 +359,8 @@ export default function GuestOrderPage() {
                       key={option}
                       className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                         logisticsOption === option
-                          ? 'border-primary-600 bg-primary-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-primary-600 dark:border-primary-500 bg-primary-50 dark:bg-primary-900/30'
+                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                       }`}
                     >
                       <input
@@ -371,8 +371,8 @@ export default function GuestOrderPage() {
                         onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
                         className="sr-only"
                       />
-                      <div className="text-xs font-bold text-gray-900">{config.label}</div>
-                      <div className={`text-sm font-bold ${config.fee === 0 ? 'text-green-600' : 'text-primary-600'}`}>
+                      <div className="text-xs font-bold text-gray-900 dark:text-white">{config.label}</div>
+                      <div className={`text-sm font-bold ${config.fee === 0 ? 'text-green-600 dark:text-green-400' : 'text-primary-600 dark:text-primary-400'}`}>
                         {config.fee === 0 ? 'Free' : `₦${(config.fee / 100).toLocaleString()}`}
                       </div>
                     </label>
@@ -381,18 +381,18 @@ export default function GuestOrderPage() {
               </div>
             </div>
 
-            <div className="border-t-2 border-gray-100"></div>
+            <div className="border-t-2 border-gray-100 dark:border-gray-700"></div>
 
             {/* Payment Method */}
             <div>
-              <h3 className="font-bold text-gray-900 mb-3 text-sm">Payment</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-sm">Payment</h3>
               <div className="grid grid-cols-2 gap-2">
                 {/* Postpay */}
                 <label
                   className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                     paymentMethod === 'postpay'
-                      ? 'border-green-600 bg-green-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-green-600 dark:border-green-500 bg-green-50 dark:bg-green-900/30'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
                   <input
@@ -404,14 +404,14 @@ export default function GuestOrderPage() {
                     className="sr-only"
                   />
                   <div className="flex items-center gap-1">
-                    <span className="text-xs font-bold text-gray-900">Pay After</span>
-                    <span className="px-1.5 py-0.5 bg-green-600 text-white text-[10px] font-bold rounded">TOP</span>
+                    <span className="text-xs font-bold text-gray-900 dark:text-white">Pay After</span>
+                    <span className="px-1.5 py-0.5 bg-green-600 dark:bg-green-500 text-white text-[10px] font-bold rounded">TOP</span>
                   </div>
-                  <div className="text-sm font-bold text-green-600">
+                  <div className="text-sm font-bold text-green-600 dark:text-green-400">
                     ₦{(getPaymentAmount() / 100).toLocaleString()} now
                   </div>
                   {getRemainingAmount() > 0 && (
-                    <div className="text-xs text-gray-600">
+                    <div className="text-xs text-gray-600 dark:text-gray-400">
                       +₦{(getRemainingAmount() / 100).toLocaleString()} later
                     </div>
                   )}
@@ -421,8 +421,8 @@ export default function GuestOrderPage() {
                 <label
                   className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                     paymentMethod === 'prepay'
-                      ? 'border-primary-600 bg-primary-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-primary-600 dark:border-primary-500 bg-primary-50 dark:bg-primary-900/30'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
                   <input
@@ -434,13 +434,13 @@ export default function GuestOrderPage() {
                     className="sr-only"
                   />
                   <div className="flex items-center gap-1">
-                    <span className="text-xs font-bold text-gray-900">Pay Now</span>
-                    <span className="px-1.5 py-0.5 bg-primary-600 text-white text-[10px] font-bold rounded">2% OFF</span>
+                    <span className="text-xs font-bold text-gray-900 dark:text-white">Pay Now</span>
+                    <span className="px-1.5 py-0.5 bg-primary-600 dark:bg-primary-500 text-white text-[10px] font-bold rounded">2% OFF</span>
                   </div>
-                  <div className="text-sm font-bold text-primary-600">
+                  <div className="text-sm font-bold text-primary-600 dark:text-primary-400">
                     ₦{(getDiscountedTotal() / 100).toLocaleString()}
                   </div>
-                  <div className="text-xs text-gray-500 line-through">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 line-through">
                     ₦{(calculateOrderTotal() / 100).toLocaleString()}
                   </div>
                 </label>
@@ -455,13 +455,13 @@ export default function GuestOrderPage() {
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+                className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-display font-bold text-gray-900">Order Summary ({items.length})</h3>
+                  <h3 className="text-lg font-display font-bold text-gray-900 dark:text-white">Order Summary ({items.length})</h3>
                   <button
                     onClick={() => setItems([])}
-                    className="text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
+                    className="text-xs font-semibold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                   >
                     Clear All
                   </button>
@@ -479,26 +479,26 @@ export default function GuestOrderPage() {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 20, height: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
+                          className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors group"
                         >
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="font-bold text-gray-900">{item.text}</span>
-                              <span className="text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-0.5 rounded-lg">
+                              <span className="font-bold text-gray-900 dark:text-white">{item.text}</span>
+                              <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-0.5 rounded-lg">
                                 x{item.quantity}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
                               ₦{((service?.base_price_cents || 0) / 100).toLocaleString()} each
                             </p>
                           </div>
                           <div className="text-right flex items-center gap-3">
-                            <span className="text-lg font-bold text-primary-600">
+                            <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
                               ₦{(itemTotal / 100).toLocaleString()}
                             </span>
                             <button
                               onClick={() => setItems(items.filter((_, i) => i !== idx))}
-                              className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors opacity-0 group-hover:opacity-100"
+                              className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors opacity-0 group-hover:opacity-100"
                             >
                               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -512,8 +512,8 @@ export default function GuestOrderPage() {
                 </div>
 
                 {/* Subtotal and Express */}
-                <div className="space-y-2 pb-4 border-b-2 border-gray-200">
-                  <div className="flex justify-between items-center text-gray-700">
+                <div className="space-y-2 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
+                  <div className="flex justify-between items-center text-gray-700 dark:text-gray-300">
                     <span className="font-medium">Subtotal</span>
                     <span className="font-bold">₦{(expressService ? total / 1.5 : total) / 100 | 0}</span>
                   </div>
@@ -522,7 +522,7 @@ export default function GuestOrderPage() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="flex justify-between items-center text-warning-600"
+                      className="flex justify-between items-center text-warning-600 dark:text-warning-400"
                     >
                       <div className="flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -538,7 +538,7 @@ export default function GuestOrderPage() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="flex justify-between items-center text-blue-600"
+                      className="flex justify-between items-center text-blue-600 dark:text-blue-400"
                     >
                       <div className="flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -553,12 +553,12 @@ export default function GuestOrderPage() {
 
                 {/* Total */}
                 <div className="pt-4 flex justify-between items-center">
-                  <span className="text-xl font-display font-bold text-gray-900">Total</span>
+                  <span className="text-xl font-display font-bold text-gray-900 dark:text-white">Total</span>
                   <motion.span
                     key={total}
                     initial={{ scale: 1.2, color: '#2563eb' }}
                     animate={{ scale: 1, color: '#2563eb' }}
-                    className="text-3xl font-display font-bold text-primary-600"
+                    className="text-3xl font-display font-bold text-primary-600 dark:text-primary-400"
                   >
                     ₦{(total / 100).toLocaleString()}
                   </motion.span>
@@ -590,7 +590,7 @@ export default function GuestOrderPage() {
             </Button>
             
             {items.length > 0 && (
-              <p className="text-center text-sm text-gray-600 mt-3">
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-3">
                 You'll create your account in the next step
               </p>
             )}

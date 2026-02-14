@@ -56,7 +56,7 @@ export default function EmployeeLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -68,22 +68,22 @@ export default function EmployeeLoginPage() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', stiffness: 200 }}
-            className="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-xl"
+            className="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-xl"
           >
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
               <path d="M20 7h-4V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM10 5h4v2h-4V5z" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
             </svg>
           </motion.div>
-          <h1 className="text-3xl font-display font-bold text-gray-900 mb-2">Employee Portal</h1>
-          <p className="text-gray-600">Sign in to manage walk-in orders</p>
+          <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white mb-2">Employee Portal</h1>
+          <p className="text-gray-600 dark:text-gray-400">Sign in to manage walk-in orders</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-xl">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-100 dark:border-gray-700 p-8 shadow-xl">
           <form onSubmit={handleLogin} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4">
-                <p className="text-sm text-red-600">{error}</p>
+              <div className="bg-red-50 dark:bg-red-900/30 border-2 border-red-200 dark:border-red-800 rounded-xl p-4">
+                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
               </div>
             )}
 
@@ -120,9 +120,9 @@ export default function EmployeeLoginPage() {
           </form>
 
           <div className="mt-6 pt-6 border-t-2 border-gray-100">
-            <button
+              <button
               onClick={() => navigate('/')}
-              className="w-full text-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="w-full text-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               ← Back to main site
             </button>
@@ -139,8 +139,8 @@ export default function EmployeeLoginPage() {
               </svg>
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-gray-900 mb-1">Employee Access Only</h3>
-              <p className="text-sm text-gray-700">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-1">Employee Access Only</h3>
+              <p className="text-sm text-gray-700 dark:text-gray-300">
                 This portal is for Doc JS Laundry staff members. If you're a customer, please use the main customer portal.
               </p>
             </div>

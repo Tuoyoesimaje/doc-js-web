@@ -371,7 +371,7 @@ export default function OrderDetailPage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">
+                      <h3 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-1">
                         Pay Pickup Fee
                       </h3>
                       <p className="text-gray-700 font-medium">
@@ -383,22 +383,22 @@ export default function OrderDetailPage() {
                   </div>
                   
                   {(order.logistics_option === 'pickup' || order.logistics_option === 'pickup_delivery') && (
-                    <div className="bg-white rounded-2xl p-6 mb-6">
+                    <div className="bg-white dark:bg-gray-700 rounded-2xl p-6 mb-6">
                       <div className="flex justify-between items-center mb-3">
-                        <span className="text-gray-600 font-medium">Pickup Fee (Pay Now)</span>
-                        <span className="text-2xl font-display font-bold text-primary-600">
+                        <span className="text-gray-600 dark:text-gray-300 font-medium">Pickup Fee (Pay Now)</span>
+                        <span className="text-2xl font-display font-bold text-primary-600 dark:text-primary-400">
                           ₦2,000
                         </span>
                       </div>
                       <div className="flex justify-between items-center mb-3">
-                        <span className="text-gray-600 font-medium">Remaining Balance (Pay Later)</span>
-                        <span className="text-lg font-bold text-gray-900">
+                        <span className="text-gray-600 dark:text-gray-300 font-medium">Remaining Balance (Pay Later)</span>
+                        <span className="text-lg font-bold text-gray-900 dark:text-white">
                           ₦{((order.total_cents - 200000) / 100).toLocaleString()}
                         </span>
                       </div>
-                      <div className="border-t-2 border-gray-200 pt-3 flex justify-between items-center">
-                        <span className="text-gray-900 font-bold">Total Order Value</span>
-                        <span className="text-xl font-display font-bold text-gray-900">
+                      <div className="border-t-2 border-gray-200 dark:border-gray-600 pt-3 flex justify-between items-center">
+                        <span className="text-gray-900 dark:text-white font-bold">Total Order Value</span>
+                        <span className="text-xl font-display font-bold text-gray-900 dark:text-white">
                           ₦{(order.total_cents / 100).toLocaleString()}
                         </span>
                       </div>
@@ -423,30 +423,30 @@ export default function OrderDetailPage() {
               ) : (
                 <>
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center">
+                    <div className="w-16 h-16 bg-primary-600 dark:bg-primary-500 rounded-full flex items-center justify-center">
                       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <rect x="6" y="10" width="20" height="14" rx="2" stroke="white" strokeWidth="2.5"/>
                         <path d="M6 15h20M10 20h6" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">
+                      <h3 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-1">
                         Complete Payment
                       </h3>
-                      <p className="text-gray-700 font-medium">
+                      <p className="text-gray-700 dark:text-gray-300 font-medium">
                         Pay full amount now and get 2% discount + priority processing
                       </p>
                     </div>
                   </div>
                   
-                  <div className="bg-white rounded-2xl p-6 mb-6">
+                  <div className="bg-white dark:bg-gray-700 rounded-2xl p-6 mb-6">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 font-medium">Total Amount (2% Off Items)</span>
+                      <span className="text-gray-600 dark:text-gray-300 font-medium">Total Amount (2% Off Items)</span>
                       <div className="text-right">
-                        <span className="text-3xl font-display font-bold text-primary-600">
+                        <span className="text-3xl font-display font-bold text-primary-600 dark:text-primary-400">
                           ₦{(order.total_cents / 100).toLocaleString()}
                         </span>
-                        <span className="block text-sm text-gray-500 line-through">
+                        <span className="block text-sm text-gray-500 dark:text-gray-400 line-through">
                           ₦{(order.total_cents / 100).toLocaleString()}
                         </span>
                       </div>
@@ -485,29 +485,29 @@ export default function OrderDetailPage() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-display font-bold text-gray-900 mb-1">
+                  <h3 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-1">
                     Your Clothes Are Ready! 🎉
                   </h3>
-                  <p className="text-gray-700 font-medium">
+                  <p className="text-gray-700 dark:text-gray-300 font-medium">
                     Complete payment to collect your fresh laundry
                   </p>
                 </div>
               </div>
               
-              <div className="bg-white rounded-2xl p-6 mb-6">
+              <div className="bg-white dark:bg-gray-700 rounded-2xl p-6 mb-6">
                 <div className="flex justify-between items-center mb-3">
-                  <span className="text-gray-600 font-medium">Pickup Fee (Paid)</span>
-                  <span className="text-gray-900 font-bold line-through">₦2,000</span>
+                  <span className="text-gray-600 dark:text-gray-300 font-medium">Pickup Fee (Paid)</span>
+                  <span className="text-gray-900 dark:text-white font-bold line-through">₦2,000</span>
                 </div>
                 <div className="flex justify-between items-center mb-3">
-                  <span className="text-gray-600 font-medium">Remaining Balance</span>
-                  <span className="text-2xl font-display font-bold text-accent-600">
+                  <span className="text-gray-600 dark:text-gray-300 font-medium">Remaining Balance</span>
+                  <span className="text-2xl font-display font-bold text-accent-600 dark:text-accent-400">
                     ₦{((order.total_cents - 200000) / 100).toLocaleString()}
                   </span>
                 </div>
-                <div className="border-t-2 border-gray-200 pt-3 flex justify-between items-center">
-                  <span className="text-gray-900 font-bold">Total Order Value</span>
-                  <span className="text-xl font-display font-bold text-gray-900">
+                <div className="border-t-2 border-gray-200 dark:border-gray-600 pt-3 flex justify-between items-center">
+                  <span className="text-gray-900 dark:text-white font-bold">Total Order Value</span>
+                  <span className="text-xl font-display font-bold text-gray-900 dark:text-white">
                     ₦{(order.total_cents / 100).toLocaleString()}
                   </span>
                 </div>
@@ -541,7 +541,7 @@ export default function OrderDetailPage() {
                   <path d="M8 16l6 6 10-10" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <h3 className="text-2xl font-display font-bold text-gray-900 mb-2">
+              <h3 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-2">
                 Payment Complete!
               </h3>
               <p className="text-gray-700 font-medium">

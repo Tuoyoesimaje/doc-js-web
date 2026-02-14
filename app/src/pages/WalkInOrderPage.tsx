@@ -292,16 +292,16 @@ export default function WalkInOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-accent-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-accent-100 dark:bg-accent-900/50 rounded-xl flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <rect x="4" y="6" width="12" height="11" rx="2" stroke="#10b981" strokeWidth="2"/>
                   <path d="M7 4v3M13 4v3" stroke="#10b981" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
-              <h2 className="text-lg font-display font-bold text-gray-900">Add Items</h2>
+              <h2 className="text-lg font-display font-bold text-gray-900 dark:text-white">Add Items</h2>
             </div>
 
             <div className="flex gap-2 mb-4">
@@ -309,8 +309,8 @@ export default function WalkInOrderPage() {
                 onClick={() => setMode('quick')}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'quick'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 Quick Input
@@ -319,8 +319,8 @@ export default function WalkInOrderPage() {
                 onClick={() => setMode('visual')}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'visual'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 Visual Select
@@ -400,13 +400,13 @@ export default function WalkInOrderPage() {
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+                className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-display font-bold text-gray-900">Order Summary ({items.length})</h3>
+                  <h3 className="text-lg font-display font-bold text-gray-900 dark:text-white">Order Summary ({items.length})</h3>
                   <button
                     onClick={() => setItems([])}
-                    className="text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
+                    className="text-xs font-semibold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                   >
                     Clear All
                   </button>
@@ -419,20 +419,20 @@ export default function WalkInOrderPage() {
                     return (
                       <div
                         key={`${item.service_key}-${idx}`}
-                        className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl"
+                        className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl"
                       >
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-bold text-gray-900">{item.text}</span>
-                            <span className="text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-0.5 rounded-lg">
+                            <span className="font-bold text-gray-900 dark:text-white">{item.text}</span>
+                            <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-0.5 rounded-lg">
                               x{item.quantity}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
                             ₦{((service?.base_price_cents || 0) / 100).toLocaleString()} each
                           </p>
                         </div>
-                        <span className="text-lg font-bold text-primary-600">
+                        <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
                           ₦{(itemTotal / 100).toLocaleString()}
                         </span>
                       </div>
@@ -440,9 +440,9 @@ export default function WalkInOrderPage() {
                   })}
                 </div>
 
-                <div className="border-t-2 border-gray-200 pt-4 flex justify-between items-center">
-                  <span className="text-xl font-display font-bold text-gray-900">Total</span>
-                  <span className="text-3xl font-display font-bold text-primary-600">
+                <div className="border-t-2 border-gray-200 dark:border-gray-700 pt-4 flex justify-between items-center">
+                  <span className="text-xl font-display font-bold text-gray-900 dark:text-white">Total</span>
+                  <span className="text-3xl font-display font-bold text-primary-600 dark:text-primary-400">
                     ₦{(total / 100).toLocaleString()}
                   </span>
                 </div>

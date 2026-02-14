@@ -430,8 +430,8 @@ export default function NewOrderPage() {
                       key={option}
                       className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                         logisticsOption === option
-                          ? 'border-primary-600 bg-primary-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-primary-600 dark:border-primary-500 bg-primary-50 dark:bg-primary-900/30'
+                          : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                       }`}
                     >
                       <input
@@ -442,8 +442,8 @@ export default function NewOrderPage() {
                         onChange={(e) => setLogisticsOption(e.target.value as LogisticsOption)}
                         className="sr-only"
                       />
-                      <div className="text-xs font-bold text-gray-900">{config.label}</div>
-                      <div className={`text-sm font-bold ${config.fee === 0 ? 'text-green-600' : 'text-primary-600'}`}>
+                      <div className="text-xs font-bold text-gray-900 dark:text-white">{config.label}</div>
+                      <div className={`text-sm font-bold ${config.fee === 0 ? 'text-green-600 dark:text-green-400' : 'text-primary-600 dark:text-primary-400'}`}>
                         {config.fee === 0 ? 'Free' : `₦${(config.fee / 100).toLocaleString()}`}
                       </div>
                     </label>
@@ -462,8 +462,8 @@ export default function NewOrderPage() {
                 <label
                   className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                     paymentMethod === 'postpay'
-                      ? 'border-green-600 bg-green-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-green-600 dark:border-green-500 bg-green-50 dark:bg-green-900/30'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
                   <input
@@ -475,14 +475,14 @@ export default function NewOrderPage() {
                     className="sr-only"
                   />
                   <div className="flex items-center gap-1">
-                    <span className="text-xs font-bold text-gray-900">Pay After</span>
-                    <span className="px-1.5 py-0.5 bg-green-600 text-white text-[10px] font-bold rounded">TOP</span>
+                    <span className="text-xs font-bold text-gray-900 dark:text-white">Pay After</span>
+                    <span className="px-1.5 py-0.5 bg-green-600 dark:bg-green-500 text-white text-[10px] font-bold rounded">TOP</span>
                   </div>
-                  <div className="text-sm font-bold text-green-600">
+                  <div className="text-sm font-bold text-green-600 dark:text-green-400">
                     ₦{(getPaymentAmount() / 100).toLocaleString()} now
                   </div>
                   {getRemainingAmount() > 0 && (
-                    <div className="text-xs text-gray-600">
+                    <div className="text-xs text-gray-600 dark:text-gray-400">
                       +₦{(getRemainingAmount() / 100).toLocaleString()} later
                     </div>
                   )}
@@ -492,8 +492,8 @@ export default function NewOrderPage() {
                 <label
                   className={`flex flex-col gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                     paymentMethod === 'prepay'
-                      ? 'border-primary-600 bg-primary-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-primary-600 dark:border-primary-500 bg-primary-50 dark:bg-primary-900/30'
+                      : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
                   }`}
                 >
                   <input
@@ -505,13 +505,13 @@ export default function NewOrderPage() {
                     className="sr-only"
                   />
                   <div className="flex items-center gap-1">
-                    <span className="text-xs font-bold text-gray-900">Pay Now</span>
-                    <span className="px-1.5 py-0.5 bg-primary-600 text-white text-[10px] font-bold rounded">2% OFF</span>
+                    <span className="text-xs font-bold text-gray-900 dark:text-white">Pay Now</span>
+                    <span className="px-1.5 py-0.5 bg-primary-600 dark:bg-primary-500 text-white text-[10px] font-bold rounded">2% OFF</span>
                   </div>
-                  <div className="text-sm font-bold text-primary-600">
+                  <div className="text-sm font-bold text-primary-600 dark:text-primary-400">
                     ₦{(getDiscountedTotal() / 100).toLocaleString()}
                   </div>
-                  <div className="text-xs text-gray-500 line-through">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 line-through">
                     ₦{(calculateOrderTotal() / 100).toLocaleString()}
                   </div>
                 </label>
@@ -593,7 +593,7 @@ export default function NewOrderPage() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="flex justify-between items-center text-warning-600"
+                      className="flex justify-between items-center text-warning-600 dark:text-warning-400"
                     >
                       <div className="flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -609,7 +609,7 @@ export default function NewOrderPage() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="flex justify-between items-center text-blue-600"
+                      className="flex justify-between items-center text-blue-600 dark:text-blue-400"
                     >
                       <div className="flex items-center gap-2">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
