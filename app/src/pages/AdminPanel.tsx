@@ -152,9 +152,10 @@ export default function AdminPanel() {
               </Link>
               <Button 
                 variant="secondary"
-                onClick={() => {
+                onClick={async () => {
                   sessionStorage.removeItem('admin_verified')
-                  navigate('/')
+                  await supabase.auth.signOut()
+                  navigate('/login')
                 }}
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
