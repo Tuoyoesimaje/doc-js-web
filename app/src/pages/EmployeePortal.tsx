@@ -89,19 +89,19 @@ export default function EmployeePortal() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-200 border-t-primary-600 mb-4 mx-auto"></div>
-          <p className="text-gray-600 font-medium">Loading portal...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-200 dark:border-primary-800 border-t-primary-600 dark:border-t-primary-400 mb-4 mx-auto"></div>
+          <p className="text-gray-600 dark:text-gray-400 font-medium">Loading portal...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b-2 border-gray-100 sticky top-0 z-50 shadow-sm">
+      <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b-2 border-gray-100 dark:border-gray-700 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -109,15 +109,15 @@ export default function EmployeePortal() {
                 initial={{ rotate: -180, scale: 0 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 200 }}
-                className="w-14 h-14 bg-gradient-to-br from-accent-600 to-accent-700 rounded-2xl flex items-center justify-center shadow-xl"
+                className="w-14 h-14 bg-gradient-to-br from-accent-600 to-accent-700 dark:from-accent-500 dark:to-accent-600 rounded-2xl flex items-center justify-center shadow-xl"
               >
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                   <path d="M20 7h-4V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM10 5h4v2h-4V5z" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
                 </svg>
               </motion.div>
               <div>
-                <h1 className="text-3xl font-display font-bold text-gray-900">Employee Portal</h1>
-                <p className="text-sm text-gray-600 font-medium">
+                <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white">Employee Portal</h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                   {employee?.employee_name} • {employee?.pickup_location?.name}
                 </p>
               </div>
@@ -228,27 +228,27 @@ export default function EmployeePortal() {
           transition={{ delay: 0.2 }}
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-display font-bold text-gray-900">
+            <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">
               Orders ({filteredOrders.length})
             </h2>
             <button
               onClick={loadOrders}
-              className="text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+              className="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
             >
               Refresh
             </button>
           </div>
 
           {filteredOrders.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-3xl border-2 border-gray-100">
-              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-100 dark:border-gray-700">
+              <div className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="text-gray-400 dark:text-gray-500">
                   <rect x="8" y="8" width="24" height="24" rx="4" stroke="currentColor" strokeWidth="2"/>
                   <path d="M8 16h24M16 8v24" stroke="currentColor" strokeWidth="2"/>
                 </svg>
               </div>
-              <p className="text-xl font-bold text-gray-900 mb-2">No orders found</p>
-              <p className="text-gray-600 mb-6">Create your first walk-in order to get started</p>
+              <p className="text-xl font-bold text-gray-900 dark:text-white mb-2">No orders found</p>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">Create your first walk-in order to get started</p>
               <Button onClick={() => navigate('/employee/walk-in')}>
                 Create Walk-In Order
               </Button>

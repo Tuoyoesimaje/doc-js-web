@@ -209,28 +209,28 @@ export default function WalkInOrderPage() {
   const total = calculateOrderTotal()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b-2 border-gray-100 sticky top-0 z-50">
+      <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b-2 border-gray-100 dark:border-gray-700 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => navigate('/employee')}
-                className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-900 dark:text-white"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M12 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
               <div>
-                <h1 className="text-2xl font-display font-bold text-gray-900">Walk-In Order</h1>
-                <p className="text-xs text-gray-600">{employee?.pickup_location?.name}</p>
+                <h1 className="text-2xl font-display font-bold text-gray-900 dark:text-white">Walk-In Order</h1>
+                <p className="text-xs text-gray-600 dark:text-gray-400">{employee?.pickup_location?.name}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-600 font-medium">Total</p>
-              <p className="text-2xl font-display font-bold text-primary-600">
+              <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Total</p>
+              <p className="text-2xl font-display font-bold text-primary-600 dark:text-primary-400">
                 ₦{items.length === 0 ? '0' : (total / 100).toLocaleString()}
               </p>
             </div>
@@ -244,15 +244,15 @@ export default function WalkInOrderPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/50 rounded-xl flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M10 10a4 4 0 100-8 4 4 0 000 8zM3 18a7 7 0 0114 0" stroke="#2563eb" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
-              <h2 className="text-lg font-display font-bold text-gray-900">Customer Information</h2>
+              <h2 className="text-lg font-display font-bold text-gray-900 dark:text-white">Customer Information</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -358,37 +358,37 @@ export default function WalkInOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg space-y-4"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg space-y-4"
           >
-            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 transition-colors">
+            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
               <input
                 type="checkbox"
                 checked={expressService}
                 onChange={(e) => setExpressService(e.target.checked)}
-                className="w-5 h-5 text-primary-600 rounded-lg focus:ring-2 focus:ring-primary-500 cursor-pointer"
+                className="w-5 h-5 text-primary-600 dark:text-primary-500 rounded-lg focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 cursor-pointer"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-gray-900">Express Service</span>
-                  <span className="text-xs font-bold text-warning-600">+50%</span>
+                  <span className="font-bold text-gray-900 dark:text-white">Express Service</span>
+                  <span className="text-xs font-bold text-warning-600 dark:text-warning-400">+50%</span>
                 </div>
-                <p className="text-xs text-gray-600">Same day delivery</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Same day delivery</p>
               </div>
             </label>
 
-            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 transition-colors">
+            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
               <input
                 type="checkbox"
                 checked={autoGenerateTags}
                 onChange={(e) => setAutoGenerateTags(e.target.checked)}
-                className="w-5 h-5 text-accent-600 rounded-lg focus:ring-2 focus:ring-accent-500 cursor-pointer"
+                className="w-5 h-5 text-accent-600 dark:text-accent-500 rounded-lg focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-400 cursor-pointer"
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-gray-900">Auto-Generate Tags</span>
-                  <span className="text-xs font-bold text-accent-600">RECOMMENDED</span>
+                  <span className="font-bold text-gray-900 dark:text-white">Auto-Generate Tags</span>
+                  <span className="text-xs font-bold text-accent-600 dark:text-accent-400">RECOMMENDED</span>
                 </div>
-                <p className="text-xs text-gray-600">Automatically create garment tags for tracking</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Automatically create garment tags for tracking</p>
               </div>
             </label>
           </motion.div>
