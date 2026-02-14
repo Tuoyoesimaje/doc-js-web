@@ -246,31 +246,31 @@ export default function NewOrderPage() {
   const total = calculateOrderTotal()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b-2 border-gray-100 sticky top-0 z-50">
+      <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b-2 border-gray-100 dark:border-gray-700 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M12 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-              <h1 className="text-2xl font-display font-bold text-gray-900">New Order</h1>
+              <h1 className="text-2xl font-display font-bold text-gray-900 dark:text-white">New Order</h1>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-600 font-medium">
+              <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                 {paymentMethod === 'postpay' && getRemainingAmount() > 0 ? 'Pay Now' : 'Total'}
               </p>
-              <p className="text-2xl font-display font-bold text-primary-600">
+              <p className="text-2xl font-display font-bold text-primary-600 dark:text-primary-400">
                 ₦{items.length === 0 ? '0' : (getPaymentAmount() / 100).toLocaleString()}
               </p>
               {paymentMethod === 'postpay' && getRemainingAmount() > 0 && items.length > 0 && (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   +₦{(getRemainingAmount() / 100).toLocaleString()} later
                 </p>
               )}
@@ -288,18 +288,18 @@ export default function NewOrderPage() {
             className="flex items-center justify-center gap-4 mb-8"
           >
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-sm">1</div>
-              <span className="text-sm font-semibold text-gray-900">Address</span>
+              <div className="w-8 h-8 rounded-full bg-primary-600 dark:bg-primary-500 text-white flex items-center justify-center font-bold text-sm">1</div>
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">Address</span>
             </div>
-            <div className="w-12 h-0.5 bg-gray-300"></div>
+            <div className="w-12 h-0.5 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-sm">2</div>
-              <span className="text-sm font-semibold text-gray-900">Items</span>
+              <div className="w-8 h-8 rounded-full bg-primary-600 dark:bg-primary-500 text-white flex items-center justify-center font-bold text-sm">2</div>
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">Items</span>
             </div>
-            <div className="w-12 h-0.5 bg-gray-300"></div>
+            <div className="w-12 h-0.5 bg-gray-300 dark:bg-gray-600"></div>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-sm">3</div>
-              <span className="text-sm font-medium text-gray-500">Payment</span>
+              <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex items-center justify-center font-bold text-sm">3</div>
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Payment</span>
             </div>
           </motion.div>
 
@@ -308,16 +308,16 @@ export default function NewOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M10 2C7 2 4 4 4 7c0 4 6 11 6 11s6-7 6-11c0-3-3-5-6-5z" stroke="#2563eb" strokeWidth="2" strokeLinejoin="round"/>
                   <circle cx="10" cy="7" r="2" stroke="#2563eb" strokeWidth="2"/>
                 </svg>
               </div>
-              <h2 className="text-lg font-display font-bold text-gray-900">Delivery Address</h2>
+              <h2 className="text-lg font-display font-bold text-gray-900 dark:text-white">Delivery Address</h2>
             </div>
             <AddressPicker
               addresses={addresses}
@@ -332,16 +332,16 @@ export default function NewOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-accent-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-xl flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <rect x="4" y="6" width="12" height="11" rx="2" stroke="#10b981" strokeWidth="2"/>
                   <path d="M7 4v3M13 4v3" stroke="#10b981" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
-              <h2 className="text-lg font-display font-bold text-gray-900">Add Items</h2>
+              <h2 className="text-lg font-display font-bold text-gray-900 dark:text-white">Add Items</h2>
             </div>
 
             <div className="flex gap-2 mb-4">
@@ -349,8 +349,8 @@ export default function NewOrderPage() {
                 onClick={() => setMode('quick')}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'quick'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 Quick Input
@@ -359,8 +359,8 @@ export default function NewOrderPage() {
                 onClick={() => setMode('visual')}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'visual'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 Visual Select
@@ -398,10 +398,10 @@ export default function NewOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg space-y-5"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg space-y-5"
           >
             {/* Express Service */}
-            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 transition-colors">
+            <label className="flex items-center gap-3 cursor-pointer group p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
               <input
                 type="checkbox"
                 checked={expressService}
@@ -410,18 +410,18 @@ export default function NewOrderPage() {
               />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-gray-900">Express Service</span>
-                  <span className="text-xs font-bold text-warning-600">+50%</span>
+                  <span className="font-bold text-gray-900 dark:text-white">Express Service</span>
+                  <span className="text-xs font-bold text-warning-600 dark:text-warning-400">+50%</span>
                 </div>
-                <p className="text-xs text-gray-600">Same day delivery</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Same day delivery</p>
               </div>
             </label>
 
-            <div className="border-t-2 border-gray-100"></div>
+            <div className="border-t-2 border-gray-100 dark:border-gray-700"></div>
 
             {/* Logistics */}
             <div>
-              <h3 className="font-bold text-gray-900 mb-3 text-sm">Logistics</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-sm">Logistics</h3>
               <div className="grid grid-cols-3 gap-2">
                 {(Object.keys(LOGISTICS_OPTIONS) as LogisticsOption[]).map((option) => {
                   const config = LOGISTICS_OPTIONS[option]
@@ -452,11 +452,11 @@ export default function NewOrderPage() {
               </div>
             </div>
 
-            <div className="border-t-2 border-gray-100"></div>
+            <div className="border-t-2 border-gray-100 dark:border-gray-700"></div>
 
             {/* Payment Method */}
             <div>
-              <h3 className="font-bold text-gray-900 mb-3 text-sm">Payment</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-sm">Payment</h3>
               <div className="grid grid-cols-2 gap-2">
                 {/* Postpay */}
                 <label
@@ -526,13 +526,13 @@ export default function NewOrderPage() {
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+                className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-display font-bold text-gray-900">Order Summary ({items.length})</h3>
+                  <h3 className="text-lg font-display font-bold text-gray-900 dark:text-white">Order Summary ({items.length})</h3>
                   <button
                     onClick={() => setItems([])}
-                    className="text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
+                    className="text-xs font-semibold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
                   >
                     Clear All
                   </button>
@@ -550,26 +550,26 @@ export default function NewOrderPage() {
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 20, height: 0 }}
                           transition={{ duration: 0.2 }}
-                          className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group"
+                          className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors group"
                         >
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <span className="font-bold text-gray-900">{item.text}</span>
-                              <span className="text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-0.5 rounded-lg">
+                              <span className="font-bold text-gray-900 dark:text-white">{item.text}</span>
+                              <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-0.5 rounded-lg">
                                 x{item.quantity}
                               </span>
                             </div>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
                               ₦{((service?.base_price_cents || 0) / 100).toLocaleString()} each
                             </p>
                           </div>
                           <div className="text-right flex items-center gap-3">
-                            <span className="text-lg font-bold text-primary-600">
+                            <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
                               ₦{(itemTotal / 100).toLocaleString()}
                             </span>
                             <button
                               onClick={() => setItems(items.filter((_, i) => i !== idx))}
-                              className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 transition-colors opacity-0 group-hover:opacity-100"
+                              className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors opacity-0 group-hover:opacity-100"
                             >
                               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                 <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -583,8 +583,8 @@ export default function NewOrderPage() {
                 </div>
 
                 {/* Subtotal and Express */}
-                <div className="space-y-2 pb-4 border-b-2 border-gray-200">
-                  <div className="flex justify-between items-center text-gray-700">
+                <div className="space-y-2 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
+                  <div className="flex justify-between items-center text-gray-700 dark:text-gray-300">
                     <span className="font-medium">Subtotal</span>
                     <span className="font-bold">₦{(expressService ? total / 1.5 : total) / 100 | 0}</span>
                   </div>
@@ -624,12 +624,12 @@ export default function NewOrderPage() {
 
                 {/* Total */}
                 <div className="pt-4 flex justify-between items-center">
-                  <span className="text-xl font-display font-bold text-gray-900">Total</span>
+                  <span className="text-xl font-display font-bold text-gray-900 dark:text-white">Total</span>
                   <motion.span
                     key={total}
                     initial={{ scale: 1.2, color: '#2563eb' }}
                     animate={{ scale: 1, color: '#2563eb' }}
-                    className="text-3xl font-display font-bold text-primary-600"
+                    className="text-3xl font-display font-bold text-primary-600 dark:text-primary-400"
                   >
                     ₦{(total / 100).toLocaleString()}
                   </motion.span>

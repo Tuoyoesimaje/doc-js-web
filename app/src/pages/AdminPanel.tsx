@@ -108,19 +108,19 @@ export default function AdminPanel() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-primary-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-200 border-t-primary-600 mb-4 mx-auto"></div>
-          <p className="text-gray-600 font-medium">Loading admin panel...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-200 dark:border-primary-800 border-t-primary-600 dark:border-t-primary-400 mb-4 mx-auto"></div>
+          <p className="text-gray-600 dark:text-gray-400 font-medium">Loading admin panel...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b-2 border-gray-100 sticky top-0 z-50 shadow-sm">
+      <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b-2 border-gray-100 dark:border-gray-700 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -128,7 +128,7 @@ export default function AdminPanel() {
                 initial={{ rotate: -180, scale: 0 }}
                 animate={{ rotate: 0, scale: 1 }}
                 transition={{ type: 'spring', stiffness: 200 }}
-                className="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-xl"
+                className="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 rounded-2xl flex items-center justify-center shadow-xl"
               >
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
@@ -136,8 +136,8 @@ export default function AdminPanel() {
                 </svg>
               </motion.div>
               <div>
-                <h1 className="text-3xl font-display font-bold text-gray-900">Admin Dashboard</h1>
-                <p className="text-sm text-gray-600 font-medium">Manage orders and track performance</p>
+                <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white">Admin Dashboard</h1>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Manage orders and track performance</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -244,44 +244,44 @@ export default function AdminPanel() {
           transition={{ delay: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
         >
-          <div className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-100 dark:border-gray-700 p-8 shadow-lg">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center">
+              <div className="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 rounded-2xl flex items-center justify-center">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-600 font-medium">Total Revenue</p>
-                <p className="text-3xl font-display font-bold text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Total Revenue</p>
+                <p className="text-3xl font-display font-bold text-gray-900 dark:text-white">
                   ₦{(stats.revenue / 100).toLocaleString()}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-green-600 font-bold">↑ 12%</span>
-              <span className="text-gray-600">vs last month</span>
+              <span className="text-green-600 dark:text-green-400 font-bold">↑ 12%</span>
+              <span className="text-gray-600 dark:text-gray-400">vs last month</span>
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl border-2 border-gray-100 p-8 shadow-lg">
+          <div className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-100 dark:border-gray-700 p-8 shadow-lg">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 bg-warning-100 rounded-2xl flex items-center justify-center">
+              <div className="w-14 h-14 bg-warning-100 dark:bg-warning-900/30 rounded-2xl flex items-center justify-center">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                   <rect x="3" y="6" width="18" height="12" rx="2" stroke="#f59e0b" strokeWidth="2"/>
                   <path d="M3 10h18M7 14h4" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-600 font-medium">Pending Payments</p>
-                <p className="text-3xl font-display font-bold text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Pending Payments</p>
+                <p className="text-3xl font-display font-bold text-gray-900 dark:text-white">
                   {stats.pendingPayments}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-warning-600 font-bold">⚠️</span>
-              <span className="text-gray-600">Requires attention</span>
+              <span className="text-warning-600 dark:text-warning-400 font-bold">⚠️</span>
+              <span className="text-gray-600 dark:text-gray-400">Requires attention</span>
             </div>
           </div>
         </motion.div>
@@ -297,8 +297,8 @@ export default function AdminPanel() {
             onClick={() => setActiveTab('orders')}
             className={`px-6 py-3 rounded-2xl font-bold transition-all duration-200 ${
               activeTab === 'orders'
-                ? 'bg-primary-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary-600'
+                ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-600 dark:hover:border-primary-500'
             }`}
           >
             <div className="flex items-center gap-2">
@@ -314,8 +314,8 @@ export default function AdminPanel() {
             onClick={() => setActiveTab('support')}
             className={`px-6 py-3 rounded-2xl font-bold transition-all duration-200 ${
               activeTab === 'support'
-                ? 'bg-primary-600 text-white shadow-lg'
-                : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-primary-600'
+                ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-700 hover:border-primary-600 dark:hover:border-primary-500'
             }`}
           >
             <div className="flex items-center gap-2">
@@ -346,7 +346,7 @@ export default function AdminPanel() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-3xl border-2 border-gray-100 p-6 shadow-lg mb-8"
+          className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-100 dark:border-gray-700 p-6 shadow-lg mb-8"
         >
           <div className="flex flex-col md:flex-row gap-4">
             {/* Search */}
@@ -356,7 +356,7 @@ export default function AdminPanel() {
                 height="20" 
                 viewBox="0 0 20 20" 
                 fill="none"
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
               >
                 <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2"/>
                 <path d="M12.5 12.5L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -366,7 +366,7 @@ export default function AdminPanel() {
                 placeholder="Search by order ID, customer name, or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-primary-600 focus:ring-4 focus:ring-primary-100 transition-all duration-200 outline-none font-medium"
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-2xl focus:border-primary-600 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:focus:ring-primary-900 transition-all duration-200 outline-none font-medium"
               />
             </div>
 
@@ -380,8 +380,8 @@ export default function AdminPanel() {
                   onClick={() => setFilter(f)}
                   className={`px-6 py-3 rounded-2xl font-bold transition-all duration-200 ${
                     filter === f
-                      ? 'bg-primary-600 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
                   {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -398,7 +398,7 @@ export default function AdminPanel() {
           transition={{ delay: 0.3 }}
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-display font-bold text-gray-900">
+            <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">
               Orders ({filteredOrders.length})
             </h2>
           </div>
@@ -413,12 +413,12 @@ export default function AdminPanel() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: index * 0.03 }}
                   whileHover={{ scale: 1.01, y: -2 }}
-                  className="bg-white rounded-3xl border-2 border-gray-100 p-6 shadow-sm hover:shadow-xl transition-all duration-300"
+                  className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-100 dark:border-gray-700 p-6 shadow-sm hover:shadow-xl transition-all duration-300"
                 >
                   <div className="flex items-start justify-between gap-6">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-3">
-                        <span className="font-mono text-sm font-bold text-primary-600 bg-primary-50 px-3 py-1 rounded-lg">
+                        <span className="font-mono text-sm font-bold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 px-3 py-1 rounded-lg">
                           #{order.id.slice(0, 8).toUpperCase()}
                         </span>
                         <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-bold border-2 ${statusConfig[order.status].color}`}>
@@ -480,22 +480,22 @@ export default function AdminPanel() {
 
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                         <div>
-                          <p className="text-gray-500 font-medium mb-1">Customer</p>
-                          <p className="text-gray-900 font-bold">{order.user?.display_name || 'N/A'}</p>
+                          <p className="text-gray-500 dark:text-gray-400 font-medium mb-1">Customer</p>
+                          <p className="text-gray-900 dark:text-white font-bold">{order.user?.display_name || 'N/A'}</p>
                         </div>
                         <div>
-                          <p className="text-gray-500 font-medium mb-1">Items</p>
-                          <p className="text-gray-900 font-bold">{order.items?.length || 0} items</p>
+                          <p className="text-gray-500 dark:text-gray-400 font-medium mb-1">Items</p>
+                          <p className="text-gray-900 dark:text-white font-bold">{order.items?.length || 0} items</p>
                         </div>
                         <div>
-                          <p className="text-gray-500 font-medium mb-1">Total</p>
-                          <p className="text-primary-600 font-bold text-lg">
+                          <p className="text-gray-500 dark:text-gray-400 font-medium mb-1">Total</p>
+                          <p className="text-primary-600 dark:text-primary-400 font-bold text-lg">
                             ₦{(order.total_cents / 100).toLocaleString()}
                           </p>
                         </div>
                         <div>
-                          <p className="text-gray-500 font-medium mb-1">Date</p>
-                          <p className="text-gray-900 font-bold">
+                          <p className="text-gray-500 dark:text-gray-400 font-medium mb-1">Date</p>
+                          <p className="text-gray-900 dark:text-white font-bold">
                             {new Date(order.created_at).toLocaleDateString()}
                           </p>
                         </div>
@@ -543,14 +543,14 @@ export default function AdminPanel() {
             </AnimatePresence>
 
             {filteredOrders.length === 0 && (
-              <div className="bg-white rounded-3xl border-2 border-dashed border-gray-300 p-16 text-center">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-dashed border-gray-300 dark:border-gray-700 p-16 text-center">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full mb-6">
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <path d="M20 10v20M10 20h20" stroke="#9ca3af" strokeWidth="3" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <h3 className="text-2xl font-display font-bold text-gray-900 mb-3">No orders found</h3>
-                <p className="text-gray-600">Try adjusting your filters or search query</p>
+                <h3 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-3">No orders found</h3>
+                <p className="text-gray-600 dark:text-gray-400">Try adjusting your filters or search query</p>
               </div>
             )}
           </div>

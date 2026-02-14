@@ -103,7 +103,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -116,7 +116,7 @@ export default function SignupPage() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center justify-center w-20 h-20 bg-primary-600 rounded-3xl mb-6 shadow-xl"
+            className="inline-flex items-center justify-center w-20 h-20 bg-primary-600 dark:bg-primary-500 rounded-3xl mb-6 shadow-xl"
           >
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
               <rect x="10" y="14" width="20" height="18" rx="2" stroke="white" strokeWidth="2.5"/>
@@ -125,10 +125,10 @@ export default function SignupPage() {
               <circle cx="22" cy="24" r="2" fill="white"/>
             </svg>
           </motion.div>
-          <h1 className="text-4xl font-display font-bold text-gray-900 mb-3 tracking-tight">
+          <h1 className="text-4xl font-display font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
             Create Account
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 dark:text-gray-400">
             Join Doc JS Laundry today
           </p>
         </div>
@@ -138,7 +138,7 @@ export default function SignupPage() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-3xl shadow-2xl border-2 border-gray-100 p-8"
+          className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border-2 border-gray-100 dark:border-gray-700 p-8"
         >
           {error && (
             <motion.div
@@ -146,8 +146,8 @@ export default function SignupPage() {
               animate={{ opacity: 1, y: 0 }}
               className={`mb-6 p-4 border-2 rounded-xl text-sm font-medium ${
                 error.includes('Success') 
-                  ? 'bg-accent-50 border-accent-200 text-accent-700'
-                  : 'bg-red-50 border-red-200 text-red-700'
+                  ? 'bg-accent-50 dark:bg-accent-900/20 border-accent-200 dark:border-accent-800 text-accent-700 dark:text-accent-400'
+                  : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400'
               }`}
             >
               {error}
@@ -181,7 +181,7 @@ export default function SignupPage() {
               <div className="text-center">
                 <Link
                   to="/login"
-                  className="text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                  className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold transition-colors"
                 >
                   Already have an account? Sign in
                 </Link>
@@ -189,17 +189,17 @@ export default function SignupPage() {
               
               <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t-2 border-gray-200"></div>
+                  <div className="w-full border-t-2 border-gray-200 dark:border-gray-700"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-gray-500 font-medium">Or sign up with</span>
+                  <span className="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">Or sign up with</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => setMode('phone')}
-                  className="flex items-center justify-center gap-2 px-4 py-3.5 border-2 border-gray-200 rounded-xl hover:border-primary-600 hover:bg-primary-50 transition-all duration-200 font-semibold text-gray-700"
+                  className="flex items-center justify-center gap-2 px-4 py-3.5 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary-600 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-gray-700 transition-all duration-200 font-semibold text-gray-700 dark:text-gray-300"
                 >
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <rect x="6" y="2" width="8" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
@@ -210,7 +210,7 @@ export default function SignupPage() {
                 <button
                   onClick={handleGoogleSignup}
                   disabled={loading}
-                  className="flex items-center justify-center gap-2 px-4 py-3.5 border-2 border-gray-200 rounded-xl hover:border-primary-600 hover:bg-primary-50 transition-all duration-200 font-semibold text-gray-700 disabled:opacity-50"
+                  className="flex items-center justify-center gap-2 px-4 py-3.5 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:border-primary-600 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-gray-700 transition-all duration-200 font-semibold text-gray-700 dark:text-gray-300 disabled:opacity-50"
                 >
                   <svg width="20" height="20" viewBox="0 0 20 20">
                     <path fill="#4285F4" d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"/>
@@ -227,7 +227,7 @@ export default function SignupPage() {
           {mode === 'phone' && (
             <div className="space-y-5">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   Phone Number
                 </label>
                 <Input
@@ -242,7 +242,7 @@ export default function SignupPage() {
               </Button>
               <button
                 onClick={() => setMode('email')}
-                className="w-full text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                className="w-full text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold transition-colors"
               >
                 ← Back to email signup
               </button>
@@ -252,17 +252,17 @@ export default function SignupPage() {
           {mode === 'otp-verify' && (
             <div className="space-y-5">
               <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-2xl mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-2xl mb-4">
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M16 4v8M16 20v8M8 16H4M28 16h-4M22.36 9.64l-2.83 2.83M12.47 19.53l-2.83 2.83M9.64 9.64l2.83 2.83M19.53 19.53l2.83 2.83" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round"/>
                   </svg>
                 </div>
-                <h3 className="text-xl font-display font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">
                   Enter Verification Code
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   We sent a 6-digit code to<br/>
-                  <span className="font-semibold text-gray-900">{phone}</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{phone}</span>
                 </p>
               </div>
               <Input
@@ -278,7 +278,7 @@ export default function SignupPage() {
               </Button>
               <button
                 onClick={() => setMode('email')}
-                className="w-full text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                className="w-full text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold transition-colors"
               >
                 ← Back to signup
               </button>
@@ -288,16 +288,16 @@ export default function SignupPage() {
           {mode === 'set-password' && (
             <div className="space-y-5">
               <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-100 rounded-2xl mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-100 dark:bg-accent-900/30 rounded-2xl mb-4">
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M16 4C11.58 4 8 7.58 8 12v4H6v12h20V16h-2v-4c0-4.42-3.58-8-8-8z" stroke="#10b981" strokeWidth="2.5" strokeLinejoin="round"/>
                     <circle cx="16" cy="22" r="2" fill="#10b981"/>
                   </svg>
                 </div>
-                <h3 className="text-xl font-display font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">
                   Set Your Password
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   Create a password for faster login next time
                 </p>
               </div>
@@ -315,9 +315,9 @@ export default function SignupPage() {
         </motion.div>
 
         {/* Footer */}
-        <p className="text-center text-sm text-gray-500 mt-8">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-8">
           By continuing, you agree to our{' '}
-          <a href="/policies.html" className="text-primary-600 hover:text-primary-700 font-semibold">
+          <a href="/policies.html" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold">
             Terms & Privacy Policy
           </a>
         </p>

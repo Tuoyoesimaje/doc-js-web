@@ -54,13 +54,13 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b-2 border-gray-100 sticky top-0 z-50">
+      <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b-2 border-gray-100 dark:border-gray-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-primary-600 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-primary-600 dark:bg-primary-500 rounded-2xl flex items-center justify-center shadow-lg">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <rect x="6" y="8" width="12" height="11" rx="1" stroke="white" strokeWidth="2"/>
                   <path d="M8 6v4M16 6v4" stroke="white" strokeWidth="2" strokeLinecap="round"/>
@@ -69,8 +69,8 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-600 font-medium">{getGreeting()},</p>
-                <h1 className="text-2xl font-display font-bold text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{getGreeting()},</p>
+                <h1 className="text-2xl font-display font-bold text-gray-900 dark:text-white">
                   {user?.display_name || user?.email?.split('@')[0] || 'Welcome'}
                 </h1>
               </div>
@@ -78,7 +78,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowProfileModal(true)}
-                className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200"
+                className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all duration-200"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <circle cx="10" cy="7" r="3" stroke="currentColor" strokeWidth="2"/>
@@ -91,7 +91,7 @@ export default function DashboardPage() {
                   await signOut()
                   window.location.href = '/app/login'
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-200"
+                className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-all duration-200"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M13 3h3a2 2 0 012 2v10a2 2 0 01-2 2h-3M7 14l-4-4m0 0l4-4m-4 4h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -171,48 +171,48 @@ export default function DashboardPage() {
           transition={{ delay: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
         >
-          <div className="bg-white rounded-2xl p-6 border-2 border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-accent-100 rounded-2xl flex items-center justify-center">
+              <div className="w-14 h-14 bg-accent-100 dark:bg-accent-900/30 rounded-2xl flex items-center justify-center">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                   <path d="M14 4v20M4 14h20" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round"/>
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-600 font-medium">Total Orders</p>
-                <p className="text-3xl font-display font-bold text-gray-900">{orders.length}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Total Orders</p>
+                <p className="text-3xl font-display font-bold text-gray-900 dark:text-white">{orders.length}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 border-2 border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-warning-100 rounded-2xl flex items-center justify-center">
+              <div className="w-14 h-14 bg-warning-100 dark:bg-warning-900/30 rounded-2xl flex items-center justify-center">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                   <circle cx="14" cy="14" r="10" stroke="#f59e0b" strokeWidth="2.5"/>
                   <path d="M14 8v6l4 2" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round"/>
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-600 font-medium">In Progress</p>
-                <p className="text-3xl font-display font-bold text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">In Progress</p>
+                <p className="text-3xl font-display font-bold text-gray-900 dark:text-white">
                   {orders.filter(o => o.status !== 'delivered').length}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 border-2 border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-primary-100 rounded-2xl flex items-center justify-center">
+              <div className="w-14 h-14 bg-primary-100 dark:bg-primary-900/30 rounded-2xl flex items-center justify-center">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                   <circle cx="14" cy="14" r="10" stroke="#2563eb" strokeWidth="2.5"/>
                   <path d="M9 14l3 3 7-7" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
               <div>
-                <p className="text-sm text-gray-600 font-medium">Completed</p>
-                <p className="text-3xl font-display font-bold text-gray-900">
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Completed</p>
+                <p className="text-3xl font-display font-bold text-gray-900 dark:text-white">
                   {orders.filter(o => o.status === 'delivered').length}
                 </p>
               </div>
@@ -227,9 +227,9 @@ export default function DashboardPage() {
           transition={{ delay: 0.2 }}
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-display font-bold text-gray-900">Recent Orders</h2>
+            <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">Recent Orders</h2>
             {orders.length > 0 && (
-              <button className="text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+              <button className="text-sm font-semibold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
                 View All →
               </button>
             )}
@@ -237,12 +237,12 @@ export default function DashboardPage() {
           
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20">
-              <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-200 border-t-primary-600 mb-4"></div>
-              <p className="text-gray-600 font-medium">Loading your orders...</p>
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-200 dark:border-primary-800 border-t-primary-600 dark:border-t-primary-400 mb-4"></div>
+              <p className="text-gray-600 dark:text-gray-400 font-medium">Loading your orders...</p>
             </div>
           ) : orders.length === 0 ? (
-            <div className="bg-white rounded-3xl border-2 border-dashed border-gray-300 p-16 text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-dashed border-gray-300 dark:border-gray-700 p-16 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full mb-6">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                   <rect x="10" y="14" width="20" height="18" rx="2" stroke="#9ca3af" strokeWidth="2.5"/>
                   <path d="M14 10v8M26 10v8" stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round"/>
@@ -250,8 +250,8 @@ export default function DashboardPage() {
                   <circle cx="22" cy="24" r="2" fill="#9ca3af"/>
                 </svg>
               </div>
-              <h3 className="text-2xl font-display font-bold text-gray-900 mb-3">No orders yet</h3>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
+              <h3 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-3">No orders yet</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
                 Start your first order and experience our premium laundry service
               </p>
               <Link to="/new-order">
