@@ -148,34 +148,34 @@ export default function GuestOrderPage() {
   const total = calculateOrderTotal()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-lg border-b-2 border-gray-100 sticky top-0 z-50">
+      <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border-b-2 border-gray-100 dark:border-gray-700 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => window.location.href = '/'}
-                className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-900 dark:text-white"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M12 4l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
               <div>
-                <h1 className="text-2xl font-display font-bold text-gray-900">New Order</h1>
-                <p className="text-xs text-gray-600">Create account at checkout</p>
+                <h1 className="text-2xl font-display font-bold text-gray-900 dark:text-white">New Order</h1>
+                <p className="text-xs text-gray-600 dark:text-gray-400">Create account at checkout</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-600 font-medium">
+              <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                 {paymentMethod === 'postpay' && getRemainingAmount() > 0 ? 'Pay Now' : 'Total'}
               </p>
-              <p className="text-2xl font-display font-bold text-primary-600">
+              <p className="text-2xl font-display font-bold text-primary-600 dark:text-primary-400">
                 ₦{items.length === 0 ? '0' : (getPaymentAmount() / 100).toLocaleString()}
               </p>
               {paymentMethod === 'postpay' && getRemainingAmount() > 0 && items.length > 0 && (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   +₦{(getRemainingAmount() / 100).toLocaleString()} later
                 </p>
               )}
@@ -190,18 +190,18 @@ export default function GuestOrderPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-primary-50 border-2 border-primary-200 rounded-2xl p-4"
+            className="bg-primary-50 dark:bg-primary-900/30 border-2 border-primary-200 dark:border-primary-800 rounded-2xl p-4"
           >
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-primary-600 dark:bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <circle cx="10" cy="10" r="8" stroke="white" strokeWidth="2"/>
                   <path d="M10 6v4M10 14h.01" stroke="white" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-gray-900 mb-1">No Account Needed Yet!</h3>
-                <p className="text-sm text-gray-700">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-1">No Account Needed Yet!</h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   Select your services first. We'll create your account during checkout - quick and easy.
                 </p>
               </div>
@@ -213,16 +213,16 @@ export default function GuestOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/50 rounded-xl flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M10 2C7 2 4 4 4 7c0 4 6 11 6 11s6-7 6-11c0-3-3-5-6-5z" stroke="#2563eb" strokeWidth="2" strokeLinejoin="round"/>
                   <circle cx="10" cy="7" r="2" stroke="#2563eb" strokeWidth="2"/>
                 </svg>
               </div>
-              <h2 className="text-lg font-display font-bold text-gray-900">Delivery Address</h2>
+              <h2 className="text-lg font-display font-bold text-gray-900 dark:text-white">Delivery Address</h2>
             </div>
             
             <div className="space-y-4">
@@ -261,16 +261,16 @@ export default function GuestOrderPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-2xl border-2 border-gray-100 p-5 shadow-lg"
+            className="bg-white dark:bg-gray-800 rounded-2xl border-2 border-gray-100 dark:border-gray-700 p-5 shadow-lg"
           >
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-accent-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-accent-100 dark:bg-accent-900/50 rounded-xl flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <rect x="4" y="6" width="12" height="11" rx="2" stroke="#10b981" strokeWidth="2"/>
                   <path d="M7 4v3M13 4v3" stroke="#10b981" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </div>
-              <h2 className="text-lg font-display font-bold text-gray-900">Add Items</h2>
+              <h2 className="text-lg font-display font-bold text-gray-900 dark:text-white">Add Items</h2>
             </div>
 
             <div className="flex gap-2 mb-4">
@@ -278,8 +278,8 @@ export default function GuestOrderPage() {
                 onClick={() => setMode('quick')}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'quick'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 Quick Input
@@ -288,8 +288,8 @@ export default function GuestOrderPage() {
                 onClick={() => setMode('visual')}
                 className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   mode === 'visual'
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-primary-600 dark:bg-primary-500 text-white shadow-lg'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
                 Visual Select

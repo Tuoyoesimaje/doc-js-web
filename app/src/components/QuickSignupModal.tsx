@@ -254,10 +254,10 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
 
                     <div className="relative">
                       <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t-2 border-gray-200"></div>
+                        <div className="w-full border-t-2 border-gray-200 dark:border-gray-700"></div>
                       </div>
                       <div className="relative flex justify-center text-sm">
-                        <span className="px-4 bg-white text-gray-500 font-medium">Or continue with</span>
+                        <span className="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">Or continue with</span>
                       </div>
                     </div>
 
@@ -278,7 +278,7 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
                   </div>
                 ) : (
                   <div className="space-y-6">
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       Enter the 6-digit code sent to {phone}
                     </p>
                     <Input
@@ -299,7 +299,7 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
                     </Button>
                     <button
                       onClick={() => setStep('input')}
-                      className="w-full text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                      className="w-full text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                     >
                       Back
                     </button>
