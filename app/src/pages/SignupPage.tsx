@@ -6,81 +6,99 @@ import { supabase } from '../lib/supabase'
 import Button from '../components/Button'
 import Input from '../components/Input'
 
-type LoginMode = 'email' | 'phone' | 'google'
+type SignupMode = 'email' | 'phone' | 'google' | 'otp-verify' | 'set-password'
 
-export default function LoginPage() {
-  const [mode, setMode] = useState<LoginMode>('email')
+export default function SignupPage() {
+  const navigate = useNavigate()
+  const [mode, setMode] = useState<SignupMode>('email')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [otp, setOtp] = useState('')
   const [password, setPassword] = useState('')
+  const [displayName, setDisplayName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const {
     signInWithGoogle,
-    signInWithPhonePassword,
+    signInWithPhoneFirstTime,
+    verifyPhoneOTP,
+    setPasswordForPhoneUser,
   } = useAuthStore()
 
-  const handlePhoneLogin = async () => {
+  const handleEmailSignup = async () => {
     setLoading(true)
     setError('')
     try {
-      await signInWithPhonePassword(phone, password)
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: displayName || email.split('@')[0],
+          },
+        },
+      })
+      if (error) throw error
+      setError('Success! Check your email for confirmation link.')
     } catch (err: any) {
-      setError(err.message || 'Invalid phone or password')
+      setError(err.message || 'Signup failed')
     } finally {
       setLoading(false)
     }
   }
 
-  const handleGoogleLogin = async () => {
+  const handlePhoneSignup = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      await signInWithPhoneFirstTime(phone)
+      setMode('otp-verify')
+    } catch (err: any) {
+      setError(err.message || 'Failed to send OTP')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleOTPVerify = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      await verifyPhoneOTP(phone, otp)
+      setMode('set-password')
+    } catch (err: any) {
+      setError(err.message || 'Invalid OTP')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSetPassword = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      await setPasswordForPhoneUser(password)
+      // User will be redirected by App.tsx after auth state updates
+    } catch (err: any) {
+      setError(err.message || 'Failed to set password')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleGoogleSignup = async () => {
     setLoading(true)
     setError('')
     try {
       await signInWithGoogle()
     } catch (err: any) {
-      const message = err.message || 'Google login failed'
+      const message = err.message || 'Google signup failed'
       if (message.includes('provider is not enabled')) {
-        setError('Google login is not enabled yet. Please use email/password or contact support.')
+        setError('Google signup is not enabled yet. Please use email/password or contact support.')
       } else {
         setError(message)
       }
-      setLoading(false)
-    }
-  }
-
-  const handleEmailLogin = async () => {
-    setLoading(true)
-    setError('')
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) throw error
-
-      // Check if user is admin
-      if (data.user) {
-        const { data: userData } = await supabase
-          .from('users')
-          .select('is_admin, role')
-          .eq('id', data.user.id)
-          .single()
-
-        if (userData?.is_admin === true || userData?.role === 'admin') {
-          sessionStorage.setItem('admin_verified', 'true')
-          
-          await supabase
-            .from('users')
-            .update({ last_admin_login: new Date().toISOString() })
-            .eq('id', data.user.id)
-        }
-      }
-      
-      setLoading(false)
-      
-    } catch (err: any) {
-      setError(err.message || 'Invalid email or password')
       setLoading(false)
     }
   }
@@ -109,10 +127,10 @@ export default function LoginPage() {
             </svg>
           </motion.div>
           <h1 className="text-4xl font-display font-bold text-gray-900 mb-3 tracking-tight">
-            Welcome Back
+            Create Account
           </h1>
           <p className="text-lg text-gray-600">
-            Sign in to manage your laundry orders
+            Join Doc JS Laundry today
           </p>
         </div>
 
@@ -127,7 +145,11 @@ export default function LoginPage() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 text-sm font-medium"
+              className={`mb-6 p-4 border-2 rounded-xl text-sm font-medium ${
+                error.includes('Success') 
+                  ? 'bg-accent-50 border-accent-200 text-accent-700'
+                  : 'bg-red-50 border-red-200 text-red-700'
+              }`}
             >
               {error}
             </motion.div>
@@ -136,6 +158,12 @@ export default function LoginPage() {
           {mode === 'email' && (
             <div className="space-y-5">
               <Input
+                type="text"
+                placeholder="Full Name"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+              />
+              <Input
                 type="email"
                 placeholder="Email address"
                 value={email}
@@ -143,20 +171,20 @@ export default function LoginPage() {
               />
               <Input
                 type="password"
-                placeholder="Password"
+                placeholder="Create password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button onClick={handleEmailLogin} loading={loading} fullWidth>
-                Sign In
+              <Button onClick={handleEmailSignup} loading={loading} fullWidth>
+                Create Account
               </Button>
               
               <div className="text-center">
                 <Link
-                  to="/signup"
+                  to="/login"
                   className="text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
                 >
-                  Don't have an account? Sign up
+                  Already have an account? Sign in
                 </Link>
               </div>
               
@@ -165,7 +193,7 @@ export default function LoginPage() {
                   <div className="w-full border-t-2 border-gray-200"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-gray-500 font-medium">Or continue with</span>
+                  <span className="px-4 bg-white text-gray-500 font-medium">Or sign up with</span>
                 </div>
               </div>
 
@@ -181,7 +209,7 @@ export default function LoginPage() {
                   Phone
                 </button>
                 <button
-                  onClick={handleGoogleLogin}
+                  onClick={handleGoogleSignup}
                   disabled={loading}
                   className="flex items-center justify-center gap-2 px-4 py-3.5 border-2 border-gray-200 rounded-xl hover:border-primary-600 hover:bg-primary-50 transition-all duration-200 font-semibold text-gray-700 disabled:opacity-50"
                 >
@@ -210,26 +238,79 @@ export default function LoginPage() {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Password
-                </label>
-                <Input
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <Button onClick={handlePhoneLogin} loading={loading} fullWidth>
-                Sign In with Phone
+              <Button onClick={handlePhoneSignup} loading={loading} fullWidth>
+                Send Verification Code
               </Button>
               <button
                 onClick={() => setMode('email')}
                 className="w-full text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
               >
-                ← Back to email login
+                ← Back to email signup
               </button>
+            </div>
+          )}
+
+          {mode === 'otp-verify' && (
+            <div className="space-y-5">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-2xl mb-4">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 4v8M16 20v8M8 16H4M28 16h-4M22.36 9.64l-2.83 2.83M12.47 19.53l-2.83 2.83M9.64 9.64l2.83 2.83M19.53 19.53l2.83 2.83" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-display font-bold text-gray-900 mb-2">
+                  Enter Verification Code
+                </h3>
+                <p className="text-sm text-gray-600">
+                  We sent a 6-digit code to<br/>
+                  <span className="font-semibold text-gray-900">{phone}</span>
+                </p>
+              </div>
+              <Input
+                type="text"
+                placeholder="Enter 6-digit code"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                maxLength={6}
+                className="text-center text-2xl tracking-widest font-bold"
+              />
+              <Button onClick={handleOTPVerify} loading={loading} fullWidth>
+                Verify Code
+              </Button>
+              <button
+                onClick={() => setMode('email')}
+                className="w-full text-sm text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+              >
+                ← Back to signup
+              </button>
+            </div>
+          )}
+
+          {mode === 'set-password' && (
+            <div className="space-y-5">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-100 rounded-2xl mb-4">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 4C11.58 4 8 7.58 8 12v4H6v12h20V16h-2v-4c0-4.42-3.58-8-8-8z" stroke="#10b981" strokeWidth="2.5" strokeLinejoin="round"/>
+                    <circle cx="16" cy="22" r="2" fill="#10b981"/>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-display font-bold text-gray-900 mb-2">
+                  Set Your Password
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Create a password for faster login next time
+                </p>
+              </div>
+              <Input
+                type="password"
+                placeholder="Create a strong password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Button onClick={handleSetPassword} loading={loading} fullWidth>
+                Set Password & Continue
+              </Button>
             </div>
           )}
         </motion.div>
