@@ -25,6 +25,11 @@ export default function WalkInOrderPage() {
   const [customerEmail, setCustomerEmail] = useState('')
   const [street, setStreet] = useState('')
   
+  // Debug logging
+  useEffect(() => {
+    console.log('Customer state updated:', { customerName, customerPhone, customerEmail, street })
+  }, [customerName, customerPhone, customerEmail, street])
+  
   const [expressService, setExpressService] = useState(false)
   const [loading, setLoading] = useState(false)
   const [autoGenerateTags, setAutoGenerateTags] = useState(true)
@@ -70,7 +75,38 @@ export default function WalkInOrderPage() {
   }
 
   const handleSubmitOrder = async () => {
+    console.log('Submit clicked:', { customerName, customerPhone, itemsLength: items.length, employee: !!employee })
+    
     if (!customerName || !customerPhone || items.length === 0 || !employee) {
+      console.log('Validation failed:', {
+        hasName: !!customerName,
+        hasPhone: !!customerPhone,
+        hasItems: items.length > 0,
+        hasEmployee: !!employee
+      })
+      
+      // More specific error message
+      if (!employee) {
+        alert('Employee session not found. Please log in again.')
+        navigate('/employee/login')
+        return
+      }
+      
+      if (!customerName) {
+        alert('Please enter customer name')
+        return
+      }
+      
+      if (!customerPhone) {
+        alert('Please enter customer phone number')
+        return
+      }
+      
+      if (items.length === 0) {
+        alert('Please add items to the order')
+        return
+      }
+      
       alert('Please fill in customer name, phone, and add items')
       return
     }

@@ -25,7 +25,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             className={`
               w-full px-4 py-3.5 border-2 rounded-xl outline-none transition-all duration-200 text-base
-              ${error ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-red-700 dark:focus:border-red-500' : 'border-gray-200 focus:border-primary-600 focus:ring-2 focus:ring-primary-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:border-primary-500 dark:focus:ring-primary-900'}
+              placeholder:text-gray-400 dark:placeholder:text-gray-500
+              ${error ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-red-700 dark:focus:border-red-500 dark:focus:ring-red-900' : 'border-gray-200 focus:border-primary-600 focus:ring-2 focus:ring-primary-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:focus:border-primary-500 dark:focus:ring-primary-900'}
               ${icon ? 'pl-12' : ''}
               ${className}
             `}
