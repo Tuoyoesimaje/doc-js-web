@@ -148,7 +148,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm z-50"
           />
 
           {/* Modal */}
@@ -157,7 +157,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8"
+              className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-md w-full p-8"
             >
               {/* Header */}
               <div className="text-center mb-8">
@@ -165,17 +165,17 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                  className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl mb-4 shadow-xl"
+                  className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 rounded-2xl mb-4 shadow-xl"
                 >
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <circle cx="16" cy="12" r="5" stroke="white" strokeWidth="2.5"/>
                     <path d="M6 26c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
                   </svg>
                 </motion.div>
-                <h2 className="text-2xl font-display font-bold text-gray-900 mb-2">
+                <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-2">
                   {step === 'profile' ? 'Edit Profile' : step === 'verify-phone' ? 'Verify Phone' : 'Verify Email'}
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-400">
                   {step === 'profile' ? 'Update your personal information' : 'Complete verification to continue'}
                 </p>
               </div>
@@ -193,19 +193,19 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
                   {/* Contact Information */}
                   <div className="space-y-3">
-                    <label className="block text-sm font-semibold text-gray-700">Contact Information</label>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Contact Information</label>
                     
                     {/* Email */}
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
                       <div>
-                        <p className="text-sm font-medium text-gray-600">Email</p>
-                        <p className="font-semibold text-gray-900">{user?.email || 'Not set'}</p>
+                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Email</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">{user?.email || 'Not set'}</p>
                       </div>
                       {!user?.email && (
                         <button
                           type="button"
                           onClick={() => setStep('verify-email')}
-                          className="text-sm font-bold text-primary-600 hover:text-primary-700"
+                          className="text-sm font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
                         >
                           Add
                         </button>
@@ -213,16 +213,16 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                     </div>
 
                     {/* Phone */}
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
                       <div>
-                        <p className="text-sm font-medium text-gray-600">Phone</p>
-                        <p className="font-semibold text-gray-900">{user?.phone || 'Not set'}</p>
+                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Phone</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">{user?.phone || 'Not set'}</p>
                       </div>
                       {!user?.phone && (
                         <button
                           type="button"
                           onClick={() => setStep('verify-phone')}
-                          className="text-sm font-bold text-primary-600 hover:text-primary-700"
+                          className="text-sm font-bold text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
                         >
                           Add
                         </button>
@@ -264,7 +264,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                         onChange={(e) => setNewPhone(e.target.value)}
                         type="tel"
                       />
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         We'll send you a 6-digit OTP code to verify your number
                       </p>
                       <div className="flex gap-3">
@@ -293,7 +293,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                         onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                         maxLength={6}
                       />
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         Enter the 6-digit code sent to {newPhone}
                       </p>
                       <div className="flex gap-3">
@@ -327,7 +327,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                     onChange={(e) => setNewEmail(e.target.value)}
                     type="email"
                   />
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     We'll send you a verification link to confirm your email
                   </p>
                   <div className="flex gap-3">

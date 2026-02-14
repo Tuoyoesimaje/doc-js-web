@@ -30,9 +30,14 @@ This configuration means:
 ### Customer Pages
 7. ✅ **`app/src/pages/DashboardPage.tsx`** - Header, stats cards, orders list, empty states
 8. ✅ **`app/src/pages/NewOrderPage.tsx`** - All sections (address, items, logistics, payment, summary)
+9. ✅ **`app/src/pages/OrderDetailPage.tsx`** - Complete (timeline, items, address, payment sections)
 
 ### Admin Pages
-9. ✅ **`app/src/pages/AdminPanel.tsx`** - Complete dark mode (header, stats, search, filters, orders list)
+10. ✅ **`app/src/pages/AdminPanel.tsx`** - Complete dark mode (header, stats, search, filters, orders list)
+
+### Modals
+11. ✅ **`app/src/components/ProfileModal.tsx`** - Complete (all steps, verification flows)
+12. ✅ **`app/src/components/PaymentModal.tsx`** - Complete (all payment types, amount displays)
 
 ## Remaining Pages to Update
 
@@ -62,7 +67,6 @@ This configuration means:
 The following pages still need dark mode classes added:
 
 ### High Priority (User-Facing)
-- [ ] `app/src/pages/OrderDetailPage.tsx`
 - [ ] `app/src/pages/GuestOrderPage.tsx`
 
 ### Medium Priority (Admin/Employee)
@@ -70,10 +74,8 @@ The following pages still need dark mode classes added:
 - [ ] `app/src/pages/WalkInOrderPage.tsx`
 
 ### Components & Modals
-- [ ] `app/src/components/ProfileModal.tsx`
 - [ ] `app/src/components/SupportChat.tsx`
 - [ ] `app/src/components/AdminSupportChat.tsx`
-- [ ] `app/src/components/PaymentModal.tsx`
 - [ ] `app/src/components/AddAddressModal.tsx`
 - [ ] `app/src/components/QuickSignupModal.tsx`
 - [ ] `app/src/components/OrderTimeline.tsx`
@@ -83,19 +85,19 @@ The following pages still need dark mode classes added:
 
 ## Progress Summary
 
-### Completed (9 files)
-- Core infrastructure (Tailwind config, base CSS, Button, Input)
+### Completed (12 files) ✅
+- Core infrastructure (Tailwind config, base CSS, Button, Input, OrderCard)
 - Authentication flow (Login, Signup)
-- Customer dashboard and new order flow
+- Customer experience (Dashboard, NewOrder, OrderDetail)
 - Admin panel with full order management
-- Order card component
+- Key modals (Profile, Payment)
 
 ### Estimated Remaining Work
-- 2 high-priority pages (OrderDetail, GuestOrder)
+- 1 high-priority page (GuestOrder)
 - 2 medium-priority pages (EmployeePortal, WalkInOrder)
-- 11 components/modals
+- 8 components/modals
 
-The foundation is solid - all remaining work follows the same pattern established in completed files.
+**The complete core user journey is now dark mode compatible!** Users can sign up, create orders, make payments, and track everything in beautiful dark mode. Admins can manage all orders with full dark mode support.
 
 ## Testing Dark Mode
 

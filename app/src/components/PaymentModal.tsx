@@ -71,7 +71,7 @@ export default function PaymentModal({
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8"
+              className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-md w-full p-8"
             >
               {/* Header */}
               <div className="text-center mb-8">
@@ -79,17 +79,17 @@ export default function PaymentModal({
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                  className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full mb-6 shadow-xl"
+                  className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 rounded-full mb-6 shadow-xl"
                 >
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <rect x="8" y="12" width="24" height="18" rx="2" stroke="white" strokeWidth="2.5"/>
                     <path d="M8 18h24M14 24h8" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
                   </svg>
                 </motion.div>
-                <h2 className="text-3xl font-display font-bold text-gray-900 mb-2">
+                <h2 className="text-3xl font-display font-bold text-gray-900 dark:text-white mb-2">
                   {paymentType === 'pickup' ? 'Pay Pickup Fee' : paymentType === 'final' ? 'Complete Final Payment' : 'Complete Payment'}
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-400">
                   {paymentType === 'pickup' 
                     ? 'Pay the pickup fee now, rest when ready' 
                     : paymentType === 'final'
@@ -99,47 +99,47 @@ export default function PaymentModal({
               </div>
 
               {/* Amount */}
-              <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 mb-8">
+              <div className="bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/30 dark:to-accent-900/30 rounded-2xl p-6 mb-8">
                 {paymentType === 'pickup' && originalTotal ? (
                   <>
-                    <p className="text-sm text-gray-600 font-medium mb-2 text-center">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-2 text-center">
                       Pickup Fee (Pay Now)
                     </p>
-                    <p className="text-5xl font-display font-bold text-gray-900 text-center mb-3">
+                    <p className="text-5xl font-display font-bold text-gray-900 dark:text-white text-center mb-3">
                       ₦{(amount / 100).toLocaleString()}
                     </p>
-                    <div className="border-t-2 border-primary-200 pt-3">
-                      <p className="text-xs text-gray-600 text-center mb-1">
+                    <div className="border-t-2 border-primary-200 dark:border-primary-800 pt-3">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 text-center mb-1">
                         Remaining Balance (Pay Later)
                       </p>
-                      <p className="text-2xl font-display font-bold text-gray-700 text-center">
+                      <p className="text-2xl font-display font-bold text-gray-700 dark:text-gray-300 text-center">
                         ₦{((originalTotal - amount) / 100).toLocaleString()}
                       </p>
                     </div>
                   </>
                 ) : paymentType === 'final' && originalTotal ? (
                   <>
-                    <p className="text-sm text-gray-600 font-medium mb-2 text-center">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-2 text-center">
                       Final Payment
                     </p>
-                    <p className="text-5xl font-display font-bold text-gray-900 text-center mb-3">
+                    <p className="text-5xl font-display font-bold text-gray-900 dark:text-white text-center mb-3">
                       ₦{(amount / 100).toLocaleString()}
                     </p>
-                    <div className="border-t-2 border-primary-200 pt-3">
-                      <p className="text-xs text-gray-600 text-center mb-1">
+                    <div className="border-t-2 border-primary-200 dark:border-primary-800 pt-3">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 text-center mb-1">
                         Total Order Value
                       </p>
-                      <p className="text-2xl font-display font-bold text-gray-700 text-center">
+                      <p className="text-2xl font-display font-bold text-gray-700 dark:text-gray-300 text-center">
                         ₦{(originalTotal / 100).toLocaleString()}
                       </p>
                     </div>
                   </>
                 ) : (
                   <>
-                    <p className="text-sm text-gray-600 font-medium mb-2 text-center">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-2 text-center">
                       Amount to Pay
                     </p>
-                    <p className="text-5xl font-display font-bold text-gray-900 text-center">
+                    <p className="text-5xl font-display font-bold text-gray-900 dark:text-white text-center">
                       ₦{(amount / 100).toLocaleString()}
                     </p>
                   </>
@@ -149,25 +149,25 @@ export default function PaymentModal({
               {/* Payment Details */}
               <div className="space-y-3 mb-8">
                 <div className="flex items-center gap-3 text-sm">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-accent-600">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-accent-600 dark:text-accent-400">
                     <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2"/>
                     <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-gray-700">Secure payment gateway</span>
+                  <span className="text-gray-700 dark:text-gray-300">Secure payment gateway</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-accent-600">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-accent-600 dark:text-accent-400">
                     <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2"/>
                     <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-gray-700">Multiple payment methods</span>
+                  <span className="text-gray-700 dark:text-gray-300">Multiple payment methods</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-accent-600">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-accent-600 dark:text-accent-400">
                     <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="2"/>
                     <path d="M6 10l3 3 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                  <span className="text-gray-700">Instant confirmation</span>
+                  <span className="text-gray-700 dark:text-gray-300">Instant confirmation</span>
                 </div>
               </div>
 
@@ -195,7 +195,7 @@ export default function PaymentModal({
               </div>
 
               {/* Security Badge */}
-              <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-500">
+              <div className="mt-6 flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M8 2L3 4v4c0 3.5 2 6 5 8 3-2 5-4.5 5-8V4l-5-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
                   <path d="M6 8l1.5 1.5L11 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
