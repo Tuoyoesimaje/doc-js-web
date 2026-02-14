@@ -81,34 +81,37 @@ export default function WalkInOrderPage() {
 
       // Create or get customer user account
       let userId: string
+      const normalizedPhone = customerPhone.startsWith('+') 
+        ? customerPhone 
+        : `+234${customerPhone.replace(/^0/, '')}`
 
       // Check if customer exists by phone
       const { data: existingUser } = await supabase
         .from('users')
         .select('id')
-        .eq('phone', customerPhone.startsWith('+') ? customerPhone : `+234${customerPhone.replace(/^0/, '')}`)
+        .eq('phone', normalizedPhone)
         .maybeSingle()
 
       if (existingUser) {
         userId = existingUser.id
       } else {
-        // Create new user for walk-in customer
-        const { data: authUser, error: authError } = await supabase.auth.signUp({
-          email: customerEmail || `${customerPhone}@walkin.docjslaundry.com`,
-          password: Math.random().toString(36).slice(-12), // Random password
-          options: {
-            data: {
-              display_name: customerName,
-              phone: customerPhone,
-            }
-          }
-        })
+        // Create user record directly (no auth account for walk-in customers)
+        // They can create an auth account later if they want to use the app
+        const { data: newUser, error: userError } = await supabase
+          .from('users')
+          .insert({
+            phone: normalizedPhone,
+            email: customerEmail || null,
+            display_name: customerName,
+            password_set: false,
+            created_at: new Date().toISOString(),
+            last_login: new Date().toISOString(),
+          })
+          .select()
+          .single()
 
-        if (authError) throw authError
-        userId = authUser.user!.id
-
-        // Wait for user record to be created
-        await new Promise(resolve => setTimeout(resolve, 1500))
+        if (userError) throw userError
+        userId = newUser.id
       }
 
       // Create address for customer
