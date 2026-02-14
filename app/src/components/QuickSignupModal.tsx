@@ -153,14 +153,14 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
             >
               <div className="p-8">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-display font-bold text-gray-900">Create Account</h2>
+                  <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">Create Account</h2>
                   <button
                     onClick={onClose}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-900 dark:text-white"
                   >
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                       <path d="M5 5l10 10M15 5l-10 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -169,8 +169,8 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
                 </div>
 
                 {error && (
-                  <div className="mb-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
-                    <p className="text-sm text-red-600">{error}</p>
+                  <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/30 border-2 border-red-200 dark:border-red-800 rounded-xl">
+                    <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
                   </div>
                 )}
 
@@ -182,8 +182,8 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
                         onClick={() => setMethod('phone')}
                         className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all ${
                           method === 'phone'
-                            ? 'bg-primary-600 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            ? 'bg-primary-600 dark:bg-primary-500 text-white'
+                            : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                         }`}
                       >
                         Phone
@@ -192,8 +192,8 @@ export default function QuickSignupModal({ isOpen, onClose, onSuccess, prefillPh
                         onClick={() => setMethod('email')}
                         className={`flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition-all ${
                           method === 'email'
-                            ? 'bg-primary-600 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            ? 'bg-primary-600 dark:bg-primary-500 text-white'
+                            : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                         }`}
                       >
                         Email

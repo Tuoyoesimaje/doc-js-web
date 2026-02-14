@@ -121,7 +121,7 @@ export default function AddAddressModal({ isOpen, onClose, onSuccess }: AddAddre
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 my-8"
+              className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-lg w-full p-8 my-8"
             >
               {/* Header */}
               <div className="text-center mb-8">
@@ -129,17 +129,17 @@ export default function AddAddressModal({ isOpen, onClose, onSuccess }: AddAddre
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                  className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl mb-4 shadow-xl"
+                  className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 rounded-2xl mb-4 shadow-xl"
                 >
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <path d="M16 6C11.58 6 8 9.58 8 14c0 7.5 8 16 8 16s8-8.5 8-16c0-4.42-3.58-8-8-8z" stroke="white" strokeWidth="2.5" strokeLinejoin="round"/>
                     <circle cx="16" cy="14" r="3" stroke="white" strokeWidth="2.5"/>
                   </svg>
                 </motion.div>
-                <h2 className="text-2xl font-display font-bold text-gray-900 mb-2">
+                <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-2">
                   Add New Address
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-400">
                   Save your delivery address for faster checkout
                 </p>
               </div>
@@ -187,16 +187,16 @@ export default function AddAddressModal({ isOpen, onClose, onSuccess }: AddAddre
                   />
                 </div>
 
-                <label className="flex items-center gap-3 cursor-pointer p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors">
+                <label className="flex items-center gap-3 cursor-pointer p-4 bg-gray-50 dark:bg-gray-700 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                   <input
                     type="checkbox"
                     checked={formData.isDefault}
                     onChange={(e) => setFormData({ ...formData, isDefault: e.target.checked })}
-                    className="w-5 h-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500"
+                    className="w-5 h-5 text-primary-600 dark:text-primary-500 rounded focus:ring-2 focus:ring-primary-500"
                   />
                   <div>
-                    <span className="font-semibold text-gray-900">Set as default address</span>
-                    <p className="text-sm text-gray-600">Use this address for all future orders</p>
+                    <span className="font-semibold text-gray-900 dark:text-white">Set as default address</span>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Use this address for all future orders</p>
                   </div>
                 </label>
 

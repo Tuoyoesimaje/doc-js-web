@@ -166,43 +166,43 @@ export default function AdminSupportChat() {
   }
 
   return (
-    <div className="bg-white rounded-3xl border-2 border-gray-100 shadow-lg overflow-hidden" style={{ height: '600px' }}>
+    <div className="bg-white dark:bg-gray-800 rounded-3xl border-2 border-gray-100 dark:border-gray-700 shadow-lg overflow-hidden" style={{ height: '600px' }}>
       <div className="flex h-full">
         {/* Conversations List */}
-        <div className="w-1/3 border-r-2 border-gray-100 overflow-y-auto">
-          <div className="p-4 border-b-2 border-gray-100 bg-gradient-to-r from-primary-50 to-accent-50">
-            <h3 className="font-display font-bold text-lg text-gray-900">Support Messages</h3>
-            <p className="text-sm text-gray-600">{conversations.length} conversations</p>
+        <div className="w-1/3 border-r-2 border-gray-100 dark:border-gray-700 overflow-y-auto">
+          <div className="p-4 border-b-2 border-gray-100 dark:border-gray-700 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20">
+            <h3 className="font-display font-bold text-lg text-gray-900 dark:text-white">Support Messages</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{conversations.length} conversations</p>
           </div>
 
           {conversations.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
-              <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+              <svg className="w-16 h-16 mx-auto mb-4 text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
               <p>No messages yet</p>
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-gray-100 dark:divide-gray-700">
               {conversations.map((conv) => (
                 <motion.button
                   key={conv.user_id}
                   whileHover={{ backgroundColor: '#f9fafb' }}
                   onClick={() => selectConversation(conv.user_id)}
                   className={`w-full p-4 text-left transition-colors ${
-                    selectedUserId === conv.user_id ? 'bg-primary-50' : ''
+                    selectedUserId === conv.user_id ? 'bg-primary-50 dark:bg-primary-900/30' : 'dark:hover:bg-gray-700/50'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-1">
-                    <span className="font-semibold text-gray-900">{conv.user_name}</span>
+                    <span className="font-semibold text-gray-900 dark:text-white">{conv.user_name}</span>
                     {conv.unread_count > 0 && (
-                      <span className="bg-primary-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                      <span className="bg-primary-600 dark:bg-primary-500 text-white text-xs font-bold px-2 py-1 rounded-full">
                         {conv.unread_count}
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 truncate">{conv.last_message}</p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{conv.last_message}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                     {new Date(conv.last_message_time).toLocaleString()}
                   </p>
                 </motion.button>
@@ -216,11 +216,11 @@ export default function AdminSupportChat() {
           {selectedUserId ? (
             <>
               {/* Messages Header */}
-              <div className="p-4 border-b-2 border-gray-100 bg-gradient-to-r from-primary-50 to-accent-50">
-                <h3 className="font-display font-bold text-gray-900">
+              <div className="p-4 border-b-2 border-gray-100 dark:border-gray-700 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20">
+                <h3 className="font-display font-bold text-gray-900 dark:text-white">
                   {conversations.find(c => c.user_id === selectedUserId)?.user_name}
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   {conversations.find(c => c.user_id === selectedUserId)?.user_email}
                 </p>
               </div>
@@ -238,12 +238,12 @@ export default function AdminSupportChat() {
                       <div
                         className={`max-w-[70%] rounded-2xl px-4 py-3 ${
                           msg.is_admin
-                            ? 'bg-primary-600 text-white'
-                            : 'bg-gray-100 text-gray-900'
+                            ? 'bg-primary-600 dark:bg-primary-500 text-white'
+                            : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
                         }`}
                       >
                         <p className="text-sm">{msg.message}</p>
-                        <p className={`text-xs mt-1 ${msg.is_admin ? 'text-primary-100' : 'text-gray-500'}`}>
+                        <p className={`text-xs mt-1 ${msg.is_admin ? 'text-primary-100 dark:text-primary-200' : 'text-gray-500 dark:text-gray-400'}`}>
                           {new Date(msg.created_at).toLocaleTimeString()}
                         </p>
                       </div>
@@ -253,7 +253,7 @@ export default function AdminSupportChat() {
               </div>
 
               {/* Message Input */}
-              <div className="p-4 border-t-2 border-gray-100">
+              <div className="p-4 border-t-2 border-gray-100 dark:border-gray-700">
                 <div className="flex gap-2">
                   <Input
                     value={newMessage}
@@ -275,13 +275,13 @@ export default function AdminSupportChat() {
               </div>
             </>
           ) : (
-            <div className="flex-1 flex items-center justify-center text-gray-400">
+            <div className="flex-1 flex items-center justify-center text-gray-400 dark:text-gray-500">
               <div className="text-center">
                 <svg className="w-20 h-20 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
-                <p className="text-lg font-medium">Select a conversation</p>
-                <p className="text-sm">Choose a customer to view messages</p>
+                <p className="text-lg font-medium dark:text-gray-300">Select a conversation</p>
+                <p className="text-sm dark:text-gray-400">Choose a customer to view messages</p>
               </div>
             </div>
           )}

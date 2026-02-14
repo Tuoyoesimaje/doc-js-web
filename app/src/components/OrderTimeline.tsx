@@ -159,8 +159,8 @@ export default function OrderTimeline({ status, events }: OrderTimelineProps) {
                   className={`relative w-16 h-16 rounded-full flex items-center justify-center border-4 transition-all duration-500 mb-4 ${
                     isCompleted
                       ? `bg-gradient-to-br ${config.color} border-transparent shadow-2xl text-white`
-                      : `bg-white border-gray-300 text-gray-400 shadow-md`
-                  } ${isCurrent ? `ring-8 ${config.ringColor} shadow-2xl` : ''}`}
+                      : `bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-400 dark:text-gray-500 shadow-md`
+                  } ${isCurrent ? `ring-8 ${config.ringColor} dark:ring-opacity-30 shadow-2xl` : ''}`}
                 >
                   {isCompleted ? (
                     isCurrent ? (
@@ -255,7 +255,7 @@ export default function OrderTimeline({ status, events }: OrderTimelineProps) {
               >
                 <motion.p 
                   className={`text-sm font-bold mb-1 transition-colors duration-300 ${
-                    isCompleted ? 'text-gray-900' : 'text-gray-500'
+                    isCompleted ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
                   }`}
                   animate={isCurrent ? { 
                     scale: [1, 1.05, 1]
@@ -273,7 +273,7 @@ export default function OrderTimeline({ status, events }: OrderTimelineProps) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.2 + 0.5 }}
-                    className="text-xs text-gray-500"
+                    className="text-xs text-gray-500 dark:text-gray-400"
                   >
                     {new Date(event.created_at).toLocaleDateString('en-US', {
                       month: 'short',
