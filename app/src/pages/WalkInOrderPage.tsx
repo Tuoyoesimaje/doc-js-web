@@ -131,8 +131,8 @@ export default function WalkInOrderPage() {
       if (existingUser) {
         userId = existingUser.id
       } else {
-        // Create user record directly (no auth account for walk-in customers)
-        // They can create an auth account later if they want to use the app
+        // Create user record for walk-in customer
+        // Note: RLS policy must allow employees to insert into users table
         const { data: newUser, error: userError } = await supabase
           .from('users')
           .insert({
@@ -140,13 +140,14 @@ export default function WalkInOrderPage() {
             email: customerEmail || null,
             display_name: customerName,
             password_set: false,
-            created_at: new Date().toISOString(),
-            last_login: new Date().toISOString(),
           })
           .select()
           .single()
 
-        if (userError) throw userError
+        if (userError) {
+          console.error('User creation error:', userError)
+          throw new Error(`Failed to create customer record: ${userError.message}. Please ensure RLS policies allow employee access.`)
+        }
         userId = newUser.id
       }
 
@@ -165,7 +166,10 @@ export default function WalkInOrderPage() {
         .select()
         .single()
 
-      if (addressError) throw addressError
+      if (addressError) {
+        console.error('Address creation error:', addressError)
+        throw addressError
+      }
 
       // Create order
       const { data: order, error: orderError } = await supabase
@@ -176,10 +180,10 @@ export default function WalkInOrderPage() {
           total_cents: total,
           status: 'received',
           payment_status: 'pending',
-          payment_method: 'postpay', // Walk-in customers pay after
+          payment_method: 'postpay',
           pickup_fee_paid: false,
           final_payment_pending: true,
-          logistics_option: 'none', // Walk-in, no logistics
+          logistics_option: 'none',
           logistics_fee_cents: 0,
           created_by_employee_id: employee.id,
           pickup_location_id: employee.pickup_location_id,
@@ -187,7 +191,10 @@ export default function WalkInOrderPage() {
         .select()
         .single()
 
-      if (orderError) throw orderError
+      if (orderError) {
+        console.error('Order creation error:', orderError)
+        throw orderError
+      }
 
       // Create order items
       const orderItems = items.map(item => {

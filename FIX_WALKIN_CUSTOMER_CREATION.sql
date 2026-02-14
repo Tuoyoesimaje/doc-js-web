@@ -1,52 +1,40 @@
--- =============================================
--- FIX WALK-IN CUSTOMER CREATION
--- =============================================
--- Allow employees to create user records for walk-in customers
--- without requiring auth.signUp() which has rate limiting
--- =============================================
+-- Fix RLS policy to allow employees to create walk-in customer users
+-- This allows employees to create user records for walk-in customers
 
--- Allow employees to insert user records for walk-in customers
-CREATE POLICY "Employees can create walk-in customer records"
-  ON users FOR INSERT
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM employees 
-      WHERE user_id = auth.uid() 
-      AND is_active = true
-    )
-  );
+-- Drop existing insert policy if it exists
+DROP POLICY IF EXISTS "employees_can_create_walkin_customers" ON users;
 
--- Allow employees to view user records they created (for walk-in customers)
-CREATE POLICY "Employees can view walk-in customers"
-  ON users FOR SELECT
-  USING (
-    -- User can view their own record
-    id = auth.uid()
-    OR
-    -- Employees can view users who have orders at their location
-    EXISTS (
-      SELECT 1 FROM orders o
-      JOIN employees e ON e.id = o.created_by_employee_id
-      WHERE o.user_id = users.id
-      AND e.user_id = auth.uid()
-      AND e.is_active = true
-    )
-  );
+-- Create new policy that allows employees to insert walk-in customer records
+CREATE POLICY "employees_can_create_walkin_customers"
+ON users
+FOR INSERT
+TO authenticated
+WITH CHECK (
+  -- Allow if the authenticated user is an employee
+  EXISTS (
+    SELECT 1 FROM employees
+    WHERE employees.user_id = auth.uid()
+  )
+);
 
--- =============================================
--- NOTES
--- =============================================
--- Walk-in customers are created as user records WITHOUT auth accounts
--- This avoids Supabase rate limiting on auth.signUp()
--- 
--- Walk-in customers can later:
--- 1. Create an auth account using their phone number
--- 2. Link their existing orders to their new auth account
--- 3. Start using the customer portal
---
--- The user record is created with:
--- - phone: Customer's phone number
--- - display_name: Customer's name
--- - email: Optional email
--- - password_set: false (no auth account yet)
--- =============================================
+-- Also ensure employees can read user records they create
+DROP POLICY IF EXISTS "employees_can_read_customer_users" ON users;
+
+CREATE POLICY "employees_can_read_customer_users"
+ON users
+FOR SELECT
+TO authenticated
+USING (
+  -- Employees can read any user record
+  EXISTS (
+    SELECT 1 FROM employees
+    WHERE employees.user_id = auth.uid()
+  )
+  OR
+  -- Users can read their own record
+  id = auth.uid()
+);
+
+-- Grant necessary permissions
+GRANT INSERT ON users TO authenticated;
+GRANT SELECT ON users TO authenticated;
