@@ -36,7 +36,7 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// ===== LOCATION CARDS (future: google maps) =====
+// ===== LOCATION CARDS =====
 document.querySelectorAll('.location-card').forEach(card => {
   card.style.cursor = 'pointer';
   card.addEventListener('click', () => {
@@ -70,6 +70,11 @@ function openBookingModal() {
   renderItems();
   updateTotal();
   showStep(1);
+  ['b-name', 'b-phone', 'b-address', 'b-notes'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('b-date').value = '';
+  document.getElementById('b-error').style.display = 'none';
   document.getElementById('booking-modal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
   const tomorrow = new Date();
@@ -153,8 +158,6 @@ async function submitBooking() {
     .map((item, i) => ({ name: item.name, qty: quantities[i], price: item.price }))
     .filter(item => item.qty > 0);
 
-  const total = selectedItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-
   const btn = document.getElementById('submit-btn');
   btn.textContent = 'Sending...';
   btn.disabled = true;
@@ -169,7 +172,6 @@ async function submitBooking() {
         pickup_date: date,
         pickup_address: address,
         items: selectedItems,
-        total_naira: total,
         notes: notes || null,
       }),
     });
@@ -179,13 +181,7 @@ async function submitBooking() {
     if (data.success) {
       showStep(3);
       document.getElementById('success-message').textContent =
-        `Thanks ${name}! We'll reach you on WhatsApp (${phone}) to confirm pickup on ${new Date(date).toDateString()}.`;
-
-      const itemSummary = selectedItems.map(i => `${i.qty}x ${i.name}`).join(', ');
-      const waMessage = encodeURIComponent(
-        `Hi Doc JS Laundry! I just booked a pickup.\n\nName: ${name}\nDate: ${new Date(date).toDateString()}\nAddress: ${address}\nItems: ${itemSummary}\nTotal: ₦${total.toLocaleString()}${notes ? '\nNotes: ' + notes : ''}`
-      );
-      window.open(`https://wa.me/2349060904176?text=${waMessage}`, '_blank');
+        `Booking received, ${name}. We'll reach out to you on ${phone} to confirm your pickup.`;
     } else {
       errorDiv.textContent = data.error || 'Something went wrong. Please try again.';
       errorDiv.style.display = 'block';
