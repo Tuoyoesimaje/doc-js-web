@@ -1,154 +1,222 @@
-// ===== SMOOTH SCROLLING =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start' 
-            });
-            // Close mobile menu if open
-            document.querySelector('.mobile-menu').classList.remove('active');
-        }
-    });
-});
-
-// ===== NAVBAR ON SCROLL =====
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
-
+// ===== NAV SCROLL =====
+const nav = document.querySelector('.nav');
 window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
+  nav.classList.toggle('scrolled', window.pageYOffset > 60);
 });
 
-// ===== MOBILE MENU TOGGLE =====
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      closeMobileMenu();
+    }
+  });
+});
+
+// ===== MOBILE MENU =====
 const menuToggle = document.querySelector('.menu-toggle');
-const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenu = document.getElementById('mobileMenu');
 
 menuToggle.addEventListener('click', () => {
-    mobileMenu.classList.toggle('active');
-    
-    // Animate hamburger icon
-    const spans = menuToggle.querySelectorAll('span');
-    if (mobileMenu.classList.contains('active')) {
-        spans[0].style.transform = 'rotate(45deg) translateY(10px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translateY(-10px)';
-    } else {
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-    }
+  mobileMenu.classList.toggle('open');
 });
 
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove('active');
-        const spans = menuToggle.querySelectorAll('span');
-        spans[0].style.transform = 'none';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = 'none';
-    }
-});
-
-// ===== INTERSECTION OBSERVER FOR ANIMATIONS =====
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Observe all cards and sections for fade-in animation
-document.querySelectorAll('.card, .pricing-card, .location-card, .feature-block').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-});
-
-// ===== PRICING CARD INTERACTIONS =====
-document.querySelectorAll('.pricing-card button').forEach(button => {
-    button.addEventListener('click', function() {
-        const plan = this.closest('.pricing-card').querySelector('h3').textContent;
-        alert(`You selected the ${plan} plan! This would normally open a signup form or redirect to the app.`);
-    });
-});
-
-// ===== LOCATION DIRECTIONS =====
-document.querySelectorAll('.location-card button').forEach(button => {
-    button.addEventListener('click', function() {
-        const location = this.closest('.location-card').querySelector('h3').textContent;
-        // In production, replace with actual Google Maps links
-        alert(`Opening directions to ${location} location. In production, this would open Google Maps.`);
-    });
-});
-
-// ===== APP DOWNLOAD BUTTONS =====
-document.querySelectorAll('.store-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const store = this.querySelector('strong').textContent;
-        alert(`Redirecting to ${store}. In production, this would link to your app store page.`);
-    });
-});
-
-// ===== FORM VALIDATION (if you add a contact form) =====
-// Uncomment and customize if you add a contact form
-/*
-const contactForm = document.querySelector('#contact-form');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const email = document.querySelector('#email').value;
-        const name = document.querySelector('#name').value;
-        const message = document.querySelector('#message').value;
-        
-        // Basic validation
-        if (!email || !name || !message) {
-            alert('Please fill all fields');
-            return;
-        }
-        
-        // Email format check
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email');
-            return;
-        }
-        
-        // Success message
-        alert('Thank you! We will contact you soon.');
-        contactForm.reset();
-    });
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
 }
-*/
 
-// ===== LOADING ANIMATION =====
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+document.addEventListener('click', (e) => {
+  if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+    closeMobileMenu();
+  }
 });
 
-console.log('Premium Laundry website loaded successfully! 🧺✨');
+// ===== LOCATION CARDS (future: google maps) =====
+document.querySelectorAll('.location-card').forEach(card => {
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', () => {
+    const name = card.querySelector('.location-name').textContent;
+    alert(`Directions to ${name} — Add your Google Maps link here.`);
+  });
+});
+
+// ===== BOOKING MODAL =====
+const EDGE_FUNCTION_URL = "https://ylbuxylvvqkvvrsxflbc.supabase.co/functions/v1/create-customer-booking";
+
+const ITEMS = [
+  { name: "T-Shirt / Polo", price: 900 },
+  { name: "Shirt (Long/Short Sleeve)", price: 1300 },
+  { name: "Trousers / Jeans", price: 1200 },
+  { name: "Native (Senator/2pc)", price: 2200 },
+  { name: "Agbada (3-Piece)", price: 3500 },
+  { name: "Bedsheet (Double)", price: 1800 },
+  { name: "Suit (2-Piece)", price: 3000 },
+  { name: "Blazer / Jacket", price: 1800 },
+  { name: "Kaftan / Jalabiya", price: 2500 },
+  { name: "Evening Gown", price: 3500 },
+  { name: "Duvet (Large)", price: 4000 },
+  { name: "Tie / Scarf", price: 500 },
+];
+
+let quantities = new Array(ITEMS.length).fill(0);
+
+function openBookingModal() {
+  quantities = new Array(ITEMS.length).fill(0);
+  renderItems();
+  updateTotal();
+  showStep(1);
+  document.getElementById('booking-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  document.getElementById('b-date').min = tomorrow.toISOString().split('T')[0];
+}
+
+function closeBookingModal() {
+  document.getElementById('booking-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function showStep(n) {
+  [1, 2, 3].forEach(i => {
+    document.getElementById(`step-${i}`).style.display = i === n ? 'block' : 'none';
+  });
+  const titles = { 1: 'Select your items', 2: 'Your details', 3: 'All done' };
+  document.getElementById('modal-step-title').textContent = titles[n];
+}
+
+function renderItems() {
+  const list = document.getElementById('items-list');
+  list.innerHTML = ITEMS.map((item, i) => `
+    <div class="item-row ${quantities[i] > 0 ? 'has-qty' : ''}">
+      <div class="item-info">
+        <div class="item-name">${item.name}</div>
+        <div class="item-price">₦${item.price.toLocaleString()} each</div>
+      </div>
+      <div class="item-controls">
+        <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
+        <span class="qty-num">${quantities[i]}</span>
+        <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function changeQty(index, delta) {
+  quantities[index] = Math.max(0, quantities[index] + delta);
+  renderItems();
+  updateTotal();
+}
+
+function updateTotal() {
+  const total = ITEMS.reduce((sum, item, i) => sum + item.price * quantities[i], 0);
+  document.getElementById('booking-total').textContent = '₦' + total.toLocaleString();
+}
+
+function goToStep2() {
+  const total = ITEMS.reduce((sum, item, i) => sum + item.price * quantities[i], 0);
+  if (total === 0) {
+    alert('Please select at least one item.');
+    return;
+  }
+  showStep(2);
+}
+
+function goToStep1() {
+  showStep(1);
+}
+
+async function submitBooking() {
+  if (document.getElementById('hp-field').value !== '') return;
+
+  const name = document.getElementById('b-name').value.trim();
+  const phone = document.getElementById('b-phone').value.trim();
+  const address = document.getElementById('b-address').value.trim();
+  const date = document.getElementById('b-date').value;
+  const notes = document.getElementById('b-notes').value.trim();
+  const errorDiv = document.getElementById('b-error');
+
+  errorDiv.style.display = 'none';
+
+  if (!name || !phone || !address || !date) {
+    errorDiv.textContent = 'Please fill in all required fields.';
+    errorDiv.style.display = 'block';
+    return;
+  }
+
+  const selectedItems = ITEMS
+    .map((item, i) => ({ name: item.name, qty: quantities[i], price: item.price }))
+    .filter(item => item.qty > 0);
+
+  const total = selectedItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(EDGE_FUNCTION_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customer_name: name,
+        customer_whatsapp: phone,
+        pickup_date: date,
+        pickup_address: address,
+        items: selectedItems,
+        total_naira: total,
+        notes: notes || null,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      showStep(3);
+      document.getElementById('success-message').textContent =
+        `Thanks ${name}! We'll reach you on WhatsApp (${phone}) to confirm pickup on ${new Date(date).toDateString()}.`;
+
+      const itemSummary = selectedItems.map(i => `${i.qty}x ${i.name}`).join(', ');
+      const waMessage = encodeURIComponent(
+        `Hi Doc JS Laundry! I just booked a pickup.\n\nName: ${name}\nDate: ${new Date(date).toDateString()}\nAddress: ${address}\nItems: ${itemSummary}\nTotal: ₦${total.toLocaleString()}${notes ? '\nNotes: ' + notes : ''}`
+      );
+      window.open(`https://wa.me/2349060904176?text=${waMessage}`, '_blank');
+    } else {
+      errorDiv.textContent = data.error || 'Something went wrong. Please try again.';
+      errorDiv.style.display = 'block';
+    }
+  } catch (err) {
+    errorDiv.textContent = 'Network error. Please check your connection.';
+    errorDiv.style.display = 'block';
+  } finally {
+    btn.textContent = 'Book Pickup';
+    btn.disabled = false;
+  }
+}
+
+// Close on backdrop click
+document.getElementById('booking-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeBookingModal();
+});
+
+// ===== INTERSECTION OBSERVER =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.service-card, .location-card, .step, .price-col').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});

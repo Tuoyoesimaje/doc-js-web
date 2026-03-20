@@ -1,749 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Doc JS Laundry and Dry Cleaning Services - Premium laundry care in Warri, Delta State. Professional 8-step process, subscription plans, and app-based tracking.">
-    <title>Doc JS - Professional Laundry & Dry Cleaning Services in Warri</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Doc JS Laundry and Dry Cleaning — Premium garment care in Warri, Delta State.">
+  <title>Doc JS Laundry — Premium Garment Care in Warri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">
-                    <img src="logo.jpg" alt="Doc JS Laundry" style="height: 50px; width: auto;">
-                    <div class="logo-text">
-                        <span class="logo-name">Doc JS</span>
-                        <span class="logo-tagline">Laundry & Dry Cleaning</span>
-                    </div>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#locations">Locations</a></li>
-                    <li><a href="policies.html">Policies</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="nav-buttons">
-                    <a href="/app/login" class="btn-secondary" style="padding: 0.625rem 1.25rem; font-size: 0.875rem;">Login</a>
-                    <a href="/app/order" class="btn-primary">Start Order</a>
-                </div>
-                <button class="menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <ul>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#locations">Locations</a></li>
-            <li><a href="policies.html">Policies</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="/app/login" class="btn-secondary">Login</a></li>
-            <li><a href="/app/order" class="btn-primary">Start Order</a></li>
-        </ul>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Doc JS</a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#locations">Locations</a>
+        <a href="policies.html">Policies</a>
+      </div>
+      <button class="nav-cta" onclick="openBookingModal()">Book Pickup</button>
+      <button class="menu-toggle" aria-label="Menu">
+        <span></span><span></span>
+      </button>
     </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-badge">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M13.5 4.5L6 12L2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Trusted by 500+ customers in Warri
-                    </div>
-                    <h1>Premium Laundry Care for Your Wardrobe</h1>
-                    <p class="hero-subtitle">Doc JS Laundry and Dry Cleaning Services delivers professional garment care with our proven 8-step process. Order online, track your items, and enjoy fresh clothes delivered to your door.</p>
-                    
-                    <div class="cta-buttons">
-                        <a href="/app/order" class="btn-primary">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z" fill="currentColor"/>
-                                <path d="M9 6h2v5H9z" fill="currentColor"/>
-                                <circle cx="10" cy="13" r="1" fill="currentColor"/>
-                            </svg>
-                            Start Your Order
-                        </a>
-                        <a href="#how-it-works" class="btn-secondary">
-                            Learn More
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M7 10h6M10 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                    
-                    <div class="trust-badges">
-                        <div class="badge-item">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/>
-                                <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>8-Step Professional Process</span>
-                        </div>
-                        <div class="badge-item">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M10 2L12 8h6l-5 4 2 6-5-4-5 4 2-6-5-4h6l2-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Same-Day Express Available</span>
-                        </div>
-                        <div class="badge-item">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <rect x="4" y="2" width="12" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 6h4M8 10h4M8 14h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            <span>Track Online</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=600&h=600&fit=crop" alt="Professional laundry service">
-                    <div class="hero-image-badge">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2L15 8.5L22 9.5L17 14.5L18 21.5L12 18L6 21.5L7 14.5L2 9.5L9 8.5L12 2Z" fill="currentColor"/>
-                        </svg>
-                        <div>
-                            <strong>4.9/5</strong>
-                            <span>Customer Rating</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services" class="mm-link">Services</a>
+    <a href="#pricing" class="mm-link">Pricing</a>
+    <a href="#locations" class="mm-link">Locations</a>
+    <a href="policies.html" class="mm-link">Policies</a>
+    <button class="nav-cta" onclick="openBookingModal(); closeMobileMenu()">Book Pickup</button>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">Warri · Delta State · Nigeria</div>
+      <h1 class="hero-title">Your clothes.<br>Handled with<br><em>precision.</em></h1>
+      <p class="hero-sub">Professional laundry and dry cleaning. Drop off or we come to you. Ready when promised.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="openBookingModal()">Book a Pickup</button>
+        <a href="#pricing" class="btn-ghost">View Prices</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Customers</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Locations</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">4.9</span><span class="stat-label">Rating</span></div>
+      </div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=800&h=900&fit=crop" alt="Premium laundry">
+      <div class="hero-badge">
+        <span class="badge-icon">✦</span>
+        <span>Express available</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="steps-section">
+    <div class="container">
+      <p class="eyebrow">How it works</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Book online</h3>
+          <p>Select your items and see the exact price. No surprises.</p>
         </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Simple Process</span>
-                <h2 class="section-title">How It Works</h2>
-                <p class="section-subtitle">Get started in three easy steps</p>
-            </div>
-            
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-number">01</div>
-                    <div class="step-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <rect x="12" y="4" width="24" height="40" rx="4" stroke="currentColor" stroke-width="2"/>
-                            <path d="M20 12h8M20 20h8M20 28h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <circle cx="24" cy="38" r="2" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <h3>Book Your Service</h3>
-                    <p>Order online or drop off at any of our 3 locations in Warri. Choose your preferred service and turnaround time.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">02</div>
-                    <div class="step-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/>
-                            <path d="M24 12v12l8 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <h3>We Clean & Care</h3>
-                    <p>Your garments go through our professional 8-step cleaning process. Track your order status in real-time through our online portal.</p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">03</div>
-                    <div class="step-icon">
-                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                            <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/>
-                            <path d="M16 24l6 6 12-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <h3>Receive Fresh Clothes</h3>
-                    <p>Get your clothes delivered to your doorstep or pick them up at our shop. Fresh, pressed, and ready to wear.</p>
-                </div>
-            </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>We collect</h3>
+          <p>Drop off at any location or we come to you.</p>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="services-content">
-                <div class="services-text">
-                    <span class="section-label">What We Offer</span>
-                    <h2>Our Services</h2>
-                    <p>From everyday wear to delicate fabrics, we handle it all with professional care and attention to detail.</p>
-                    
-                    <ul class="services-list">
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Standard Washing & Ironing</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Dry Cleaning (Silk, Wool, Cashmere)</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Express Service (24-48 hours)</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Tailoring & Repairs</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Bulk Contracts (Hotels, Hospitals)</span>
-                        </li>
-                        <li>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Home Pickup & Delivery</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <rect x="8" y="12" width="24" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <path d="M12 8v8M28 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                <circle cx="16" cy="22" r="2" fill="currentColor"/>
-                                <circle cx="24" cy="22" r="2" fill="currentColor"/>
-                            </svg>
-                        </div>
-                        <h3>Standard Care</h3>
-                        <p>Everyday washing and pressing</p>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <path d="M20 8L22 14L28 15L24 19L25 25L20 22L15 25L16 19L12 15L18 14L20 8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                                <circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        </div>
-                        <h3>Dry Cleaning</h3>
-                        <p>Delicate fabric specialists</p>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <path d="M20 8v24M12 16l8-8 8 8M12 24l8 8 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Express Service</h3>
-                        <p>Fast 24-48 hour turnaround</p>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                                <rect x="10" y="10" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <path d="M10 18h20M18 10v20" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="15" cy="14" r="1.5" fill="currentColor"/>
-                                <circle cx="25" cy="14" r="1.5" fill="currentColor"/>
-                            </svg>
-                        </div>
-                        <h3>Subscription Plans</h3>
-                        <p>Flexible monthly packages</p>
-                    </div>
-                </div>
-            </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Fresh clothes</h3>
+          <p>Cleaned, pressed, and returned on schedule.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Transparent Pricing</span>
-                <h2 class="section-title">Our Service Rates</h2>
-                <p class="section-subtitle">Premium quality laundry care with flexible payment options</p>
-            </div>
-            
-            <div class="pricing-categories">
-                <!-- Regular Laundry -->
-                <div class="pricing-category">
-                    <div class="category-header">
-                        <div class="category-icon">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                <rect x="8" y="10" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <path d="M12 6v8M20 6v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                <circle cx="14" cy="18" r="1.5" fill="currentColor"/>
-                                <circle cx="18" cy="18" r="1.5" fill="currentColor"/>
-                            </svg>
-                        </div>
-                        <h3>Regular Laundry (Wash & Iron)</h3>
-                    </div>
-                    <div class="price-list">
-                        <div class="price-item">
-                            <span class="item-name">T-Shirt / Polo</span>
-                            <span class="item-price">₦900</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Shirt (Long/Short Sleeve)</span>
-                            <span class="item-price">₦1,300</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Trousers / Jeans</span>
-                            <span class="item-price">₦1,200</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Native (Senator/2pc)</span>
-                            <span class="item-price">₦2,200</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Agbada (3-Piece)</span>
-                            <span class="item-price">₦3,500</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Bedsheet (Double)</span>
-                            <span class="item-price">₦1,800</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dry Cleaning -->
-                <div class="pricing-category featured">
-                    <div class="category-badge">Premium Care</div>
-                    <div class="category-header">
-                        <div class="category-icon">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                <path d="M16 6L18 12L24 13L20 17L21 23L16 20L11 23L12 17L8 13L14 12L16 6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                                <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        </div>
-                        <h3>Dry Cleaning</h3>
-                    </div>
-                    <div class="price-list">
-                        <div class="price-item">
-                            <span class="item-name">Suit (2-Piece)</span>
-                            <span class="item-price">₦3,000</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Blazer / Jacket</span>
-                            <span class="item-price">₦1,800</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Kaftan / Jalabiya</span>
-                            <span class="item-price">₦2,500</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Evening Gown</span>
-                            <span class="item-price">₦3,500</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Tie / Scarf</span>
-                            <span class="item-price">₦500</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Special Services -->
-                <div class="pricing-category">
-                    <div class="category-header">
-                        <div class="category-icon">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                <rect x="8" y="8" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <path d="M8 14h16M14 8v16" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="12" cy="11" r="1" fill="currentColor"/>
-                                <circle cx="20" cy="11" r="1" fill="currentColor"/>
-                            </svg>
-                        </div>
-                        <h3>Special Services</h3>
-                    </div>
-                    <div class="price-list">
-                        <div class="price-item">
-                            <span class="item-name">Wedding Gown (Basic)</span>
-                            <span class="item-price">₦12,000</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Duvet (Large)</span>
-                            <span class="item-price">₦4,000</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Rug Cleaning (per sqm)</span>
-                            <span class="item-price">₦800</span>
-                        </div>
-                        <div class="price-item">
-                            <span class="item-name">Express (Same Day)</span>
-                            <span class="item-price">+50%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pricing-notes">
-                <div class="pricing-note">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/>
-                        <path d="M10 6v4M10 14h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <p><strong>Standard Turnaround:</strong> 3-5 business days for regular laundry, 5-7 days for dry cleaning</p>
-                </div>
-                <div class="pricing-note">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/>
-                        <path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <p><strong>Bulk Discounts:</strong> 10% off for 15+ items, 15% off for 30+ items</p>
-                </div>
-                <div class="pricing-note">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/>
-                        <path d="M10 6v4M10 14h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <p><strong>Minimum Order:</strong> ₦3,000 for home pickup/delivery service</p>
-                </div>
-            </div>
-
-            <div class="pricing-cta">
-                <h3>Need a Custom Quote?</h3>
-                <p>For bulk orders, corporate contracts, or special items not listed, contact us for personalized pricing.</p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
-                    <a href="/app/order" class="btn-primary">Start Your Order</a>
-                    <a href="#contact" class="btn-secondary">Contact Us</a>
-                </div>
-            </div>
+  <!-- SERVICES -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">What we offer</p>
+        <h2>Every garment,<br>cared for properly.</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">—</div>
+          <h3>Wash & Iron</h3>
+          <p>Shirts, trousers, natives, bedsheets. Our core service done right.</p>
         </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section class="why-choose-us">
-        <div class="container">
-            <div class="feature-block">
-                <div class="feature-image">
-                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&h=400&fit=crop" alt="Professional washing process">
-                </div>
-                <div class="feature-text">
-                    <h2>Professional 8-Step Process</h2>
-                    <p>Every garment goes through inspection, specialized treatment, and quality control. We don't cut corners.</p>
-                </div>
-            </div>
-            
-            <div class="feature-block reverse">
-                <div class="feature-text">
-                    <h2>Track Everything Online</h2>
-                    <p>Our web-based customer portal lets you see exactly where your clothes are, chat with our team, and manage your orders from any device.</p>
-                </div>
-                <div class="feature-image">
-                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop" alt="Online order tracking">
-                </div>
-            </div>
-            
-            <div class="feature-block">
-                <div class="feature-image">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="Delivery service">
-                </div>
-                <div class="feature-text">
-                    <h2>Flexible Pickup & Delivery</h2>
-                    <p>Drop off at our 3 locations in Warri (Effurun, Airport Road, Ubeji) or schedule home pickup. We fit your lifestyle.</p>
-                </div>
-            </div>
+        <div class="service-card">
+          <div class="service-num">—</div>
+          <h3>Dry Cleaning</h3>
+          <p>Suits, gowns, blazers and delicate fabrics handled with care.</p>
         </div>
-    </section>
-
-    <!-- Locations Section -->
-    <section id="locations" class="locations">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Find Us</span>
-                <h2 class="section-title">Visit Our Shops</h2>
-                <p class="section-subtitle">Three convenient locations across Warri</p>
-            </div>
-            
-            <div class="locations-grid">
-                <div class="location-card">
-                    <div class="location-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 4C11.58 4 8 7.58 8 12c0 6 8 16 8 16s8-10 8-16c0-4.42-3.58-8-8-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                            <circle cx="16" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3>Effurun</h3>
-                    <p class="address">[Street Address], Effurun, Warri</p>
-                    <p class="hours">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
-                            <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        Mon-Sat: 7:00 AM - 7:00 PM
-                    </p>
-                    <button class="btn-secondary">Get Directions</button>
-                </div>
-                
-                <div class="location-card">
-                    <div class="location-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 4C11.58 4 8 7.58 8 12c0 6 8 16 8 16s8-10 8-16c0-4.42-3.58-8-8-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                            <circle cx="16" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3>Airport Road/PTI</h3>
-                    <p class="address">[Street Address], Airport Road, Warri</p>
-                    <p class="hours">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
-                            <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        Mon-Sat: 7:00 AM - 7:00 PM
-                    </p>
-                    <button class="btn-secondary">Get Directions</button>
-                </div>
-                
-                <div class="location-card">
-                    <div class="location-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 4C11.58 4 8 7.58 8 12c0 6 8 16 8 16s8-10 8-16c0-4.42-3.58-8-8-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                            <circle cx="16" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3>Ubeji</h3>
-                    <p class="address">[Street Address], Ubeji, Warri</p>
-                    <p class="hours">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
-                            <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        Mon-Sat: 7:00 AM - 7:00 PM
-                    </p>
-                    <button class="btn-secondary">Get Directions</button>
-                </div>
-            </div>
+        <div class="service-card">
+          <div class="service-num">—</div>
+          <h3>Express Service</h3>
+          <p>Need it fast? 24–48 hour turnaround. Available on select items.</p>
         </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="faq-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Common Questions</span>
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-subtitle">Quick answers to questions you may have</p>
-            </div>
-            
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <h3>What are your policies on damaged items?</h3>
-                    </div>
-                    <p class="faq-answer">Our maximum liability is ₦15,000 per item or 10× the cleaning charge, whichever is lower. For high-value items above ₦50,000, we offer Premium Protection Service with coverage up to ₦200,000 per item.</p>
-                    <a href="policies.html#section-2" class="faq-link">
-                        Read full policy
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <h3>How long does it take to clean my clothes?</h3>
-                    </div>
-                    <p class="faq-answer">Standard turnaround is 3-5 business days for regular laundry and 5-7 days for dry cleaning. Need it faster? Our Express Service delivers in 24-48 hours for an additional 50% charge.</p>
-                    <a href="#pricing" class="faq-link">
-                        View pricing
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <h3>Do you offer pickup and delivery service?</h3>
-                    </div>
-                    <p class="faq-answer">Yes! We offer home pickup and delivery across Warri. Minimum order is ₦3,000. You can order through our online portal or visit any of our 3 locations in Effurun, Airport Road/PTI, and Ubeji.</p>
-                    <a href="#locations" class="faq-link">
-                        View locations
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            <div class="faq-cta">
-                <p>Have more questions about our policies?</p>
-                <a href="policies.html" class="btn-primary">View Complete Policies</a>
-            </div>
+        <div class="service-card">
+          <div class="service-num">—</div>
+          <h3>Bulk & Corporate</h3>
+          <p>Hotels, hospitals, offices. Custom pricing for high volumes.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Online Portal CTA -->
-    <section class="app-download">
-        <div class="container">
-            <div class="app-content">
-                <div class="app-icon">
-                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                        <rect x="8" y="12" width="48" height="40" rx="4" stroke="currentColor" stroke-width="3"/>
-                        <path d="M16 20h32M16 28h24M16 36h28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                        <circle cx="48" cy="44" r="8" fill="currentColor" opacity="0.2"/>
-                    </svg>
-                </div>
-                <h2>Access Your Customer Portal</h2>
-                <p>Track orders, manage your account, and chat with our team—all from your browser on any device.</p>
-                
-                <div class="app-buttons">
-                    <a href="/app/order" class="store-button">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-                            <path d="M4 10h24M10 6v4M22 6v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <div>
-                            <small>Start your</small>
-                            <strong>First Order</strong>
-                        </div>
-                    </a>
-                    <a href="/app/login" class="store-button">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <circle cx="16" cy="10" r="4" stroke="currentColor" stroke-width="2"/>
-                            <path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        <div>
-                            <small>Access your</small>
-                            <strong>Account</strong>
-                        </div>
-                    </a>
-                </div>
-                
-                <p class="app-note">Works on all modern browsers - desktop, tablet, and mobile</p>
-            </div>
+  <!-- PRICING -->
+  <section id="pricing" class="pricing-section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Transparent pricing</p>
+        <h2>You know the cost<br>before we collect.</h2>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-col">
+          <div class="price-col-head">Regular (Wash & Iron)</div>
+          <div class="price-row"><span>T-Shirt / Polo</span><span>₦900</span></div>
+          <div class="price-row"><span>Shirt (Long/Short)</span><span>₦1,300</span></div>
+          <div class="price-row"><span>Trousers / Jeans</span><span>₦1,200</span></div>
+          <div class="price-row"><span>Native / Senator</span><span>₦2,200</span></div>
+          <div class="price-row"><span>Agbada (3-piece)</span><span>₦3,500</span></div>
+          <div class="price-row"><span>Bedsheet (Double)</span><span>₦1,800</span></div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact" class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="logo.jpg" alt="Doc JS Laundry" style="height: 40px; width: auto;">
-                        <div class="logo-text">
-                            <span class="logo-name">Doc JS</span>
-                            <span class="logo-tagline">Laundry & Dry Cleaning</span>
-                        </div>
-                    </div>
-                    <p>Professional care for your wardrobe</p>
-                    <div class="social-icons">
-                        <a href="#" aria-label="Facebook">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Instagram">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="WhatsApp">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#services">About Us</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <ul>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M14.5 11.3v2.2a1.5 1.5 0 01-1.6 1.5 14.8 14.8 0 01-6.5-2.3 14.6 14.6 0 01-4.5-4.5A14.8 14.8 0 01-.5 1.6 1.5 1.5 0 011 0h2.2a1.5 1.5 0 011.5 1.3c.1.8.3 1.6.6 2.4a1.5 1.5 0 01-.3 1.6l-.9.9a12 12 0 004.5 4.5l.9-.9a1.5 1.5 0 011.6-.3c.7.2 1.5.4 2.4.6a1.5 1.5 0 011.3 1.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            +2349060904176
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M2.5 2.5h11a1 1 0 011 1v9a1 1 0 01-1 1h-11a1 1 0 01-1-1v-9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M14.5 3.5l-6.5 4.5-6.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            docjslaundry@gmail.com
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M14 10.3v2.2a1.5 1.5 0 01-1.6 1.5 14.8 14.8 0 01-6.5-2.3 14.6 14.6 0 01-4.5-4.5A14.8 14.8 0 01-.5 1.6 1.5 1.5 0 011 0h2.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            WhatsApp: 09060904176
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Business Hours</h4>
-                    <ul>
-                        <li>Monday - Saturday</li>
-                        <li>8:00 AM - 7:00 PM</li>
-                        <li>Sunday: Closed</li>
-                        <li>Emergency: Contact via portal</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Doc JS Laundry and Dry Cleaning Services. All rights reserved.</p>
-                <p>Proudly serving Warri, Delta State</p>
-            </div>
+        <div class="price-col price-col-dark">
+          <div class="price-col-head">Dry Cleaning</div>
+          <div class="price-row"><span>Suit (2-piece)</span><span>₦3,000</span></div>
+          <div class="price-row"><span>Blazer / Jacket</span><span>₦1,800</span></div>
+          <div class="price-row"><span>Kaftan / Jalabiya</span><span>₦2,500</span></div>
+          <div class="price-row"><span>Evening Gown</span><span>₦3,500</span></div>
+          <div class="price-row"><span>Tie / Scarf</span><span>₦500</span></div>
+          <div class="price-row accent-row"><span>Express surcharge</span><span>+50%</span></div>
         </div>
-    </footer>
+        <div class="price-col">
+          <div class="price-col-head">Special</div>
+          <div class="price-row"><span>Wedding Gown</span><span>₦12,000</span></div>
+          <div class="price-row"><span>Duvet (Large)</span><span>₦4,000</span></div>
+          <div class="price-row"><span>Rug (per sqm)</span><span>₦800</span></div>
+          <div class="pricing-note-box">
+            <p>Minimum order of ₦3,000 for home pickup. Bulk discounts available for 15+ items.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-cta">
+        <button class="btn-primary" onclick="openBookingModal()">Book Now — Price Calculated Instantly</button>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- LOCATIONS -->
+  <section id="locations" class="locations-section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Find us</p>
+        <h2>Two locations<br>across Warri.</h2>
+      </div>
+      <div class="locations-grid">
+        <div class="location-card">
+          <div class="location-name">Effurun</div>
+          <p>[Street Address], Effurun, Warri</p>
+          <div class="location-hours">Mon–Sat · 7AM–7PM</div>
+        </div>
+        <div class="location-card">
+          <div class="location-name">Airport Road</div>
+          <p>[Street Address], Airport Road, Warri</p>
+          <div class="location-hours">Mon–Sat · 7AM–7PM</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Ready for fresh clothes?</h2>
+      <p>Select your items, see your price, book in under a minute.</p>
+      <button class="btn-primary" onclick="openBookingModal()">Book a Pickup</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Doc JS</div>
+        <p>Premium laundry care.<br>Warri, Delta State.</p>
+      </div>
+      <div class="footer-contact">
+        <div>+234 906 090 4176</div>
+        <div>docjslaundry@gmail.com</div>
+        <div>Mon–Sat · 8AM–7PM</div>
+      </div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="policies.html">Policies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Doc JS Laundry and Dry Cleaning Services · Warri, Delta State</p>
+    </div>
+  </footer>
+
+  <!-- BOOKING MODAL -->
+  <div id="booking-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <p class="modal-brand">Doc JS Laundry</p>
+          <p class="modal-title" id="modal-step-title">Select your items</p>
+        </div>
+        <button class="modal-close" onclick="closeBookingModal()">✕</button>
+      </div>
+
+      <!-- Step 1 -->
+      <div id="step-1" class="modal-body">
+        <p class="modal-hint">Tap + to add items. Total updates instantly.</p>
+        <div id="items-list" class="items-list"></div>
+        <div class="total-bar">
+          <span>Estimated total</span>
+          <span id="booking-total" class="total-amount">₦0</span>
+        </div>
+        <button class="btn-primary full-width" onclick="goToStep2()">Continue →</button>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="step-2" class="modal-body" style="display:none;">
+        <p class="modal-hint">We'll confirm on WhatsApp before coming.</p>
+        <div class="form-fields">
+          <div class="field">
+            <label>Full Name</label>
+            <input id="b-name" type="text" placeholder="Your full name">
+          </div>
+          <div class="field">
+            <label>WhatsApp Number</label>
+            <input id="b-phone" type="tel" placeholder="08012345678">
+          </div>
+          <div class="field">
+            <label>Pickup Address</label>
+            <input id="b-address" type="text" placeholder="Your address in Warri">
+          </div>
+          <div class="field">
+            <label>Preferred Pickup Date</label>
+            <input id="b-date" type="date">
+          </div>
+          <div class="field">
+            <label>Notes <span style="opacity:0.5">(optional)</span></label>
+            <input id="b-notes" type="text" placeholder="Any special instructions?">
+          </div>
+        </div>
+        <div id="b-error" class="form-error" style="display:none;"></div>
+        <div class="form-actions">
+          <button class="btn-ghost" onclick="goToStep1()">← Back</button>
+          <button class="btn-primary" id="submit-btn" onclick="submitBooking()">Book Pickup</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="step-3" class="modal-body" style="display:none;text-align:center;">
+        <div class="success-icon">✓</div>
+        <h3 class="success-title">Booking received.</h3>
+        <p id="success-message" class="success-msg"></p>
+        <button class="btn-primary full-width" onclick="closeBookingModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="text" id="hp-field" style="display:none;" tabindex="-1" autocomplete="off">
+  <script src="script.js"></script>
 </body>
 </html>

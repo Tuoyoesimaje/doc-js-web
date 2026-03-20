@@ -1,575 +1,425 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Policies - Doc JS Laundry & Dry Cleaning</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Policies — Doc JS Laundry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .policy-hero {
+      padding: calc(var(--nav-h) + 4rem) 0 3rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .policy-hero .eyebrow { margin-bottom: 0.75rem; }
+    .policy-hero h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+    .policy-hero p { font-size: 1rem; max-width: 560px; }
+    .policy-meta {
+      display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap;
+    }
+    .policy-meta span {
+      font-size: 0.8125rem; color: var(--gray-400);
+      display: flex; align-items: center; gap: 0.375rem;
+    }
+
+    .policy-body {
+      max-width: 780px; margin: 0 auto; padding: 4rem 2rem 6rem;
+    }
+
+    .notice-box {
+      background: #FEF9EC; border: 1px solid #E8C96A;
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .notice-box strong { display: block; font-size: 0.875rem; color: #92400E; margin-bottom: 0.25rem; }
+    .notice-box p { font-size: 0.875rem; color: #92400E; margin: 0; }
+
+    .policy-section { margin-bottom: 3.5rem; }
+    .policy-section-title {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+      color: var(--black); margin-bottom: 1.5rem; padding-bottom: 1rem;
+      border-bottom: 2px solid var(--gray-200);
+    }
+    .policy-section-title span { color: var(--gold); }
+    .policy-sub { font-size: 1rem; font-weight: 500; color: var(--black); margin: 1.5rem 0 0.625rem; }
+
+    .policy-body p { font-size: 0.9375rem; color: var(--gray-600); margin-bottom: 0.875rem; line-height: 1.75; }
+    .policy-body ul, .policy-body ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .policy-body li { font-size: 0.9375rem; color: var(--gray-600); line-height: 1.75; margin-bottom: 0.25rem; }
+    .policy-body strong { color: var(--black); font-weight: 500; }
+
+    .highlight-box {
+      background: var(--gray-100); border-left: 3px solid var(--gold);
+      padding: 1.25rem 1.5rem; border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1.5rem 0;
+    }
+    .highlight-box p { margin: 0; }
+
+    .danger-box {
+      background: #FEF2F2; border-left: 3px solid #EF4444;
+      padding: 1.25rem 1.5rem; border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1.5rem 0;
+    }
+    .danger-box p { margin: 0; color: #7F1D1D !important; }
+
+    .info-box {
+      background: var(--black); color: var(--white);
+      padding: 1.5rem; border-radius: var(--radius); margin: 1.5rem 0;
+      text-align: center;
+    }
+    .info-box h4 { font-family: var(--font-display); font-size: 1.25rem; color: var(--gold); margin-bottom: 0.5rem; }
+    .info-box p { color: rgba(255,255,255,0.7); font-size: 0.875rem; margin: 0; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .two-col-box { background: var(--gray-100); padding: 1.25rem; border-radius: var(--radius); }
+    .two-col-box h4 { font-size: 0.875rem; font-weight: 500; color: var(--black); margin-bottom: 0.75rem; }
+    .two-col-box ul { margin: 0; }
+    .two-col-box li { font-size: 0.875rem !important; }
+
+    .four-col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+
+    .ack-box {
+      background: var(--black); border-radius: var(--radius-lg);
+      padding: 3rem 2rem; text-align: center; margin-top: 4rem;
+    }
+    .ack-icon { font-size: 2rem; color: var(--gold); margin-bottom: 1rem; }
+    .ack-box h3 { font-family: var(--font-display); color: var(--white); font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .ack-box p { color: rgba(255,255,255,0.6); font-size: 0.9rem; max-width: 500px; margin: 0 auto 0.5rem; }
+    .ack-box .meta { font-size: 0.8125rem; color: rgba(255,255,255,0.3); margin-top: 1rem; }
+
+    .policy-cta {
+      background: var(--gray-100); padding: 3rem; text-align: center;
+      border-top: 1px solid var(--gray-200);
+    }
+    .policy-cta h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .policy-cta p { font-size: 0.9375rem; margin-bottom: 1.5rem; }
+    .policy-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 640px) {
+      .two-col, .four-col { grid-template-columns: 1fr; }
+      .policy-body { padding: 2rem 1.25rem 4rem; }
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" class="logo">
-                    <img src="logo.jpg" alt="Doc JS Laundry" style="height: 50px; width: auto;">
-                    <div class="logo-text">
-                        <span class="logo-name">Doc JS</span>
-                        <span class="logo-tagline">Laundry & Dry Cleaning</span>
-                    </div>
-                </a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#services">Services</a></li>
-                    <li><a href="index.html#pricing">Pricing</a></li>
-                    <li><a href="policies.html">Policies</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-                </ul>
-                <a href="/app/order" class="btn-primary">Start Order</a>
-                <button class="menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-    </nav>
 
-    <div class="mobile-menu">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="index.html#pricing">Pricing</a></li>
-            <li><a href="policies.html">Policies</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-        </ul>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Doc JS</a>
+      <div class="nav-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#locations">Locations</a>
+        <a href="policies.html" style="color:var(--black);">Policies</a>
+      </div>
+      <button class="menu-toggle" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mm-link">Home</a>
+    <a href="index.html#services" class="mm-link">Services</a>
+    <a href="index.html#pricing" class="mm-link">Pricing</a>
+    <a href="policies.html" class="mm-link">Policies</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="policy-hero">
+    <div class="container">
+      <p class="eyebrow">Legal Information</p>
+      <h1>Service Policies<br>& Terms</h1>
+      <p>Protection framework for in-store and online services. Please read before using our services.</p>
+      <div class="policy-meta">
+        <span>✦ Last updated: January 2025</span>
+        <span>✦ Warri, Delta State</span>
+        <span>✦ Version 1.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="policy-body">
+
+    <div class="notice-box">
+      <strong>Important Notice</strong>
+      <p>By using our services — in-store or online — you automatically accept these terms. Submission of an order, drop-off of items, or booking through our website constitutes full acceptance.</p>
     </div>
 
-    <section style="padding-top: calc(73px + 4rem); padding-bottom: 4rem; background: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);">
-        <div class="container" style="max-width: 900px; text-align: center;">
-            <span style="display: inline-block; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #2563EB; margin-bottom: 1rem;">Legal Information</span>
-            <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.5rem;">Service Policies & Terms</h1>
-            <p style="font-size: 1.125rem; color: #6B7280; margin-bottom: 2rem;">Protection Framework for In-Store & Online Services</p>
-            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: 0.875rem; color: #6B7280;">
-                <span style="display: flex; align-items: center; gap: 0.5rem;">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                    Last Updated: January 2025
-                </span>
-                <span style="display: flex; align-items: center; gap: 0.5rem;">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 2C5.58 2 3.5 4.08 3.5 6.5c0 3 4.5 8.5 4.5 8.5s4.5-5.5 4.5-8.5C12.5 4.08 10.42 2 8 2z" stroke="currentColor" stroke-width="1.5"/>
-                        <circle cx="8" cy="6.5" r="1.5" stroke="currentColor" stroke-width="1.5"/>
-                    </svg>
-                    Warri, Delta State
-                </span>
-            </div>
+    <!-- SECTION 1 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>01 —</span> Customer Agreement & Acceptance</div>
+
+      <p class="policy-sub">1.1 Binding Agreement</p>
+      <p>By using Doc JS Laundry services, you agree to be bound by these terms and conditions in full.</p>
+
+      <div class="two-col">
+        <div class="two-col-box">
+          <h4>In-Store Customers</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Acceptance occurs when you hand over items and receive a collection slip or receipt.</p>
         </div>
-    </section>
-
-    <section style="padding: 4rem 0; background: white;">
-        <div class="container" style="max-width: 900px;">
-            
-            <div style="background: #FEF3C7; padding: 1.5rem; border-radius: 0.75rem; margin-bottom: 3rem; border: 1px solid #FCD34D;">
-                <div style="display: flex; gap: 1rem;">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0; color: #F59E0B;">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                        <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    <div>
-                        <strong style="display: block; margin-bottom: 0.5rem; color: #92400E;">Important Notice</strong>
-                        <p style="color: #92400E; margin: 0;">By using our services (in-store or online), you automatically accept these terms. Please read carefully.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 1: Customer Agreement & Acceptance of Terms</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">1.1 Binding Agreement</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">By using our laundry services (whether in-store or through our online portal), you automatically accept and agree to be bound by these terms and conditions.</p>
-                
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <p style="margin-bottom: 1rem;"><strong>In-Store Customers:</strong> Acceptance occurs when you hand over items to our staff and receive a collection slip/receipt</p>
-                    <p style="margin: 0;"><strong>Online Customers:</strong> Acceptance occurs when you submit a service request through our online portal or when our pickup agent collects your items</p>
-                </div>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">1.2 Collection Slip as Legal Contract</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">The collection slip/receipt issued to you (physically in-store or digitally via the online portal) serves as:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Proof of items received</li>
-                    <li>Legal contract between customer and business</li>
-                    <li>Final record of item count and condition</li>
-                    <li>Basis for all claims and disputes</li>
-                </ul>
-                
-                <div style="background: #FEE2E2; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0; border: 1px solid #FCA5A5;">
-                    <p style="color: #991B1B; margin: 0;"><strong>IMPORTANT:</strong> You are bound by the content of the collection slip. Our count and condition notes are final unless you dispute them within 24 hours of receiving the slip.</p>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 2: Liability Limitations & Damage Compensation</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">2.1 Maximum Liability Cap</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">In the event of loss, damage, or destruction of your items, our maximum liability is:</p>
-                
-                <div style="background: #DBEAFE; border: 2px solid #2563EB; border-radius: 0.75rem; padding: 2rem; text-align: center; margin: 2rem 0;">
-                    <h4 style="font-size: 1.5rem; color: #1E40AF; margin-bottom: 0.5rem;">₦15,000 per item OR 10× cleaning charge</h4>
-                    <p style="color: #1E40AF; margin: 0; font-weight: 500;">WHICHEVER IS LOWER</p>
-                </div>
-
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">Examples:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                        <li>Cleaning cost: ₦900 → Maximum liability: ₦9,000</li>
-                        <li>Cleaning cost: ₦1,300 → Maximum liability: ₦13,000</li>
-                        <li>Cleaning cost: ₦2,000 → Maximum liability: ₦15,000 (capped)</li>
-                        <li>Cleaning cost: ₦3,000 → Maximum liability: ₦15,000 (capped)</li>
-                    </ul>
-                </div>
-
-                <p style="margin: 1.5rem 0; line-height: 1.7; color: #6B7280;">This cap applies regardless of the actual purchase price, brand, designer label, sentimental value, or age/condition before cleaning. Our liability is capped at ₦15,000 per item for non-declared goods (adjusted for 2026 market value).</p>
-
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">Examples:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                        <li>Cleaning cost: ₦500 → Maximum liability: ₦5,000</li>
-                        <li>Cleaning cost: ₦800 → Maximum liability: ₦8,000</li>
-                        <li>Cleaning cost: ₦1,500 → Maximum liability: ₦15,000 (capped)</li>
-                        <li>Cleaning cost: ₦2,000 → Maximum liability: ₦15,000 (capped)</li>
-                    </ul>
-                </div>
-
-                <p style="margin: 1.5rem 0; line-height: 1.7; color: #6B7280;">This cap applies regardless of the actual purchase price, brand, designer label, sentimental value, or age/condition before cleaning.</p>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">2.2 High-Value Item Declaration (Optional Premium Service)</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">For items valued above ₦50,000, we offer a Premium Protection Service:</p>
-                
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">Requirements:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                        <li>Declare item's value at intake (in-store or via online portal)</li>
-                        <li>Provide proof of value (receipt, online listing, valuation certificate)</li>
-                        <li>Premium cleaning fee: 5% of declared value (minimum ₦2,500)</li>
-                        <li>Premium protection must be selected BEFORE item is accepted</li>
-                    </ul>
-                </div>
-
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">Coverage:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                        <li>Full declared value coverage up to ₦200,000 per item</li>
-                        <li>Requires signed Premium Protection Form (digital signature accepted)</li>
-                        <li>Claims require original proof of value document</li>
-                    </ul>
-                </div>
-
-                <div style="background: #FEF3C7; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0; border: 1px solid #FCD34D;">
-                    <p style="color: #92400E; margin: 0;">If you DO NOT declare high-value items, standard ₦15,000 cap applies.</p>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 3: Items We Do Not Accept Liability For</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">3.1 Items Cleaned at Customer's Own Risk</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">The following items are processed AT YOUR OWN RISK with ZERO LIABILITY on our part:</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">Materials</h4>
-                        <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280; font-size: 0.9375rem;">
-                            <li>Leather items</li>
-                            <li>Suede materials</li>
-                            <li>Fur or faux fur</li>
-                            <li>Silk with embellishments</li>
-                            <li>Heavy beading/sequins</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">Special Garments</h4>
-                        <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280; font-size: 0.9375rem;">
-                            <li>Wedding dresses</li>
-                            <li>Traditional ceremonial attire</li>
-                            <li>Vintage/antique clothing</li>
-                            <li>Items with no care label</li>
-                            <li>Dry-clean-only items</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">Household Items</h4>
-                        <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280; font-size: 0.9375rem;">
-                            <li>Curtains and drapes</li>
-                            <li>Carpets and rugs</li>
-                            <li>Comforters and duvets</li>
-                            <li>Pillows</li>
-                            <li>Mattress covers</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">Footwear & Accessories</h4>
-                        <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280; font-size: 0.9375rem;">
-                            <li>Shoes and sandals</li>
-                            <li>Belts</li>
-                            <li>Handbags</li>
-                            <li>Caps and hats</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div style="background: #FEE2E2; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0; border: 1px solid #FCA5A5;">
-                    <p style="color: #991B1B; margin: 0;"><strong>IF YOU REFUSE TO ACKNOWLEDGE THE RISK, WE RESERVE THE RIGHT TO REFUSE SERVICE.</strong></p>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 4: What We Are Not Responsible For</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">4.1 Pre-Existing Conditions</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">We are not liable for damage to:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Items already torn, stained, or worn before cleaning</li>
-                    <li>Weak, tender, or aged fabrics that tear during normal processing</li>
-                    <li>Faded colors or discoloration present before intake</li>
-                    <li>Missing buttons, broken zippers, or damaged trims already present</li>
-                </ul>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">4.2 Normal Cleaning Outcomes</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">We are not liable for:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Color bleeding between garments during washing</li>
-                    <li><strong>Color bleeding on local fabrics (Ankara, Adire, lace, etc.) or multi-colored garments where one color bleeds into another, as this is a defect in the fabric's dye-fastness, not our process</strong></li>
-                    <li>Shrinkage up to 5% (natural fabric behavior)</li>
-                    <li>Color fading from normal detergent use</li>
-                    <li>Texture changes in certain fabrics after washing</li>
-                    <li>Pilling on wool, cotton blends, or synthetic materials</li>
-                </ul>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">4.3 Starch Preferences</h3>
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <p style="margin: 0; line-height: 1.7; color: #6B7280;"><strong>Starch levels are subjective.</strong> Unless a specific starch level (light, medium, heavy) is clearly noted on the collection slip at the time of drop-off, our professional judgment is final. Re-washes due to starch preference will be charged at 50% of the original cleaning cost.</p>
-                </div>
-                
-                <p style="margin: 1rem 0; line-height: 1.7; color: #6B7280;">We are not liable for damage to fabrics that should not be starched if you insist on starching against our professional advice.</p>
-                
-                <div style="background: #FEF3C7; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0; border: 1px solid #FCD34D;">
-                    <p style="color: #92400E; margin: 0; line-height: 1.7;"><strong>Important:</strong> Starch preferences must be clearly communicated and documented at drop-off. Changes after processing will incur additional charges.</p>
-                </div>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">4.4 Customer Errors</h3>
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">Items Left in Pockets:</h4>
-                    <p style="margin: 0; line-height: 1.7; color: #6B7280;">Money, jewelry, phones, keys, documents, pens, makeup, etc. You MUST empty all pockets before handing items to us. Any damage caused by items left in pockets is your responsibility.</p>
-                </div>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">4.4 Stain Removal</h3>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>We use best efforts to remove stains</li>
-                    <li>Stain removal is NEVER guaranteed</li>
-                    <li>Some stains are permanent (oil, bleach, dye, rust, old blood)</li>
-                    <li>We are not liable if stains remain or worsen during treatment</li>
-                </ul>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 5: Claims & Dispute Resolution</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">5.1 Reporting Deadlines & Verification</h3>
-                <div style="background: #DBEAFE; border: 2px solid #2563EB; border-radius: 0.75rem; padding: 2rem; margin: 2rem 0;">
-                    <h4 style="font-size: 1.25rem; color: #1E40AF; margin-bottom: 1rem;">YOU MUST REPORT DAMAGE, LOSS, OR DEFECTS WITHIN:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #1E40AF;">
-                        <li><strong>In-Store Pickup:</strong> At the time of collection or within 24 hours</li>
-                        <li><strong>Online/Home Delivery:</strong> Within 24 hours of delivery confirmation</li>
-                    </ul>
-                    <p style="margin-top: 1rem; color: #1E40AF; font-weight: 600;">After 24 hours, NO CLAIMS WILL BE ACCEPTED.</p>
-                </div>
-
-                <div style="background: #FEF3C7; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0; border: 1px solid #FCD34D;">
-                    <p style="color: #92400E; margin: 0; line-height: 1.7;"><strong>CRITICAL:</strong> For in-store pickups, we strongly advise customers to inspect items before leaving the premises. Once an item leaves the shop or 24 hours pass after home delivery, Doc JS Laundry is legally released from all liability.</p>
-                </div>
-
-                <div style="background: #FEE2E2; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0; border: 1px solid #FCA5A5;">
-                    <p style="color: #991B1B; margin: 0; line-height: 1.7;"><strong>LAUNDRY TAG REQUIREMENT:</strong> No claim for damage or loss will be entertained if the plastic ID tag or barcode has been removed from the garment. The original laundry tag MUST remain attached to the item for a claim to be valid.</p>
-                </div>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">5.2 How to File a Claim</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">In-Store Customers:</h4>
-                        <ol style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                            <li>Return to shop with damaged item and collection slip</li>
-                            <li>Speak with manager on duty</li>
-                            <li>Fill out Damage Report Form</li>
-                            <li>Provide photos if possible</li>
-                        </ol>
-                    </div>
-
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">Online Customers:</h4>
-                        <ol style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                            <li>Log into your online account</li>
-                            <li>Go to "Order History" → Select affected order</li>
-                            <li>Click "Report Issue"</li>
-                            <li>Upload photos of damage</li>
-                            <li>Submit claim form</li>
-                        </ol>
-                        <p style="margin-top: 1rem; font-size: 0.875rem; color: #6B7280;">Response within 48 hours</p>
-                    </div>
-                </div>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">5.3 Compensation Methods</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">If your claim is approved:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Cash refund (in-store customers)</li>
-                    <li>Bank transfer (online customers, within 7 business days)</li>
-                    <li>Service credit to your online account</li>
-                    <li>Free cleaning services equivalent to compensation amount</li>
-                </ul>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 6: Customer Responsibilities</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">6.1 Item Inspection Before Handover</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">You must:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Check item count on collection slip immediately</li>
-                    <li>Verify item descriptions are accurate</li>
-                    <li>Report any errors within 24 hours</li>
-                    <li>Empty all pockets before handing items to us</li>
-                </ul>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">6.2 Unclaimed Items</h3>
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">In-Store:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                        <li>Items not collected within <strong>45 days</strong> of ready date will be considered abandoned</li>
-                        <li>After <strong>90 days</strong>, we may dispose of items or donate to charity</li>
-                        <li>No refunds for unclaimed items</li>
-                    </ul>
-                </div>
-
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">Online Orders:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                        <li>If you fail to schedule delivery within 14 days of completion, storage fees of <strong>₦500 per day</strong> apply</li>
-                        <li>Items not collected within <strong>45 days</strong> are considered abandoned</li>
-                        <li>After <strong>90 days</strong> total, items may be disposed of or donated</li>
-                    </ul>
-                </div>
-
-                <div style="background: #FEF3C7; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0; border: 1px solid #FCD34D;">
-                    <p style="color: #92400E; margin: 0; line-height: 1.7;"><strong>Storage Fee Notice:</strong> To encourage timely collection and manage our limited space, storage fees begin from Day 14 after your collection date. Please collect your items promptly to avoid additional charges.</p>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 7: Payment Terms & Refund Policy</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">7.1 Payment Terms</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">In-Store Customers:</h4>
-                        <p style="margin-bottom: 0.5rem; color: #6B7280;">Payment due when collecting items</p>
-                        <p style="margin: 0; color: #6B7280;"><strong>We accept:</strong> Cash, Bank Transfer, POS (Debit/Credit Cards)</p>
-                    </div>
-
-                    <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem;">
-                        <h4 style="margin-bottom: 1rem; color: #111827;">Online Customers:</h4>
-                        <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                            <li><strong>Pay on Delivery (POD):</strong> Payment when items are delivered</li>
-                            <li><strong>Pay on Pickup (POP):</strong> Payment when agent collects items</li>
-                            <li><strong>Prepaid Online:</strong> Pay via online portal</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">7.2 Refund Policy</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">All payments are NON-REFUNDABLE once service is completed, EXCEPT:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li><strong>Service Not Rendered:</strong> If we fail to clean your items, full refund</li>
-                    <li><strong>Failed Pickup (Online):</strong> If our agent fails to show up within 24 hours, booking fee refunded</li>
-                    <li><strong>Approved Damage Claim:</strong> Compensation as per Section 5</li>
-                    <li><strong>Cancellation Before Processing:</strong> 100% refund minus ₦500 cancellation fee</li>
-                </ul>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 8: Force Majeure & Service Interruptions</h2>
-                
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">We are not liable for delays, cancellations, or service failures caused by:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Natural disasters (floods, storms, earthquakes)</li>
-                    <li>Power outages or water supply disruptions</li>
-                    <li>Government actions, strikes, or civil unrest</li>
-                    <li>Pandemics or public health emergencies</li>
-                    <li>Equipment breakdown or facility damage</li>
-                    <li>Transportation disruptions (for online orders)</li>
-                </ul>
-
-                <div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;">
-                    <h4 style="margin-bottom: 1rem;">In Such Cases:</h4>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                        <li>We will notify you via SMS, email, or online portal notification</li>
-                        <li>Service will resume as soon as possible</li>
-                        <li>No compensation for delays</li>
-                        <li>You may cancel and receive full refund if delay exceeds 14 days</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 9: Privacy & Data Protection</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">9.1 Information We Collect</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">When you use our services, we collect:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Name, phone number, email address</li>
-                    <li>Pickup and delivery addresses (online customers)</li>
-                    <li>Payment information</li>
-                    <li>Item descriptions and quantities</li>
-                    <li>Order history</li>
-                </ul>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">9.2 How We Use Your Information</h3>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Process and fulfill your orders</li>
-                    <li>Communicate with you about services</li>
-                    <li>Send order updates and notifications</li>
-                    <li>Improve our services and online portal</li>
-                    <li>Resolve disputes and claims</li>
-                </ul>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">9.3 Your Rights</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">You have the right to:</p>
-                <ul style="margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8; color: #6B7280;">
-                    <li>Access your personal information</li>
-                    <li>Request correction of inaccurate data</li>
-                    <li>Request deletion of your account and data</li>
-                    <li>Opt-out of marketing communications</li>
-                </ul>
-            </div>
-
-            <div style="margin-bottom: 4rem;">
-                <h2 style="font-size: 1.875rem; margin-bottom: 1.5rem; color: #111827;">Section 10: General Provisions</h2>
-                
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">10.1 Changes to Terms</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">We reserve the right to modify these terms at any time. Changes will be posted on our website and online portal. Continued use of services after changes constitutes acceptance.</p>
-
-                <h3 style="font-size: 1.25rem; margin: 2rem 0 1rem; color: #111827;">10.2 Governing Law</h3>
-                <p style="margin-bottom: 1rem; line-height: 1.7; color: #6B7280;">These terms are governed by the laws of the Federal Republic of Nigeria. Any disputes will be resolved in the courts of Warri, Delta State.</p>
-            </div>
-
-            <div style="background: #DBEAFE; border: 2px solid #2563EB; border-radius: 1rem; padding: 3rem; text-align: center; margin: 4rem 0;">
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin: 0 auto 1.5rem;">
-                    <circle cx="32" cy="32" r="28" stroke="#2563EB" stroke-width="3"/>
-                    <path d="M20 32l8 8 16-16" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #1E40AF;">Acknowledgment</h3>
-                <p style="line-height: 1.7; color: #1E40AF; margin-bottom: 1.5rem;">By using Doc JS Laundry and Dry Cleaning Services (in-store or online), you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.</p>
-                <p style="font-size: 0.875rem; color: #1E40AF; margin: 0;"><strong>Last Updated:</strong> January 8, 2025 | <strong>Version:</strong> 1.0</p>
-            </div>
-
+        <div class="two-col-box">
+          <h4>Online Customers</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Acceptance occurs when you submit a booking or when our agent collects your items.</p>
         </div>
-    </section>
+      </div>
 
-    <section style="padding: 4rem 0; background: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);">
-        <div class="container" style="text-align: center; max-width: 800px;">
-            <h2 style="color: white; margin-bottom: 1rem;">Ready to Experience Professional Laundry Care?</h2>
-            <p style="color: rgba(255, 255, 255, 0.9); font-size: 1.125rem; margin-bottom: 2rem;">Join hundreds of satisfied customers in Warri who trust Doc JS with their garments.</p>
-            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <a href="/app/order" class="btn-primary" style="background: white; color: #2563EB;">Start Your Order</a>
-                <a href="index.html#locations" class="btn-secondary" style="border-color: white; color: white;">Visit Our Shops</a>
-            </div>
+      <p class="policy-sub">1.2 Collection Slip as Legal Contract</p>
+      <p>Your collection slip (physical or digital) serves as proof of items received, the legal contract between you and Doc JS, the final record of item count and condition, and the basis for all claims and disputes.</p>
+
+      <div class="danger-box">
+        <p><strong>Important:</strong> Our count and condition notes are final unless disputed within 24 hours of receiving the slip.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>02 —</span> Liability & Damage Compensation</div>
+
+      <p class="policy-sub">2.1 Maximum Liability Cap</p>
+      <p>In the event of loss, damage, or destruction of your items, our maximum liability is:</p>
+
+      <div class="info-box">
+        <h4>₦15,000 per item OR 10× the cleaning charge</h4>
+        <p>Whichever is lower — applies regardless of brand, purchase price, or sentimental value.</p>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>Examples:</strong> Shirt cleaned at ₦1,300 → max liability ₦13,000. Agbada cleaned at ₦3,500 → max liability ₦15,000 (capped).</p>
+      </div>
+
+      <p class="policy-sub">2.2 High-Value Item Declaration</p>
+      <p>For items valued above ₦50,000, we offer a Premium Protection Service. You must declare the item's value at intake, provide proof of value, and pay a premium cleaning fee of 5% of declared value (minimum ₦2,500). Coverage is up to ₦200,000 per item. This must be arranged before we accept the item — not after.</p>
+
+      <div class="highlight-box">
+        <p>If you do not declare high-value items, the standard ₦15,000 cap applies with no exceptions.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>03 —</span> Items We Do Not Accept Liability For</div>
+
+      <p>The following are processed at your own risk with zero liability on our part:</p>
+
+      <div class="four-col">
+        <div class="two-col-box">
+          <h4>Materials</h4>
+          <ul>
+            <li>Leather & suede</li>
+            <li>Fur or faux fur</li>
+            <li>Silk with embellishments</li>
+            <li>Heavy beading / sequins</li>
+          </ul>
         </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="logo.jpg" alt="Doc JS Laundry" style="height: 40px; width: auto;">
-                        <div class="logo-text">
-                            <span class="logo-name">Doc JS</span>
-                            <span class="logo-tagline">Laundry & Dry Cleaning</span>
-                        </div>
-                    </div>
-                    <p>Professional care for your wardrobe</p>
-                    <div class="social-icons">
-                        <a href="#" aria-label="Facebook">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="Instagram">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
-                            </svg>
-                        </a>
-                        <a href="#" aria-label="WhatsApp">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#services">Services</a></li>
-                        <li><a href="index.html#pricing">Pricing</a></li>
-                        <li><a href="policies.html">Policies</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <ul>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M14.5 11.3v2.2a1.5 1.5 0 01-1.6 1.5 14.8 14.8 0 01-6.5-2.3 14.6 14.6 0 01-4.5-4.5A14.8 14.8 0 01-.5 1.6 1.5 1.5 0 011 0h2.2a1.5 1.5 0 011.5 1.3c.1.8.3 1.6.6 2.4a1.5 1.5 0 01-.3 1.6l-.9.9a12 12 0 004.5 4.5l.9-.9a1.5 1.5 0 011.6-.3c.7.2 1.5.4 2.4.6a1.5 1.5 0 011.3 1.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            +234-XXX-XXX-XXXX
-                        </li>
-                        <li>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M2.5 2.5h11a1 1 0 011 1v9a1 1 0 01-1 1h-11a1 1 0 01-1-1v-9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M14.5 3.5l-6.5 4.5-6.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            docjslaundry@gmail.com
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>Business Hours</h4>
-                    <ul>
-                        <li>Monday - Saturday</li>
-                        <li>7:00 AM - 7:00 PM</li>
-                        <li>Sunday: Closed</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Doc JS Laundry and Dry Cleaning Services. All rights reserved.</p>
-                <p>Proudly serving Warri, Delta State</p>
-            </div>
+        <div class="two-col-box">
+          <h4>Special Garments</h4>
+          <ul>
+            <li>Wedding dresses</li>
+            <li>Ceremonial attire</li>
+            <li>Vintage / antique items</li>
+            <li>Items with no care label</li>
+          </ul>
         </div>
-    </footer>
+        <div class="two-col-box">
+          <h4>Household</h4>
+          <ul>
+            <li>Curtains & drapes</li>
+            <li>Carpets & rugs</li>
+            <li>Duvets & pillows</li>
+            <li>Mattress covers</li>
+          </ul>
+        </div>
+        <div class="two-col-box">
+          <h4>Accessories</h4>
+          <ul>
+            <li>Shoes & sandals</li>
+            <li>Belts & handbags</li>
+            <li>Caps & hats</li>
+          </ul>
+        </div>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="danger-box">
+        <p><strong>If you refuse to acknowledge the risk, we reserve the right to refuse service.</strong></p>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>04 —</span> What We Are Not Responsible For</div>
+
+      <p class="policy-sub">4.1 Pre-Existing Conditions</p>
+      <p>We are not liable for items already torn, stained, or worn before cleaning; weak or aged fabrics that tear during processing; faded colours or discolouration present before intake; or missing buttons, broken zippers, or damaged trims already present at drop-off.</p>
+
+      <p class="policy-sub">4.2 Normal Cleaning Outcomes</p>
+      <p>We are not liable for colour bleeding between garments; colour bleeding on local fabrics (Ankara, Adire, lace) where dye-fastness is a fabric defect, not our process; shrinkage up to 5%; colour fading from normal detergent use; texture changes; or pilling on wool, cotton blends, or synthetic materials.</p>
+
+      <p class="policy-sub">4.3 Starch Preferences</p>
+      <div class="highlight-box">
+        <p>Starch levels are subjective. Unless clearly specified at drop-off, our professional judgment is final. Re-washes due to starch preference are charged at 50% of original cleaning cost.</p>
+      </div>
+
+      <p class="policy-sub">4.4 Items Left in Pockets</p>
+      <p>You must empty all pockets before handing items to us. Money, jewellery, phones, keys, documents — any damage caused by items left in pockets is entirely your responsibility.</p>
+
+      <p class="policy-sub">4.5 Stain Removal</p>
+      <p>We use best efforts to remove stains, but stain removal is never guaranteed. Some stains are permanent — oil, bleach, dye, rust, old blood. We are not liable if stains remain or worsen during treatment.</p>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>05 —</span> Claims & Dispute Resolution</div>
+
+      <p class="policy-sub">5.1 Reporting Deadlines</p>
+
+      <div class="info-box">
+        <h4>Report damage, loss, or defects within 24 hours</h4>
+        <p>In-store: at collection or within 24 hours. Online/delivery: within 24 hours of delivery confirmation. After 24 hours, no claims will be accepted.</p>
+      </div>
+
+      <div class="highlight-box">
+        <p>For in-store pickups, inspect items before leaving. Once an item leaves the shop, Doc JS is released from liability.</p>
+      </div>
+
+      <div class="danger-box">
+        <p><strong>Tag Requirement:</strong> No claim will be entertained if the laundry tag has been removed. The original tag must remain attached for any claim to be valid.</p>
+      </div>
+
+      <p class="policy-sub">5.2 How to File a Claim</p>
+      <div class="two-col">
+        <div class="two-col-box">
+          <h4>In-Store</h4>
+          <ol style="padding-left:1.25rem;margin:0;">
+            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Return with item + collection slip</li>
+            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Speak with manager on duty</li>
+            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Fill out Damage Report Form</li>
+            <li style="font-size:0.875rem;color:var(--gray-600);">Provide photos if possible</li>
+          </ol>
+        </div>
+        <div class="two-col-box">
+          <h4>Online</h4>
+          <ol style="padding-left:1.25rem;margin:0;">
+            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Contact us via WhatsApp</li>
+            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Quote your order reference</li>
+            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Send photos of damage</li>
+            <li style="font-size:0.875rem;color:var(--gray-600);">Response within 48 hours</li>
+          </ol>
+        </div>
+      </div>
+
+      <p class="policy-sub">5.3 Compensation Methods</p>
+      <p>If your claim is approved: cash refund (in-store), bank transfer within 7 business days (online), or service credit of equivalent value.</p>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>06 —</span> Customer Responsibilities</div>
+
+      <p class="policy-sub">6.1 Unclaimed Items</p>
+      <p>Items not collected within <strong>45 days</strong> of the ready date are considered abandoned. After <strong>90 days</strong>, we may donate or dispose of items. No refunds apply for unclaimed items.</p>
+      <p>For online orders: if pickup is not scheduled within 14 days of completion, storage fees of <strong>₦500/day</strong> apply from Day 14 onward.</p>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>07 —</span> Payment Terms & Refunds</div>
+
+      <div class="two-col">
+        <div class="two-col-box">
+          <h4>In-Store</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Payment due when collecting items. We accept cash, bank transfer, and POS.</p>
+        </div>
+        <div class="two-col-box">
+          <h4>Online</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Pay on delivery, pay on pickup, or prepay online.</p>
+        </div>
+      </div>
+
+      <p class="policy-sub">7.2 Refund Policy</p>
+      <p>All payments are non-refundable once service is completed, except: service not rendered (full refund), failed pickup within 24 hours (booking fee refunded), approved damage claim (as per Section 5), or cancellation before processing (100% refund minus ₦500 fee).</p>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>08 —</span> Force Majeure</div>
+      <p>We are not liable for delays caused by natural disasters, power or water outages, government actions, pandemics, equipment failure, or transport disruptions. We will notify you via WhatsApp or SMS. If delay exceeds 14 days, you may cancel for a full refund.</p>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>09 —</span> Privacy & Data</div>
+      <p>We collect your name, phone number, address, and order details to process and fulfil your orders, communicate updates, and resolve disputes. We do not sell your data. You may request correction or deletion of your information at any time by contacting us directly.</p>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="policy-section">
+      <div class="policy-section-title"><span>10 —</span> General Provisions</div>
+      <p>We may modify these terms at any time. Changes will be posted on this page. Continued use of our services constitutes acceptance. These terms are governed by the laws of the Federal Republic of Nigeria. Disputes will be resolved in the courts of Warri, Delta State.</p>
+    </div>
+
+    <!-- ACKNOWLEDGEMENT -->
+    <div class="ack-box">
+      <div class="ack-icon">✦</div>
+      <h3>Acknowledgement</h3>
+      <p>By using Doc JS Laundry and Dry Cleaning Services — in-store or online — you confirm that you have read, understood, and agreed to these terms.</p>
+      <div class="meta">Last Updated: January 2025 · Version 1.0</div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="policy-cta">
+    <div class="container">
+      <h3>Ready to book?</h3>
+      <p>Now that you know our policies, let's get your clothes sorted.</p>
+      <div class="policy-cta-btns">
+        <a href="index.html" class="btn-ghost">← Back to site</a>
+        <a href="index.html" onclick="setTimeout(openBookingModal, 100)" class="btn-primary">Book a Pickup</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Doc JS</div>
+        <p>Premium laundry care.<br>Warri, Delta State.</p>
+      </div>
+      <div class="footer-contact">
+        <div>+234 906 090 4176</div>
+        <div>docjslaundry@gmail.com</div>
+        <div>Mon–Sat · 8AM–7PM</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="policies.html">Policies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Doc JS Laundry and Dry Cleaning Services · Warri, Delta State</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.pageYOffset > 60);
+    });
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
