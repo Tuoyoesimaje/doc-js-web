@@ -9,6 +9,8 @@ cp styles.css public/
 cp script.js public/
 cp policies.html public/
 cp logo.jpg public/
+cp sitemap.xml public/
+cp robots.txt public/
 cp "Generated Image January 09, 2026 - 11_19AM.jpeg" public/ 2>/dev/null || true
 
 # Build React app
