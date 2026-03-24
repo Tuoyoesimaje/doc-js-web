@@ -4,6 +4,21 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.pageYOffset > 60);
 });
 
+// ===== HERO SLIDESHOW =====
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const totalSlides = slides.length;
+
+function showNextSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % totalSlides;
+  slides[currentSlide].classList.add('active');
+}
+
+if (slides.length > 0) {
+  setInterval(showNextSlide, 8000); // Change image every 8 seconds
+}
+
 // ===== SMOOTH SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
