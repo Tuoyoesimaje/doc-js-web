@@ -24,6 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
@@ -38,8 +39,8 @@
         <a href="/policies">Policies</a>
       </div>
       <button class="nav-cta" onclick="openBookingModal()">Book Pickup</button>
-      <button class="menu-toggle" aria-label="Menu">
-        <span></span><span></span>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
@@ -63,12 +64,19 @@
         <button class="btn-primary" onclick="openBookingModal()">Book a Pickup</button>
         <a href="#pricing" class="btn-ghost">View Prices</a>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Customers</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">2</span><span class="stat-label">Locations</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">4.9</span><span class="stat-label">Rating</span></div>
+      <div class="hero-trust">
+        <div class="trust-badge">
+          <div class="trust-icon"><i data-lucide="zap"></i></div>
+          <span>Express available</span>
+        </div>
+        <div class="trust-badge">
+          <div class="trust-icon"><i data-lucide="truck"></i></div>
+          <span>Pickup & Delivery</span>
+        </div>
+        <div class="trust-badge">
+          <div class="trust-icon"><i data-lucide="check-circle"></i></div>
+          <span>48Hr Turnaround</span>
+        </div>
       </div>
     </div>
     <div class="hero-img-wrap">
@@ -81,6 +89,68 @@
       <div class="hero-badge">
         <span class="badge-icon">✦</span>
         <span>Express available</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER STRIP -->
+  <div class="strip">
+    <div class="strip-track">
+      <span class="strip-item">Wash & Iron</span>
+      <span class="strip-item">Dry Cleaning</span>
+      <span class="strip-item">Express Service</span>
+      <span class="strip-item">Free Pickup</span>
+      <span class="strip-item">Native Wear</span>
+      <span class="strip-item">Suits & Blazers</span>
+      <span class="strip-item">Bedsheets & Duvets</span>
+      <span class="strip-item">Wash & Iron</span>
+      <span class="strip-item">Dry Cleaning</span>
+      <span class="strip-item">Express Service</span>
+      <span class="strip-item">Free Pickup</span>
+      <span class="strip-item">Native Wear</span>
+      <span class="strip-item">Suits & Blazers</span>
+      <span class="strip-item">Bedsheets & Duvets</span>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <section id="pricing" class="pricing-section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Transparent pricing</p>
+        <h2>You know the cost<br>before we collect.</h2>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-col">
+          <div class="price-col-head">Regular (Wash & Iron)</div>
+          <div class="price-row"><span>T-Shirt / Polo</span><span>₦900</span></div>
+          <div class="price-row"><span>Shirt (Long/Short)</span><span>₦1,300</span></div>
+          <div class="price-row"><span>Trousers / Jeans</span><span>₦1,200</span></div>
+          <div class="price-row"><span>Native / Senator</span><span>₦2,200</span></div>
+          <div class="price-row"><span>Agbada (3-piece)</span><span>₦3,500</span></div>
+          <div class="price-row"><span>Bedsheet (Double)</span><span>₦1,800</span></div>
+        </div>
+        <div class="price-col price-col-dark">
+          <div class="price-col-head">Dry Cleaning</div>
+          <div class="price-row"><span>Suit (2-piece)</span><span>₦3,000</span></div>
+          <div class="price-row"><span>Blazer / Jacket</span><span>₦1,800</span></div>
+          <div class="price-row"><span>Kaftan / Jalabiya</span><span>₦2,500</span></div>
+          <div class="price-row"><span>Evening Gown</span><span>₦3,500</span></div>
+          <div class="price-row"><span>Tie / Scarf</span><span>₦500</span></div>
+          <div class="price-row accent-row"><span>Express surcharge</span><span>+50%</span></div>
+        </div>
+        <div class="price-col">
+          <div class="price-col-head">Special</div>
+          <div class="price-row"><span>Wedding Gown</span><span>₦12,000</span></div>
+          <div class="price-row"><span>Duvet (Large)</span><span>₦4,000</span></div>
+          <div class="price-row"><span>Rug (per sqm)</span><span>₦800</span></div>
+          <div class="pricing-note-box">
+            <p>Minimum order of ₦3,000 for home pickup. Bulk discounts available for 15+ items.</p>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-cta">
+        <button class="btn-primary" onclick="openBookingModal()">Book Now — Price Calculated Instantly</button>
       </div>
     </div>
   </section>
@@ -139,48 +209,6 @@
           <h3>Bulk & Corporate</h3>
           <p>Hotels, hospitals, offices. Custom pricing for high volumes.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section id="pricing" class="pricing-section">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Transparent pricing</p>
-        <h2>You know the cost<br>before we collect.</h2>
-      </div>
-      <div class="pricing-grid">
-        <div class="price-col">
-          <div class="price-col-head">Regular (Wash & Iron)</div>
-          <div class="price-row"><span>T-Shirt / Polo</span><span>₦900</span></div>
-          <div class="price-row"><span>Shirt (Long/Short)</span><span>₦1,300</span></div>
-          <div class="price-row"><span>Trousers / Jeans</span><span>₦1,200</span></div>
-          <div class="price-row"><span>Native / Senator</span><span>₦2,200</span></div>
-          <div class="price-row"><span>Agbada (3-piece)</span><span>₦3,500</span></div>
-          <div class="price-row"><span>Bedsheet (Double)</span><span>₦1,800</span></div>
-        </div>
-        <div class="price-col price-col-dark">
-          <div class="price-col-head">Dry Cleaning</div>
-          <div class="price-row"><span>Suit (2-piece)</span><span>₦3,000</span></div>
-          <div class="price-row"><span>Blazer / Jacket</span><span>₦1,800</span></div>
-          <div class="price-row"><span>Kaftan / Jalabiya</span><span>₦2,500</span></div>
-          <div class="price-row"><span>Evening Gown</span><span>₦3,500</span></div>
-          <div class="price-row"><span>Tie / Scarf</span><span>₦500</span></div>
-          <div class="price-row accent-row"><span>Express surcharge</span><span>+50%</span></div>
-        </div>
-        <div class="price-col">
-          <div class="price-col-head">Special</div>
-          <div class="price-row"><span>Wedding Gown</span><span>₦12,000</span></div>
-          <div class="price-row"><span>Duvet (Large)</span><span>₦4,000</span></div>
-          <div class="price-row"><span>Rug (per sqm)</span><span>₦800</span></div>
-          <div class="pricing-note-box">
-            <p>Minimum order of ₦3,000 for home pickup. Bulk discounts available for 15+ items.</p>
-          </div>
-        </div>
-      </div>
-      <div class="pricing-cta">
-        <button class="btn-primary" onclick="openBookingModal()">Book Now — Price Calculated Instantly</button>
       </div>
     </div>
   </section>
@@ -305,6 +333,7 @@
 
   <input type="text" id="hp-field" style="display:none;" tabindex="-1" autocomplete="off">
   <script src="script.js"></script>
+  <script>lucide.createIcons();</script>
 
   <script type="application/ld+json">
   {

@@ -39,10 +39,12 @@ const mobileMenu = document.getElementById('mobileMenu');
 
 menuToggle.addEventListener('click', () => {
   mobileMenu.classList.toggle('open');
+  menuToggle.classList.toggle('open');
 });
 
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
+  menuToggle.classList.remove('open');
 }
 
 document.addEventListener('click', (e) => {
