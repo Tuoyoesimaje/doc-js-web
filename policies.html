@@ -116,8 +116,8 @@
         <a href="/#locations">Locations</a>
         <a href="/policies" style="color:var(--black);">Policies</a>
       </div>
-      <button class="menu-toggle" aria-label="Menu">
-        <span></span><span></span>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
@@ -413,12 +413,19 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.pageYOffset > 60);
     });
+    
     const menuToggle = document.querySelector('.menu-toggle');
     const mobileMenu = document.getElementById('mobileMenu');
-    menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      menuToggle.classList.toggle('open');
+    });
+    
     document.addEventListener('click', (e) => {
       if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
         mobileMenu.classList.remove('open');
+        menuToggle.classList.remove('open');
       }
     });
   </script>
