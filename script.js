@@ -66,16 +66,16 @@ document.querySelectorAll('.location-card').forEach(card => {
 const EDGE_FUNCTION_URL = "https://ylbuxylvvqkvvrsxflbc.supabase.co/functions/v1/create-customer-booking";
 
 const ITEMS = [
-  { name: "T-Shirt / Polo", price: 900 },
-  { name: "Shirt (Long/Short Sleeve)", price: 1300 },
-  { name: "Trousers / Jeans", price: 1200 },
-  { name: "Native (Senator/2pc)", price: 2200 },
-  { name: "Agbada (3-Piece)", price: 3500 },
-  { name: "Bedsheet (Double)", price: 1800 },
+  { name: "T-Shirt / Polo", price: 700 },
+  { name: "Shirt (Long/Short Sleeve)", price: 1000 },
+  { name: "Trousers / Jeans", price: 1000 },
+  { name: "Native (Senator/2pc)", price: 1500 },
+  { name: "Agbada (3-Piece)", price: 3000 },
+  { name: "Bedsheet (Double)", price: 1200 },
   { name: "Suit (2-Piece)", price: 3000 },
-  { name: "Blazer / Jacket", price: 1800 },
+  { name: "Blazer / Jacket", price: 1500 },
   { name: "Kaftan / Jalabiya", price: 2500 },
-  { name: "Evening Gown", price: 3500 },
+  { name: "Evening Gown", price: 2500 },
   { name: "Duvet (Large)", price: 4000 },
   { name: "Tie / Scarf", price: 500 },
 ];
