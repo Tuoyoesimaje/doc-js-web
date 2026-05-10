@@ -102,9 +102,8 @@ function openBookingModal() {
   document.getElementById('b-error').style.display = 'none';
   document.getElementById('booking-modal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  document.getElementById('b-date').min = tomorrow.toISOString().split('T')[0];
+  const today = new Date();
+  document.getElementById('b-date').min = today.toISOString().split('T')[0];
 }
 
 function closeBookingModal() {
