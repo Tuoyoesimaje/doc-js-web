@@ -66,18 +66,26 @@ document.querySelectorAll('.location-card').forEach(card => {
 const EDGE_FUNCTION_URL = "https://ylbuxylvvqkvvrsxflbc.supabase.co/functions/v1/create-customer-booking";
 
 const ITEMS = [
-  { name: "T-Shirt / Polo", price: 700 },
-  { name: "Shirt (Long/Short Sleeve)", price: 1000 },
-  { name: "Trousers / Jeans", price: 1000 },
-  { name: "Native (Senator/2pc)", price: 1500 },
-  { name: "Agbada (3-Piece)", price: 3000 },
+  { name: "T-Shirt / Polo", price: 500 },
+  { name: "Shirt (Long/Short Sleeve)", price: 600 },
+  { name: "Trousers / Jeans", price: 600 },
+  { name: "Native (Senator/2pc)", price: 1200 },
+  { name: "Agbada (3-Piece)", price: 2500 },
   { name: "Bedsheet (Double)", price: 1200 },
-  { name: "Suit (2-Piece)", price: 3000 },
-  { name: "Blazer / Jacket", price: 1500 },
-  { name: "Kaftan / Jalabiya", price: 2500 },
-  { name: "Evening Gown", price: 2500 },
-  { name: "Duvet (Large)", price: 4000 },
+  { name: "Bedsheet (Single)", price: 600 },
+  { name: "Suit (2-Piece)", price: 2500 },
+  { name: "Blazer / Jacket", price: 1000 },
+  { name: "Kaftan / Jalabiya", price: 1800 },
+  { name: "Evening Gown", price: 1500 },
+  { name: "Duvet (Large)", price: 5000 },
   { name: "Tie / Scarf", price: 500 },
+  { name: "Sweater / Hoodie", price: 1000 },
+  { name: "Dress", price: 800 },
+  { name: "Singlet", price: 300 },
+  { name: "Boxers / Underwear", price: 300 },
+  { name: "Towel", price: 400 },
+  { name: "Curtain", price: 1500 },
+  { name: "Wedding Gown", price: 6000 },
 ];
 
 let quantities = new Array(ITEMS.length).fill(0);
