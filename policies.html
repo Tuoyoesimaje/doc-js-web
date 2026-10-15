@@ -1,432 +1,404 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doc JS — Terms of Service &amp; Privacy Policy</title>
   <link rel="icon" href="logo.jpg" type="image/jpeg">
-  <title>Service Policies — Doc JS Laundry</title>
+  
+  <!-- Google Fonts: Manrope & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS v3 with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#5e625d",
+            "on-secondary-fixed-variant": "#444844",
+            "outline-variant": "#bfc9c1",
+            "background": "#f4fbf2",
+            "primary-container": "#2d6a4f",
+            "tertiary-fixed-dim": "#ffb3b3",
+            "on-primary-fixed": "#002114",
+            "surface-container-highest": "#dde5db",
+            "primary-fixed": "#b1f0ce",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "outline": "#707973",
+            "tertiary": "#713638",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f4fbf2",
+            "inverse-on-surface": "#ebf3e9",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#ffcfce",
+            "surface-container-high": "#e3eae1",
+            "secondary-fixed-dim": "#c4c7c2",
+            "on-background": "#161d18",
+            "on-secondary": "#ffffff",
+            "inverse-surface": "#2b322c",
+            "on-surface": "#161d18",
+            "tertiary-fixed": "#ffdad9",
+            "secondary": "#5b5f5b",
+            "primary-fixed-dim": "#95d4b3",
+            "on-tertiary-fixed": "#390b0e",
+            "surface": "#f4fbf2",
+            "surface-dim": "#d5dcd3",
+            "surface-container-low": "#eef6ec",
+            "on-secondary-fixed": "#191d19",
+            "secondary-container": "#dbded8",
+            "on-surface-variant": "#404943",
+            "surface-tint": "#2c694e",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#6f3537",
+            "surface-container": "#e9f0e6",
+            "on-error": "#ffffff",
+            "tertiary-container": "#8d4d4e",
+            "surface-variant": "#dde5db",
+            "primary": "#0f5238",
+            "secondary-fixed": "#e0e3de",
+            "inverse-primary": "#95d4b3",
+            "on-primary-container": "#a8e7c5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed-variant": "#0e5138"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-2xl": "4rem",
+            "margin-md": "3rem",
+            "margin-lg": "5rem",
+            "space-xs": "0.5rem",
+            "space-sm": "0.75rem",
+            "space-3xl": "6rem",
+            "margin": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-xxs": "0.25rem",
+            "space-xl": "2.5rem",
+            "gutter-sm": "1rem",
+            "space-md": "1rem",
+            "gutter-lg": "2rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Manrope"],
+            "label-md": ["Manrope"],
+            "headline-sm": ["Manrope"],
+            "display-lg": ["Manrope"],
+            "headline-lg": ["Manrope"],
+            "label-mono": ["JetBrains Mono"],
+            "headline-xl-mobile": ["Manrope"],
+            "body-sm": ["Manrope"],
+            "body-md": ["Manrope"],
+            "headline-md": ["Manrope"],
+            "headline-xl": ["Manrope"],
+            "body-lg": ["Manrope"],
+            "display-lg-mobile": ["Manrope"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "500" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    .policy-hero {
-      padding: calc(var(--nav-h) + 4rem) 0 3rem;
-      border-bottom: 1px solid var(--gray-200);
-    }
-    .policy-hero .eyebrow { margin-bottom: 0.75rem; }
-    .policy-hero h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
-    .policy-hero p { font-size: 1rem; max-width: 560px; }
-    .policy-meta {
-      display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap;
-    }
-    .policy-meta span {
-      font-size: 0.8125rem; color: var(--gray-400);
-      display: flex; align-items: center; gap: 0.375rem;
-    }
-
-    .policy-body {
-      max-width: 780px; margin: 0 auto; padding: 4rem 2rem 6rem;
-    }
-
-    .notice-box {
-      background: #FEF9EC; border: 1px solid #E8C96A;
-      border-radius: var(--radius); padding: 1.25rem 1.5rem;
-      margin-bottom: 3rem;
-    }
-    .notice-box strong { display: block; font-size: 0.875rem; color: #92400E; margin-bottom: 0.25rem; }
-    .notice-box p { font-size: 0.875rem; color: #92400E; margin: 0; }
-
-    .policy-section { margin-bottom: 3.5rem; }
-    .policy-section-title {
-      font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
-      color: var(--black); margin-bottom: 1.5rem; padding-bottom: 1rem;
-      border-bottom: 2px solid var(--gray-200);
-    }
-    .policy-section-title span { color: var(--gold); }
-    .policy-sub { font-size: 1rem; font-weight: 500; color: var(--black); margin: 1.5rem 0 0.625rem; }
-
-    .policy-body p { font-size: 0.9375rem; color: var(--gray-600); margin-bottom: 0.875rem; line-height: 1.75; }
-    .policy-body ul, .policy-body ol { padding-left: 1.5rem; margin-bottom: 1rem; }
-    .policy-body li { font-size: 0.9375rem; color: var(--gray-600); line-height: 1.75; margin-bottom: 0.25rem; }
-    .policy-body strong { color: var(--black); font-weight: 500; }
-
-    .highlight-box {
-      background: var(--gray-100); border-left: 3px solid var(--gold);
-      padding: 1.25rem 1.5rem; border-radius: 0 var(--radius) var(--radius) 0;
-      margin: 1.5rem 0;
-    }
-    .highlight-box p { margin: 0; }
-
-    .danger-box {
-      background: #FEF2F2; border-left: 3px solid #EF4444;
-      padding: 1.25rem 1.5rem; border-radius: 0 var(--radius) var(--radius) 0;
-      margin: 1.5rem 0;
-    }
-    .danger-box p { margin: 0; color: #7F1D1D !important; }
-
-    .info-box {
-      background: var(--black); color: var(--white);
-      padding: 1.5rem; border-radius: var(--radius); margin: 1.5rem 0;
-      text-align: center;
-    }
-    .info-box h4 { font-family: var(--font-display); font-size: 1.25rem; color: var(--gold); margin-bottom: 0.5rem; }
-    .info-box p { color: rgba(255,255,255,0.7); font-size: 0.875rem; margin: 0; }
-
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
-    .two-col-box { background: var(--gray-100); padding: 1.25rem; border-radius: var(--radius); }
-    .two-col-box h4 { font-size: 0.875rem; font-weight: 500; color: var(--black); margin-bottom: 0.75rem; }
-    .two-col-box ul { margin: 0; }
-    .two-col-box li { font-size: 0.875rem !important; }
-
-    .four-col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
-
-    .ack-box {
-      background: var(--black); border-radius: var(--radius-lg);
-      padding: 3rem 2rem; text-align: center; margin-top: 4rem;
-    }
-    .ack-icon { font-size: 2rem; color: var(--gold); margin-bottom: 1rem; }
-    .ack-box h3 { font-family: var(--font-display); color: var(--white); font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .ack-box p { color: rgba(255,255,255,0.6); font-size: 0.9rem; max-width: 500px; margin: 0 auto 0.5rem; }
-    .ack-box .meta { font-size: 0.8125rem; color: rgba(255,255,255,0.3); margin-top: 1rem; }
-
-    .policy-cta {
-      background: var(--gray-100); padding: 3rem; text-align: center;
-      border-top: 1px solid var(--gray-200);
-    }
-    .policy-cta h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .policy-cta p { font-size: 0.9375rem; margin-bottom: 1.5rem; }
-    .policy-cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    @media (max-width: 640px) {
-      .two-col, .four-col { grid-template-columns: 1fr; }
-      .policy-body { padding: 2rem 1.25rem 4rem; }
+    ::selection {
+      background-color: #2D6A4F;
+      color: #F8F8F4;
     }
   </style>
 </head>
-<body>
-
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo">Doc JS</a>
-      <div class="nav-links">
-        <a href="/#services">Services</a>
-        <a href="/#pricing">Pricing</a>
-        <a href="/#locations">Locations</a>
-        <a href="/policies" style="color:var(--black);">Policies</a>
+<body class="bg-surface text-on-surface antialiased font-body-md selection:bg-primary-container selection:text-surface">
+  <!-- Top Navigation Bar -->
+  <header class="w-full bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline sticky top-0 z-50">
+    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Anchor -->
+      <div class="flex items-baseline space-x-3">
+        <a class="text-headline-sm font-headline-sm font-semibold text-on-surface dark:text-inverse-on-surface tracking-tight" href="/">Doc JS</a>
+        <span class="hidden sm:inline-block text-label-mono font-label-mono text-secondary dark:text-secondary-fixed-dim text-xs border-l border-outline-variant pl-3">Laundry management software</span>
       </div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/" class="mm-link">Home</a>
-    <a href="/#services" class="mm-link">Services</a>
-    <a href="/#pricing" class="mm-link">Pricing</a>
-    <a href="/policies" class="mm-link">Policies</a>
-  </div>
-
-  <!-- HERO -->
-  <div class="policy-hero">
-    <div class="container">
-      <p class="eyebrow">Legal Information</p>
-      <h1>Service Policies<br>& Terms</h1>
-      <p>Protection framework for in-store and online services. Please read before using our services.</p>
-      <div class="policy-meta">
-        <span>✦ Last updated: January 2025</span>
-        <span>✦ Warri, Delta State</span>
-        <span>✦ Version 1.0</span>
+      
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a class="text-secondary dark:text-secondary-fixed-dim hover:text-on-surface dark:hover:text-inverse-on-surface font-normal text-label-lg font-label-lg transition-colors duration-150" href="/#product">Product</a>
+        <a class="text-secondary dark:text-secondary-fixed-dim hover:text-on-surface dark:hover:text-inverse-on-surface font-normal text-label-lg font-label-lg transition-colors duration-150" href="/#how-it-works">How it works</a>
+        <a class="text-primary dark:text-inverse-primary font-medium border-b-2 border-primary dark:border-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
+      </nav>
+      
+      <!-- Trailing Action Cluster -->
+      <div class="flex items-center space-x-4">
+        <a class="text-label-lg font-label-lg text-on-surface hover:text-primary dark:text-inverse-on-surface dark:hover:text-inverse-primary transition-colors duration-150 px-2 py-1" href="https://doc-js-operations.vercel.app/login">Log in</a>
+        <a class="text-label-lg font-label-lg bg-primary-container hover:bg-primary text-on-primary px-4 py-2 rounded transition-colors duration-150 shadow-none" href="https://doc-js-operations.vercel.app/signup">Join early access</a>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- BODY -->
-  <div class="policy-body">
-
-    <div class="notice-box">
-      <strong>Important Notice</strong>
-      <p>By using our services — in-store or online — you automatically accept these terms. Submission of an order, drop-off of items, or booking through our website constitutes full acceptance.</p>
+  <!-- Main Container -->
+  <main class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-12 lg:py-16">
+    <!-- Page Header / Metadata Deck -->
+    <div class="border-b border-outline-variant pb-10 mb-12">
+      <div class="flex items-center space-x-2 text-label-mono font-label-mono text-secondary uppercase tracking-wider mb-3">
+        <span class="inline-block w-2 h-2 rounded-full bg-primary-container"></span>
+        <span>Early Access Terms &amp; Privacy</span>
+      </div>
+      <h1 class="text-headline-xl font-headline-xl text-on-surface tracking-tight mb-4">Terms of Service &amp; Privacy Policy</h1>
+      <div class="flex flex-wrap items-center gap-y-2 gap-x-6 text-label-mono font-label-mono text-secondary mb-6">
+        <span>Last revised: 2026</span>
+        <span class="text-outline-variant">•</span>
+        <span class="text-primary font-medium">Early Access Version</span>
+      </div>
+      <div class="p-6 bg-surface-container-low border border-outline-variant rounded max-w-4xl">
+        <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Early-access agreement for laundry business owners and operators.</p>
+      </div>
     </div>
 
-    <!-- SECTION 1 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>01 —</span> Customer Agreement & Acceptance</div>
-
-      <p class="policy-sub">1.1 Binding Agreement</p>
-      <p>By using Doc JS Laundry services, you agree to be bound by these terms and conditions in full.</p>
-
-      <div class="two-col">
-        <div class="two-col-box">
-          <h4>In-Store Customers</h4>
-          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Acceptance occurs when you hand over items and receive a collection slip or receipt.</p>
+    <!-- Asymmetric Two-Column Architecture -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Left Column: Sticky Anchor Navigation (Table of Contents) -->
+      <aside class="lg:col-span-4 sticky top-24 self-start space-y-6">
+        <div class="bg-surface-container border border-outline-variant rounded p-6">
+          <div class="flex items-center justify-between pb-4 border-b border-outline-variant mb-4">
+            <span class="text-label-mono font-label-mono uppercase text-secondary">Document Outline</span>
+            <span class="material-symbols-outlined text-secondary" style="font-size: 18px;">menu_book</span>
+          </div>
+          <nav class="space-y-1">
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-1">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">01.</span>
+              <span class="font-medium group-hover:text-primary transition-colors">Overview</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-2">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">02.</span>
+              <span class="group-hover:text-primary transition-colors">Using Doc JS</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-3">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">03.</span>
+              <span class="group-hover:text-primary transition-colors">Early access and changes</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-4">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">04.</span>
+              <span class="group-hover:text-primary transition-colors">Business Records</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-5">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">05.</span>
+              <span class="group-hover:text-primary transition-colors">Privacy</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-6">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">06.</span>
+              <span class="group-hover:text-primary transition-colors">Security</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-7">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">07.</span>
+              <span class="group-hover:text-primary transition-colors">Availability and responsibilities</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-8">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">08.</span>
+              <span class="group-hover:text-primary transition-colors">Contact and updates</span>
+            </a>
+          </nav>
         </div>
-        <div class="two-col-box">
-          <h4>Online Customers</h4>
-          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Acceptance occurs when you submit a booking or when our agent collects your items.</p>
+        
+        <!-- System Architecture Specification Pill / Card -->
+        <div class="border border-outline-variant bg-surface-container-low rounded p-5 space-y-3">
+          <div class="flex items-center space-x-2">
+            <span class="material-symbols-outlined text-primary" style="font-size: 16px;">verified_user</span>
+            <span class="text-label-mono font-label-mono text-on-surface font-medium text-xs">EARLY ACCESS NOTICE</span>
+          </div>
+          <p class="text-body-sm font-body-sm text-secondary leading-snug">Doc JS is provided free during the early-access period through 31 December 2026. Important pricing and policy updates will be shared before this period ends.</p>
         </div>
-      </div>
+      </aside>
 
-      <p class="policy-sub">1.2 Collection Slip as Legal Contract</p>
-      <p>Your collection slip (physical or digital) serves as proof of items received, the legal contract between you and Doc JS, the final record of item count and condition, and the basis for all claims and disputes.</p>
+      <!-- Right Column: Main Legal Prose -->
+      <section class="lg:col-span-8 space-y-16 max-w-3xl">
+        <!-- Section 1: Overview -->
+        <article class="scroll-mt-24 space-y-5" id="section-1">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>01</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 1</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Overview</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Doc JS is laundry-management software that helps businesses organise customer orders, garment details, order progress and payment records. Doc JS provides software, not physical laundry or dry-cleaning services.</p>
+          
+          <!-- Clarification Ledger Card -->
+          <div class="border border-outline-variant bg-surface-container-lowest p-6 rounded space-y-3">
+            <div class="text-label-mono font-label-mono text-xs uppercase text-primary font-medium tracking-wide">CLARIFICATION OF SERVICE</div>
+            <p class="text-body-sm font-body-sm text-secondary">Doc JS provides software tools for administrative record-keeping. Doc JS does not provide physical laundry, pressing, dry-cleaning, pickup, or delivery services, and does not accept custody of any customer garments.</p>
+          </div>
+        </article>
 
-      <div class="danger-box">
-        <p><strong>Important:</strong> Our count and condition notes are final unless disputed within 24 hours of receiving the slip.</p>
-      </div>
+        <hr class="border-outline-variant">
+
+        <!-- Section 2: Using Doc JS -->
+        <article class="scroll-mt-24 space-y-6" id="section-2">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>02</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 2</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Using Doc JS</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Provide accurate account information, keep your sign-in details private and use the service lawfully. You are responsible for the accuracy of the business records you enter and for activity carried out through your account.</p>
+          <div class="border-l-2 border-primary-container pl-4 space-y-1">
+            <h3 class="text-headline-sm font-headline-sm text-on-surface">Staff Access</h3>
+            <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">When granting staff access to your Doc JS account or shared counters, ensure credentials remain secure. You are responsible for revoking access when staff leave your business.</p>
+          </div>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 3: Early Access & Changes -->
+        <article class="scroll-mt-24 space-y-6" id="section-3">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>03</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 3</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Early access and changes</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Doc JS is offered free during early access through 31 December 2026. Features may change as the software is improved, and temporary interruptions may occur. We will communicate planned pricing changes before the free period ends.</p>
+          <div class="p-6 bg-surface-container-low border border-outline-variant rounded space-y-2">
+            <div class="text-label-mono font-label-mono text-xs uppercase text-primary font-medium tracking-wide">Notice on Pricing</div>
+            <p class="text-body-sm font-body-sm text-secondary">Users will receive advance notice of future pricing structure before any fees apply, allowing you to choose whether you wish to continue using the platform.</p>
+          </div>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 4: Business Records & Customer Information -->
+        <article class="scroll-mt-24 space-y-6" id="section-4">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>04</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 4</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Business records</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Your business remains responsible for the information it enters into Doc JS. You retain your rights to your business records. You authorise Doc JS to store and process information as needed to provide and maintain the service. A laundry business is responsible for having an appropriate reason to enter its customers' personal information.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 5: Privacy -->
+        <article class="scroll-mt-24 space-y-6" id="section-5">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>05</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 5</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Privacy</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Doc JS uses account details and the operational information entered into the software solely to provide and support the service. We do not sell your records or customer directories to third parties. Any sharing with service providers is strictly limited to infrastructure necessary to maintain and deliver the application.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 6: Security -->
+        <article class="scroll-mt-24 space-y-6" id="section-6">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>06</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 6</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Security</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">We take reasonable steps to protect the service and the information it handles. No internet service can guarantee absolute security. Keep your account credentials private and contact us if you suspect unauthorised access.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 7: Availability and Responsibilities -->
+        <article class="scroll-mt-24 space-y-6" id="section-7">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>07</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 7</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Availability and responsibilities</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Early-access software may contain errors, change as it is developed or be temporarily unavailable. Keep any additional records your business needs, and check important order and payment information carefully.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 8: Contact and Updates -->
+        <article class="scroll-mt-24 space-y-6 pb-8" id="section-8">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>08</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 8</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Contact and updates</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">If you have questions about these terms or need support with your account, please reach out through the application's support features. Terms and contact details will be updated once formal business registration is complete.</p>
+        </article>
+      </section>
     </div>
+  </main>
 
-    <!-- SECTION 2 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>02 —</span> Liability & Damage Compensation</div>
-
-      <p class="policy-sub">2.1 Maximum Liability Cap</p>
-      <p>In the event of loss, damage, or destruction of your items, our maximum liability is:</p>
-
-      <div class="info-box">
-        <h4>₦15,000 per item OR 10× the cleaning charge</h4>
-        <p>Whichever is lower — applies regardless of brand, purchase price, or sentimental value.</p>
+  <!-- Minimalist Footer -->
+  <footer class="w-full bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
+    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Brand & Copyright -->
+      <div class="flex flex-col md:flex-row items-center md:items-baseline gap-2 md:gap-4 text-center md:text-left">
+        <span class="text-headline-sm font-headline-sm font-semibold text-on-surface dark:text-inverse-on-surface">Doc JS</span>
+        <span class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim">© 2026 Doc JS. Laundry management software. All rights reserved.</span>
       </div>
-
-      <div class="highlight-box">
-        <p><strong>Examples:</strong> Shirt cleaned at ₦600 → max liability ₦6,000. Agbada cleaned at ₦2,500 → max liability ₦15,000 (capped).</p>
-      </div>
-
-      <p class="policy-sub">2.2 High-Value Item Declaration</p>
-      <p>For items valued above ₦50,000, we offer a Premium Protection Service. You must declare the item's value at intake, provide proof of value, and pay a premium cleaning fee of 5% of declared value (minimum ₦2,500). Coverage is up to ₦200,000 per item. This must be arranged before we accept the item — not after.</p>
-
-      <div class="highlight-box">
-        <p>If you do not declare high-value items, the standard ₦15,000 cap applies with no exceptions.</p>
-      </div>
-    </div>
-
-    <!-- SECTION 3 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>03 —</span> Items We Do Not Accept Liability For</div>
-
-      <p>The following are processed at your own risk with zero liability on our part:</p>
-
-      <div class="four-col">
-        <div class="two-col-box">
-          <h4>Materials</h4>
-          <ul>
-            <li>Leather & suede</li>
-            <li>Fur or faux fur</li>
-            <li>Silk with embellishments</li>
-            <li>Heavy beading / sequins</li>
-          </ul>
-        </div>
-        <div class="two-col-box">
-          <h4>Special Garments</h4>
-          <ul>
-            <li>Wedding dresses</li>
-            <li>Ceremonial attire</li>
-            <li>Vintage / antique items</li>
-            <li>Items with no care label</li>
-          </ul>
-        </div>
-        <div class="two-col-box">
-          <h4>Household</h4>
-          <ul>
-            <li>Curtains & drapes</li>
-            <li>Carpets & rugs</li>
-            <li>Duvets & pillows</li>
-            <li>Mattress covers</li>
-          </ul>
-        </div>
-        <div class="two-col-box">
-          <h4>Accessories</h4>
-          <ul>
-            <li>Shoes & sandals</li>
-            <li>Belts & handbags</li>
-            <li>Caps & hats</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="danger-box">
-        <p><strong>If you refuse to acknowledge the risk, we reserve the right to refuse service.</strong></p>
-      </div>
-    </div>
-
-    <!-- SECTION 4 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>04 —</span> What We Are Not Responsible For</div>
-
-      <p class="policy-sub">4.1 Pre-Existing Conditions</p>
-      <p>We are not liable for items already torn, stained, or worn before cleaning; weak or aged fabrics that tear during processing; faded colours or discolouration present before intake; or missing buttons, broken zippers, or damaged trims already present at drop-off.</p>
-
-      <p class="policy-sub">4.2 Normal Cleaning Outcomes</p>
-      <p>We are not liable for colour bleeding between garments; colour bleeding on local fabrics (Ankara, Adire, lace) where dye-fastness is a fabric defect, not our process; shrinkage up to 5%; colour fading from normal detergent use; texture changes; or pilling on wool, cotton blends, or synthetic materials.</p>
-
-      <p class="policy-sub">4.3 Starch Preferences</p>
-      <div class="highlight-box">
-        <p>Starch levels are subjective. Unless clearly specified at drop-off, our professional judgment is final. Re-washes due to starch preference are charged at 50% of original cleaning cost.</p>
-      </div>
-
-      <p class="policy-sub">4.4 Items Left in Pockets</p>
-      <p>You must empty all pockets before handing items to us. Money, jewellery, phones, keys, documents — any damage caused by items left in pockets is entirely your responsibility.</p>
-
-      <p class="policy-sub">4.5 Stain Removal</p>
-      <p>We use best efforts to remove stains, but stain removal is never guaranteed. Some stains are permanent — oil, bleach, dye, rust, old blood. We are not liable if stains remain or worsen during treatment.</p>
-    </div>
-
-    <!-- SECTION 5 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>05 —</span> Claims & Dispute Resolution</div>
-
-      <p class="policy-sub">5.1 Reporting Deadlines</p>
-
-      <div class="info-box">
-        <h4>Report damage, loss, or defects within 24 hours</h4>
-        <p>In-store: at collection or within 24 hours. Online/delivery: within 24 hours of delivery confirmation. After 24 hours, no claims will be accepted.</p>
-      </div>
-
-      <div class="highlight-box">
-        <p>For in-store pickups, inspect items before leaving. Once an item leaves the shop, Doc JS is released from liability.</p>
-      </div>
-
-      <div class="danger-box">
-        <p><strong>Tag Requirement:</strong> No claim will be entertained if the laundry tag has been removed. The original tag must remain attached for any claim to be valid.</p>
-      </div>
-
-      <p class="policy-sub">5.2 How to File a Claim</p>
-      <div class="two-col">
-        <div class="two-col-box">
-          <h4>In-Store</h4>
-          <ol style="padding-left:1.25rem;margin:0;">
-            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Return with item + collection slip</li>
-            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Speak with manager on duty</li>
-            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Fill out Damage Report Form</li>
-            <li style="font-size:0.875rem;color:var(--gray-600);">Provide photos if possible</li>
-          </ol>
-        </div>
-        <div class="two-col-box">
-          <h4>Online</h4>
-          <ol style="padding-left:1.25rem;margin:0;">
-            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Contact us via WhatsApp</li>
-            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Quote your order reference</li>
-            <li style="font-size:0.875rem;color:var(--gray-600);margin-bottom:0.25rem;">Send photos of damage</li>
-            <li style="font-size:0.875rem;color:var(--gray-600);">Response within 48 hours</li>
-          </ol>
-        </div>
-      </div>
-
-      <p class="policy-sub">5.3 Compensation Methods</p>
-      <p>If your claim is approved: cash refund (in-store), bank transfer within 7 business days (online), or service credit of equivalent value.</p>
-    </div>
-
-    <!-- SECTION 6 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>06 —</span> Customer Responsibilities</div>
-
-      <p class="policy-sub">6.1 Unclaimed Items</p>
-      <p>Items not collected within <strong>45 days</strong> of the ready date are considered abandoned. After <strong>90 days</strong>, we may donate or dispose of items. No refunds apply for unclaimed items.</p>
-      <p>For online orders: if pickup is not scheduled within 14 days of completion, storage fees of <strong>₦500/day</strong> apply from Day 14 onward.</p>
-    </div>
-
-    <!-- SECTION 7 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>07 —</span> Payment Terms & Refunds</div>
-
-      <div class="two-col">
-        <div class="two-col-box">
-          <h4>In-Store</h4>
-          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Payment due when collecting items. We accept cash, bank transfer, and POS.</p>
-        </div>
-        <div class="two-col-box">
-          <h4>Online</h4>
-          <p style="font-size:0.875rem;color:var(--gray-600);margin:0;">Pay on delivery, pay on pickup, or prepay online.</p>
-        </div>
-      </div>
-
-      <p class="policy-sub">7.2 Refund Policy</p>
-      <p>All payments are non-refundable once service is completed, except: service not rendered (full refund), failed pickup within 24 hours (booking fee refunded), approved damage claim (as per Section 5), or cancellation before processing (100% refund minus ₦500 fee).</p>
-    </div>
-
-    <!-- SECTION 8 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>08 —</span> Force Majeure</div>
-      <p>We are not liable for delays caused by natural disasters, power or water outages, government actions, pandemics, equipment failure, or transport disruptions. We will notify you via WhatsApp or SMS. If delay exceeds 14 days, you may cancel for a full refund.</p>
-    </div>
-
-    <!-- SECTION 9 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>09 —</span> Privacy & Data</div>
-      <p>We collect your name, phone number, address, and order details to process and fulfil your orders, communicate updates, and resolve disputes. We do not sell your data. You may request correction or deletion of your information at any time by contacting us directly.</p>
-    </div>
-
-    <!-- SECTION 10 -->
-    <div class="policy-section">
-      <div class="policy-section-title"><span>10 —</span> General Provisions</div>
-      <p>We may modify these terms at any time. Changes will be posted on this page. Continued use of our services constitutes acceptance. These terms are governed by the laws of the Federal Republic of Nigeria. Disputes will be resolved in the courts of Warri, Delta State.</p>
-    </div>
-
-    <!-- ACKNOWLEDGEMENT -->
-    <div class="ack-box">
-      <div class="ack-icon">✦</div>
-      <h3>Acknowledgement</h3>
-      <p>By using Doc JS Laundry and Dry Cleaning Services — in-store or online — you confirm that you have read, understood, and agreed to these terms.</p>
-      <div class="meta">Last Updated: January 2025 · Version 1.0</div>
-    </div>
-
-  </div>
-
-  <!-- BOTTOM CTA -->
-  <div class="policy-cta">
-    <div class="container">
-      <h3>Ready to book?</h3>
-      <p>Now that you know our policies, let's get your clothes sorted.</p>
-      <div class="policy-cta-btns">
-        <a href="/" class="btn-ghost">← Back to site</a>
-        <a href="/" onclick="setTimeout(openBookingModal, 100)" class="btn-primary">Book a Pickup</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo">Doc JS</div>
-        <p>Premium laundry care.<br>Warri, Delta State.</p>
-      </div>
-      <div class="footer-contact">
-        <div>+234 704 468 0174</div>
-        <div>docjslaundry@gmail.com</div>
-        <div>Mon–Sat · 8AM–7PM</div>
-      </div>
-      <div class="footer-links">
-        <a href="/#services">Services</a>
-        <a href="/#pricing">Pricing</a>
-        <a href="/policies">Policies</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Doc JS Laundry and Dry Cleaning Services · Warri, Delta State</p>
+      
+      <!-- Links Cluster -->
+      <nav class="flex flex-wrap items-center justify-center gap-6">
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="/#product">Product</a>
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="/#how-it-works">How it works</a>
+        <a class="text-body-sm font-body-sm text-on-surface dark:text-inverse-on-surface font-medium hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/login">Log in</a>
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/signup">Contact</a>
+      </nav>
     </div>
   </footer>
 
+  <!-- Subtle Scrollspy / Active State Highlighter for TOC -->
   <script>
-    const nav = document.querySelector('.nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.pageYOffset > 60);
-    });
-    
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      menuToggle.classList.toggle('open');
-    });
-    
-    document.addEventListener('click', (e) => {
-      if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.remove('open');
-        menuToggle.classList.remove('open');
-      }
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.toc-link').forEach(link => {
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('bg-surface-container-high', 'text-primary');
+                link.querySelector('span:first-child')?.classList.add('text-primary');
+              } else {
+                link.classList.remove('bg-surface-container-high', 'text-primary');
+                link.querySelector('span:first-child')?.classList.remove('text-primary');
+              }
+            });
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      document.querySelectorAll('article[id]').forEach((article) => {
+        observer.observe(article);
+      });
     });
   </script>
 </body>

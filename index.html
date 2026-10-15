@@ -1,379 +1,514 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doc JS | Laundry Management Software for Nigerian Laundries</title>
+  <meta name="description" content="Laundry management software for Nigerian laundry businesses. Keep customer orders, garment details, work progress and payment balance organized in one place.">
   <link rel="icon" href="logo.jpg" type="image/jpeg">
-  <title>Doc J's Laundry & Dry Cleaning | Warri, Delta State</title>
-  <meta name="title" content="Doc J's Laundry & Dry Cleaning | Warri, Delta State" />
-  <meta name="description" content="Professional laundry and dry cleaning service in Warri, Delta State. Wash & Iron, Iron Only, Dry Clean. Pickup and delivery available. Call 07044680174." />
-  <meta name="keywords" content="laundry Warri, dry cleaning Warri, laundry service Warri, wash and iron Warri, laundry pickup Warri, dry cleaning Delta State, laundry Effurun, clothes washing Warri, Doc J's Laundry" />
-  <meta name="robots" content="index, follow" />
-  <meta name="language" content="English" />
-  <meta name="author" content="Doc J's Laundry Service" />
-  <meta name="geo.region" content="NG-DE" />
-  <meta name="geo.placename" content="Warri, Delta State, Nigeria" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://docjslaundry.com/" />
-  <meta property="og:title" content="Doc J's Laundry & Dry Cleaning | Warri, Delta State" />
-  <meta property="og:description" content="Professional laundry and dry cleaning service in Warri, Delta State. Wash & Iron, Iron Only, Dry Clean. Pickup and delivery available. Call 07044680174." />
-  <meta property="og:locale" content="en_NG" />
-  <meta property="og:site_name" content="Doc J's Laundry Service" />
-  <link rel="canonical" href="https://docjslaundry.com/" />
+  <link rel="canonical" href="https://docjslaundry.com/">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#5e625d",
+            "on-secondary-fixed-variant": "#444844",
+            "outline-variant": "#bfc9c1",
+            "background": "#f4fbf2",
+            "primary-container": "#2d6a4f",
+            "tertiary-fixed-dim": "#ffb3b3",
+            "on-primary-fixed": "#002114",
+            "surface-container-highest": "#dde5db",
+            "primary-fixed": "#b1f0ce",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "outline": "#707973",
+            "tertiary": "#713638",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f4fbf2",
+            "inverse-on-surface": "#ebf3e9",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#ffcfce",
+            "surface-container-high": "#e3eae1",
+            "secondary-fixed-dim": "#c4c7c2",
+            "on-background": "#161d18",
+            "on-secondary": "#ffffff",
+            "inverse-surface": "#2b322c",
+            "on-surface": "#161d18",
+            "tertiary-fixed": "#ffdad9",
+            "secondary": "#5b5f5b",
+            "primary-fixed-dim": "#95d4b3",
+            "on-tertiary-fixed": "#390b0e",
+            "surface": "#f4fbf2",
+            "surface-dim": "#d5dcd3",
+            "surface-container-low": "#eef6ec",
+            "on-secondary-fixed": "#191d19",
+            "secondary-container": "#dbded8",
+            "on-surface-variant": "#404943",
+            "surface-tint": "#2c694e",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#6f3537",
+            "surface-container": "#e9f0e6",
+            "on-error": "#ffffff",
+            "tertiary-container": "#8d4d4e",
+            "surface-variant": "#dde5db",
+            "primary": "#0f5238",
+            "secondary-fixed": "#e0e3de",
+            "inverse-primary": "#95d4b3",
+            "on-primary-container": "#a8e7c5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed-variant": "#0e5138"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-2xl": "4rem",
+            "margin-md": "3rem",
+            "margin-lg": "5rem",
+            "space-xs": "0.5rem",
+            "space-sm": "0.75rem",
+            "space-3xl": "6rem",
+            "margin": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-xxs": "0.25rem",
+            "space-xl": "2.5rem",
+            "gutter-sm": "1rem",
+            "space-md": "1rem",
+            "gutter-lg": "2rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Manrope"],
+            "label-md": ["Manrope"],
+            "headline-sm": ["Manrope"],
+            "display-lg": ["Manrope"],
+            "headline-lg": ["Manrope"],
+            "label-mono": ["JetBrains Mono"],
+            "headline-xl-mobile": ["Manrope"],
+            "body-sm": ["Manrope"],
+            "body-md": ["Manrope"],
+            "headline-md": ["Manrope"],
+            "headline-xl": ["Manrope"],
+            "body-lg": ["Manrope"],
+            "display-lg-mobile": ["Manrope"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "500" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
 </head>
-<body>
-
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">Doc JS</a>
-      <div class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#locations">Locations</a>
-        <a href="/policies">Policies</a>
+<body class="bg-surface text-on-surface font-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+  <!-- Header / Top Navigation -->
+  <header class="w-full bg-surface border-b border-outline-variant sticky top-0 z-50">
+    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Wordmark + Subtitle -->
+      <div class="flex items-baseline space-x-3">
+        <a class="text-headline-sm font-headline-sm font-semibold text-on-surface tracking-tight hover:text-primary transition-colors duration-150" href="/">Doc JS</a>
+        <span class="hidden sm:inline-block font-label-mono text-label-mono text-secondary border-l border-outline-variant pl-3">Laundry management software</span>
       </div>
-      <button class="nav-cta" onclick="openBookingModal()">Book Pickup</button>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#services" class="mm-link">Services</a>
-    <a href="#pricing" class="mm-link">Pricing</a>
-    <a href="#locations" class="mm-link">Locations</a>
-    <a href="/policies" class="mm-link">Policies</a>
-    <button class="nav-cta" onclick="openBookingModal(); closeMobileMenu()">Book Pickup</button>
-  </div>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-tag">Warri · Delta State · Nigeria</div>
-      <h1 class="hero-title">Your clothes.<br>Handled with<br><em>precision.</em></h1>
-      <p class="hero-sub">Premium laundry and dry cleaning services in Warri, with convenient pickup and delivery.</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="openBookingModal()">Book a Pickup</button>
-        <a href="https://wa.me/2347044680174?text=Hello%20Doc%20JS%20Laundry,%20I%20want%20to%20book%20your%20services" target="_blank" class="btn-ghost">Book on WhatsApp</a>
-      </div>
-      <div class="hero-trust">
-        <div class="trust-badge">
-          <div class="trust-icon"><i data-lucide="zap"></i></div>
-          <span>Express available</span>
-        </div>
-        <div class="trust-badge">
-          <div class="trust-icon"><i data-lucide="truck"></i></div>
-          <span>Pickup & Delivery</span>
-        </div>
+      <!-- Links -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a class="text-primary font-medium border-b-2 border-primary pb-1 font-label-lg text-label-lg transition-colors duration-150" href="#product">Product</a>
+        <a class="text-secondary hover:text-on-surface font-normal font-label-lg text-label-lg transition-colors duration-150" href="#how-it-works">How it works</a>
+        <a class="text-secondary hover:text-on-surface font-normal font-label-lg text-label-lg transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
+      </nav>
+      <!-- Actions -->
+      <div class="flex items-center space-x-4">
+        <a class="text-secondary hover:text-on-surface font-label-lg text-label-lg transition-colors duration-150 px-2 py-1" href="https://doc-js-operations.vercel.app/login">Log in</a>
+        <a class="bg-primary text-on-primary rounded-lg px-4 py-2 font-label-lg text-label-lg hover:bg-[#0c402c] transition-colors duration-150" href="https://doc-js-operations.vercel.app/signup">Join early access</a>
       </div>
     </div>
-    <div class="hero-img-wrap">
-      <div class="hero-slideshow">
-        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=800&h=900&fit=crop" alt="Premium laundry" class="hero-slide active">
-        <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=800&h=900&fit=crop" alt="Laundry shop" class="hero-slide">
-        <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?w=800&h=900&fit=crop" alt="Washing machines" class="hero-slide">
-        <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=800&h=900&fit=crop" alt="Clean folded clothes" class="hero-slide">
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 pt-16 pb-20 md:pt-24 md:pb-28">
+      <div class="max-w-3xl mb-12">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container border border-outline-variant text-label-mono font-label-mono text-secondary mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>For busy laundry counters
+        </div>
+        <h1 class="font-headline-xl md:font-display-lg text-headline-xl md:text-display-lg text-on-surface mb-6">Know where every customer's clothes are, and who still owes you.</h1>
+        <p class="font-body-lg text-body-lg text-secondary max-w-2xl leading-relaxed">When orders and payments live in a notebook, it is easy to lose track. Doc JS helps you keep each customer's order, garment details, work progress and payment balance together.</p>
+        <div class="flex flex-wrap items-center gap-4 mt-8">
+          <a class="bg-primary text-on-primary rounded-lg px-5 py-2.5 font-label-lg text-label-lg hover:bg-[#0c402c] transition-colors duration-150 inline-flex items-center gap-2" href="https://doc-js-operations.vercel.app/signup">
+            Join early access
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+          <a class="inline-flex items-center gap-1.5 text-on-surface hover:text-primary transition-colors duration-150 font-label-lg text-label-lg px-3 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest" href="https://doc-js-operations.vercel.app/login">
+            Log in
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Product Preview Frame -->
+      <div class="border border-outline-variant bg-surface-container-lowest rounded-lg overflow-hidden">
+        <!-- Window Title Bar -->
+        <div class="border-b border-outline-variant bg-surface-container px-4 py-2.5 flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+            <span class="ml-3 font-label-mono text-label-mono text-secondary">Illustrative sample data</span>
+          </div>
+          <div class="flex items-center gap-3 font-label-mono text-label-mono text-secondary">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-primary"></span> Active preview
+            </span>
+          </div>
+        </div>
         
-        <div class="float-card">
-          <div class="float-card-label">Popular items</div>
-          <div class="float-price-row"><span>T-Shirt / Polo</span><span>₦500</span></div>
-          <div class="float-price-row"><span>Trousers</span><span>₦600</span></div>
-          <div class="float-price-row"><span>Native Wear</span><span>₦1,200</span></div>
-        </div>
-        <div class="float-badge">
-          <div class="badge-big">48hr</div>
-          <div class="badge-sm">Turnaround</div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- Simulated Active Order Ledger -->
+        <div class="p-6 md:p-8 overflow-x-auto">
+          <!-- Summary Bar -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-6 mb-6 border-b border-outline-variant">
+            <div>
+              <div class="font-label-mono text-label-mono text-secondary">Active Orders</div>
+              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">3 sample orders</div>
+            </div>
+            <div>
+              <div class="font-label-mono text-label-mono text-secondary">Garments</div>
+              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">7 items listed</div>
+            </div>
+            <div>
+              <div class="font-label-mono text-label-mono text-secondary">Pickup Status</div>
+              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">1 order ready for pickup</div>
+            </div>
+            <div>
+              <div class="font-label-mono text-label-mono text-secondary">Unsettled Balance</div>
+              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">₦8,000 outstanding</div>
+            </div>
+          </div>
 
-  <!-- TICKER STRIP -->
-  <div class="strip">
-    <div class="strip-track">
-      <span class="strip-item">Wash & Iron</span>
-      <span class="strip-item">Dry Cleaning</span>
-      <span class="strip-item">Express Service</span>
-      <span class="strip-item">Free Pickup</span>
-      <span class="strip-item">Native Wear</span>
-      <span class="strip-item">Suits & Blazers</span>
-      <span class="strip-item">Bedsheets & Duvets</span>
-      <span class="strip-item">Wash & Iron</span>
-      <span class="strip-item">Dry Cleaning</span>
-      <span class="strip-item">Express Service</span>
-      <span class="strip-item">Free Pickup</span>
-      <span class="strip-item">Native Wear</span>
-      <span class="strip-item">Suits & Blazers</span>
-      <span class="strip-item">Bedsheets & Duvets</span>
-    </div>
-  </div>
-
-  <!-- PRICING -->
-  <section id="pricing" class="pricing-section">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Transparent pricing</p>
-        <h2>You know the cost<br>before we collect.</h2>
-      </div>
-      <div class="pricing-grid">
-        <div class="price-col">
-          <div class="price-col-head">Regular (Wash & Iron)</div>
-          <div class="price-row"><span>T-Shirt / Polo</span><span>₦500</span></div>
-          <div class="price-row"><span>Shirt (Long/Short)</span><span>₦600</span></div>
-          <div class="price-row"><span>Trousers / Jeans</span><span>₦600</span></div>
-          <div class="price-row"><span>Native / Senator</span><span>₦1,200</span></div>
-          <div class="price-row"><span>Agbada (3-piece)</span><span>₦2,500</span></div>
-          <div class="price-row"><span>Bedsheet (Double)</span><span>₦1,200</span></div>
-        </div>
-        <div class="price-col price-col-dark">
-          <div class="price-col-head">Dry Cleaning</div>
-          <div class="price-row"><span>Suit (2-piece)</span><span>₦2,500</span></div>
-          <div class="price-row"><span>Blazer / Jacket</span><span>₦1,000</span></div>
-          <div class="price-row"><span>Kaftan / Jalabiya</span><span>₦1,800</span></div>
-          <div class="price-row"><span>Evening Gown</span><span>₦1,500</span></div>
-          <div class="price-row"><span>Tie / Scarf</span><span>₦500</span></div>
-          <div class="price-row accent-row"><span>Express surcharge</span><span>+50%</span></div>
-        </div>
-        <div class="price-col">
-          <div class="price-col-head">Special</div>
-          <div class="price-row"><span>Wedding Gown</span><span>₦6,000</span></div>
-          <div class="price-row"><span>Duvet (Large)</span><span>₦5,000</span></div>
-          <div class="price-row"><span>Rug (per sqm)</span><span>₦800</span></div>
-          <div class="pricing-note-box">
-            <p>Minimum order of ₦3,000 for home pickup. Bulk discounts available for 15+ items.</p>
+          <!-- Queue Table -->
+          <div class="w-full min-w-[700px]">
+            <div class="grid grid-cols-12 pb-3 border-b border-on-surface text-secondary font-label-mono text-label-mono uppercase tracking-wider">
+              <span class="col-span-2">Ticket ID</span>
+              <span class="col-span-3">Customer &amp; Description</span>
+              <span class="col-span-2">Garments</span>
+              <span class="col-span-3">Stage Status</span>
+              <span class="col-span-2 text-right">Balance &amp; Settlement</span>
+            </div>
+            <div class="grid grid-cols-12 py-3.5 border-b border-outline-variant items-center hover:bg-surface-container-low transition-colors duration-150">
+              <span class="col-span-2 font-label-mono text-label-mono text-secondary">#TK-8021</span>
+              <div class="col-span-3">
+                <p class="font-label-lg text-label-lg text-on-surface">Alhaji Ibrahim</p>
+                <p class="font-body-sm text-body-sm text-secondary">Traditional wear • Starch standard</p>
+              </div>
+              <span class="col-span-2 font-body-sm text-body-sm text-on-surface">1 Senator outfit</span>
+              <div class="col-span-3 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-primary-fixed-dim"></span>
+                <span class="font-label-md text-label-md text-on-surface">Washing</span>
+              </div>
+              <div class="col-span-2 text-right font-label-mono text-label-mono">
+                <span class="text-secondary">Total: ₦8,500 (₦5,000 Paid)</span>
+                <span class="block text-error">• ₦3,500 Balance</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 py-3.5 border-b border-outline-variant items-center hover:bg-surface-container-low transition-colors duration-150">
+              <span class="col-span-2 font-label-mono text-label-mono text-secondary">#TK-8022</span>
+              <div class="col-span-3">
+                <p class="font-label-lg text-label-lg text-on-surface">Mrs Adebayo</p>
+                <p class="font-body-sm text-body-sm text-secondary">Special care • Delicate wash</p>
+              </div>
+              <span class="col-span-2 font-body-sm text-body-sm text-on-surface">2 Ankara gowns and 1 wrapper</span>
+              <div class="col-span-3 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-outline"></span>
+                <span class="font-label-md text-label-md text-on-surface">Ready for pickup</span>
+              </div>
+              <div class="col-span-2 text-right font-label-mono text-label-mono">
+                <span class="text-secondary">Total: ₦12,000 (₦12,000 Paid)</span>
+                <span class="block text-primary">• ₦0 Balance</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 py-3.5 items-center hover:bg-surface-container-low transition-colors duration-150">
+              <span class="col-span-2 font-label-mono text-label-mono text-secondary">#TK-8023</span>
+              <div class="col-span-3">
+                <p class="font-label-lg text-label-lg text-on-surface">Chidi Okafor</p>
+                <p class="font-body-sm text-body-sm text-secondary">Office shirts • Medium starch</p>
+              </div>
+              <span class="col-span-2 font-body-sm text-body-sm text-on-surface">3 shirts</span>
+              <div class="col-span-3 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+                <span class="font-label-md text-label-md text-on-surface">Received</span>
+              </div>
+              <div class="col-span-2 text-right font-label-mono text-label-mono">
+                <span class="text-secondary">Total: ₦4,500 (₦0 Paid)</span>
+                <span class="block text-error">• ₦4,500 Balance</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="pricing-cta">
-        <button class="btn-primary" onclick="openBookingModal()">Book Now — Price Calculated Instantly</button>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="steps-section">
-    <div class="container">
-      <p class="eyebrow">How it works</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">01</div>
-          <h3>Book online</h3>
-          <p>Select your items and see the exact price. No surprises.</p>
+    <!-- Main Benefits Section -->
+    <section class="w-full border-t border-outline-variant bg-surface-container-low py-20 md:py-28" id="product">
+      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
+        <div class="max-w-xl mb-16">
+          <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-3">The problems are usually small. The cost adds up.</span>
+          <h2 class="font-headline-xl text-headline-xl text-on-surface mb-4">The problems are usually small. The cost adds up.</h2>
+          <p class="font-body-md text-body-md text-secondary leading-relaxed">A missing note. A customer waiting for an answer. A payment nobody can confirm. These small problems can waste time and create avoidable arguments at the counter.</p>
         </div>
-        <div class="step-arrow">→</div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <h3>We collect</h3>
-          <p>Drop off at any location or we come to you.</p>
-        </div>
-        <div class="step-arrow">→</div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <h3>Fresh clothes</h3>
-          <p>Cleaned, pressed, and returned on schedule.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 border-t border-outline-variant pt-12">
+          <div class="flex flex-col">
+            <span class="font-label-mono text-label-mono text-secondary mb-4">01 / Order mix-ups</span>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Which clothes belong to this order?</h3>
+            <p class="font-body-md text-body-md text-secondary leading-relaxed">Keep the customer's order and garment details together, so you and your staff can check what was received instead of relying on memory.</p>
+            <div class="mt-8 pt-6 border-t border-outline-variant font-label-mono text-label-mono text-secondary">Customer records • Garment details • Tags</div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-label-mono text-label-mono text-secondary mb-4">02 / Status checks</span>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Is it ready, or is it still being worked on?</h3>
+            <p class="font-body-md text-body-md text-secondary leading-relaxed">Check an order's current stage without searching through a notebook or asking different staff members.</p>
+            <div class="mt-8 pt-6 border-t border-outline-variant font-label-mono text-label-mono text-secondary">Order status • Work progress • Ready-by dates</div>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-label-mono text-label-mono text-secondary mb-4">03 / Payment confusion</span>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">How much has been paid, and what is still owed?</h3>
+            <p class="font-body-md text-body-md text-secondary leading-relaxed">Keep the order total, recorded payments and outstanding balance together, so everyone can check the same record.</p>
+            <div class="mt-8 pt-6 border-t border-outline-variant font-label-mono text-label-mono text-secondary">Order total • Payments • Outstanding balance</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="services-section">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">What we offer</p>
-        <h2>Every garment,<br>cared for properly.</h2>
+    <!-- Product Spotlight: Order Creation Flow -->
+    <section class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-20 md:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <!-- Left: Editorial Statement (5 cols) -->
+        <div class="lg:col-span-5">
+          <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-3">Order Creation</span>
+          <h2 class="font-headline-xl text-headline-xl text-on-surface mb-6">Stop searching for order details while a customer waits.</h2>
+          <p class="font-body-lg text-body-lg text-secondary mb-6 leading-relaxed">Record the customer, add the garments and services, set the ready-by date, and keep the order details together for later checks.</p>
+          <ul class="space-y-4 border-t border-outline-variant pt-6 mb-8 font-body-md text-body-md text-on-surface">
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+              <span>Keep garment details and special instructions with the order.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+              <span>See the order total and recorded payments.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
+              <span>Return to the same record when the customer calls or comes back.</span>
+            </li>
+          </ul>
+          <div class="font-label-mono text-label-mono text-secondary bg-surface-container p-3 rounded border border-outline-variant inline-block">Clear order details your team can check later.</div>
+        </div>
+        
+        <!-- Right: Framed Ticket Creation View (7 cols) -->
+        <div class="lg:col-span-7">
+          <div class="border border-outline-variant bg-surface-container-lowest rounded-lg p-6 shadow-none">
+            <div class="border-b border-outline-variant pb-4 mb-5 flex items-center justify-between">
+              <div>
+                <span class="font-label-mono text-label-mono text-secondary">NEW ORDER FORM</span>
+                <h4 class="font-headline-sm text-headline-sm text-on-surface">Ticket #TK-8025</h4>
+              </div>
+              <span class="font-label-mono text-label-mono px-2 py-1 bg-surface-container rounded border border-outline-variant text-secondary">Auto-Save: Synchronized</span>
+            </div>
+            <div class="mb-5">
+              <label class="block font-label-md text-label-md text-on-surface mb-1.5">Customer Profile</label>
+              <div class="border border-outline-variant rounded p-2.5 flex items-center justify-between bg-surface-container-low">
+                <div>
+                  <div class="font-label-lg text-label-lg text-on-surface">Tunde Bakare</div>
+                  <div class="font-label-mono text-label-mono text-secondary">+234 803 456 7890 • tunde.bakare@email.ng</div>
+                </div>
+                <span class="font-label-mono text-label-mono text-primary bg-surface px-2 py-0.5 rounded border border-outline-variant">Account: In Good Standing</span>
+              </div>
+            </div>
+            <div class="mb-5">
+              <label class="block font-label-md text-label-md text-on-surface mb-1.5">Garment &amp; Treatment Line Items</label>
+              <div class="border border-outline-variant rounded overflow-hidden">
+                <div class="p-3 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+                  <div>
+                    <div class="font-label-lg text-label-lg text-on-surface">2x Senator Outfits</div>
+                    <div class="font-body-sm text-body-sm text-secondary">Starch medium • Crease trousers • Hanger</div>
+                  </div>
+                  <span class="font-label-mono text-label-mono text-on-surface">₦8,000</span>
+                </div>
+                <div class="p-3 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+                  <div>
+                    <div class="font-label-lg text-label-lg text-on-surface">1x Linen Kaftan</div>
+                    <div class="font-body-sm text-body-sm text-secondary">Gentle wash • Hand steam press • Folded</div>
+                  </div>
+                  <span class="font-label-mono text-label-mono text-on-surface">₦3,500</span>
+                </div>
+                <div class="p-3 flex items-center justify-between bg-surface-container-low text-secondary font-label-mono text-label-mono cursor-pointer hover:bg-surface-container">
+                  <span>+ Add garment item or service code</span>
+                  <span>[F2 Quick Add]</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant items-end">
+              <div>
+                <span class="block font-label-mono text-label-mono text-secondary mb-1">PROMISED READY DATE</span>
+                <span class="font-label-lg text-label-lg text-on-surface">Thursday, Oct 24 • 4:00 PM</span>
+              </div>
+              <div class="text-right">
+                <div class="font-label-mono text-label-mono text-secondary">Subtotal: ₦11,500 • Paid: ₦5,000</div>
+                <div class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-0.5">Balance: ₦6,500</div>
+              </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+              <button class="flex-1 bg-primary text-on-primary py-2.5 rounded font-label-lg text-label-lg text-center font-medium" type="button">Print Ticket &amp; Tags</button>
+              <button class="px-4 py-2.5 border border-outline-variant rounded font-label-lg text-label-lg text-on-surface bg-surface-container-lowest" type="button">Record Payment</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-num">—</div>
-          <h3>Wash & Iron</h3>
-          <p>Shirts, trousers, natives, bedsheets. Our core service done right.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-num">—</div>
-          <h3>Dry Cleaning</h3>
-          <p>Suits, gowns, blazers and delicate fabrics handled with care.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-num">—</div>
-          <h3>Express Service</h3>
-          <p>Need it fast? 24–48 hour turnaround. Available on select items.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-num">—</div>
-          <h3>Bulk & Corporate</h3>
-          <p>Hotels, hospitals, offices. Custom pricing for high volumes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- LOCATIONS -->
-  <section id="locations" class="locations-section">
-    <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Find us</p>
-        <h2>Two locations<br>across Warri.</h2>
-      </div>
-      <div class="locations-grid">
-        <div class="location-card">
-          <div class="location-name">Effurun</div>
-          <p>[Street Address], Effurun, Warri</p>
-          <div class="location-hours">Mon–Sat · 7AM–7PM</div>
+    <!-- How It Works -->
+    <section class="w-full border-t border-outline-variant bg-surface-container-lowest py-20 md:py-28" id="how-it-works">
+      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-outline-variant">
+          <div>
+            <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-2">Step-by-step methodology</span>
+            <h2 class="font-headline-xl text-headline-xl text-on-surface">A simpler way to keep track of every order.</h2>
+          </div>
+          <p class="font-body-md text-body-md text-secondary max-w-md mt-4 md:mt-0">From the moment clothes come in to the day the customer collects them, keep the important details in one place.</p>
         </div>
-        <div class="location-card">
-          <div class="location-name">Airport Road</div>
-          <p>[Street Address], Airport Road, Warri</p>
-          <div class="location-hours">Mon–Sat · 7AM–7PM</div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="p-8 border border-outline-variant rounded-lg bg-surface flex flex-col justify-between h-full">
+            <div>
+              <div class="font-label-mono text-label-mono text-primary font-semibold mb-6">STEP 01</div>
+              <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Record the order</h3>
+              <p class="font-body-md text-body-md text-secondary leading-relaxed">Add the customer, the garments and the agreed price. Keep the details together instead of spreading them across different notes.</p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-outline-variant text-label-mono font-label-mono text-secondary">Customer • Garments • Ready-by date</div>
+          </div>
+          <div class="p-8 border border-outline-variant rounded-lg bg-surface flex flex-col justify-between h-full">
+            <div>
+              <div class="font-label-mono text-label-mono text-primary font-semibold mb-6">STEP 02</div>
+              <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Follow the work</h3>
+              <p class="font-body-md text-body-md text-secondary leading-relaxed">Update the order's status as work progresses, so you can check what has been received, what is being worked on and what is ready.</p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-outline-variant text-label-mono font-label-mono text-secondary">Received • In progress • Ready for pickup</div>
+          </div>
+          <div class="p-8 border border-outline-variant rounded-lg bg-surface flex flex-col justify-between h-full">
+            <div>
+              <div class="font-label-mono text-label-mono text-primary font-semibold mb-6">STEP 03</div>
+              <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Check the payment</h3>
+              <p class="font-body-md text-body-md text-secondary leading-relaxed">Record payments, check what is still owed, and share a receipt when needed.</p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-outline-variant text-label-mono font-label-mono text-secondary">Total • Amount paid • Balance</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA BANNER -->
-  <section class="cta-banner">
-    <div class="container">
-      <h2>Ready for fresh clothes?</h2>
-      <p>Select your items, see your price, book in under a minute.</p>
-      <button class="btn-primary" onclick="openBookingModal()">Book a Pickup</button>
-    </div>
-  </section>
+    <!-- Early-Access Closing Section -->
+    <section class="w-full border-t border-outline-variant py-20 md:py-28 bg-surface-container-low" id="early-access">
+      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
+        <div class="border border-outline-variant bg-surface p-8 md:p-16 rounded-lg max-w-4xl mx-auto">
+          <div class="max-w-2xl">
+            <span class="font-label-mono text-label-mono text-primary uppercase tracking-wider block mb-3">Selective Cohort</span>
+            <h2 class="font-headline-xl text-headline-xl text-on-surface mb-4">Try Doc JS with your real laundry orders.</h2>
+            <p class="font-body-lg text-body-lg text-secondary mb-8 leading-relaxed">Doc JS is currently in early access. Use it with your laundry business, tell us what works and what needs improvement, and help us make it more useful for everyday work.</p>
+            <div class="flex flex-col sm:flex-row gap-3 max-w-xl mb-4">
+              <a href="https://doc-js-operations.vercel.app/signup" class="flex-1 bg-primary text-on-primary font-label-lg text-label-lg font-medium px-6 py-3 rounded hover:bg-[#0c402c] transition-colors duration-150 whitespace-nowrap text-center">Join early access</a>
+            </div>
+            <p class="font-label-mono text-label-mono text-secondary">Free through 31 December 2026. We will share details about future pricing before the free period ends.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo">Doc JS</div>
-        <p>Premium laundry care.<br>Warri, Delta State.</p>
+    <!-- Frequently Asked Questions -->
+    <section class="w-full border-t border-outline-variant bg-surface py-20 md:py-28">
+      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
+        <div class="max-w-2xl mb-12">
+          <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-2">Inquiries</span>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface">Frequently asked questions</h2>
+        </div>
+        
+        <div class="max-w-3xl divide-y border-y border-outline-variant">
+          <details class="group py-5 cursor-pointer">
+            <summary class="flex justify-between items-center font-headline-sm text-headline-sm text-on-surface list-none">
+              <span>Is Doc JS really free?</span>
+              <span class="material-symbols-outlined text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
+            </summary>
+            <p class="mt-4 font-body-md text-body-md text-secondary leading-relaxed">Yes. Early access is free through 31 December 2026. You do not need to enter card details to begin.</p>
+          </details>
+          <details class="group py-5 cursor-pointer">
+            <summary class="flex justify-between items-center font-headline-sm text-headline-sm text-on-surface list-none">
+              <span>Do I need a laptop?</span>
+              <span class="material-symbols-outlined text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
+            </summary>
+            <p class="mt-4 font-body-md text-body-md text-secondary leading-relaxed">Doc JS runs in a web browser and can be added to your phone's home screen. The devices and printing options available to you may depend on your setup.</p>
+          </details>
+          <details class="group py-5 cursor-pointer">
+            <summary class="flex justify-between items-center font-headline-sm text-headline-sm text-on-surface list-none">
+              <span>What happens after 31 December 2026?</span>
+              <span class="material-symbols-outlined text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
+            </summary>
+            <p class="mt-4 font-body-md text-body-md text-secondary leading-relaxed">We will explain any planned pricing or important changes before the free period ends. You can then decide whether you want to continue.</p>
+          </details>
+        </div>
       </div>
-      <div class="footer-contact">
-        <div>+234 704 468 0174</div>
-        <div>docjslaundry@gmail.com</div>
-        <div>Mon–Sat · 8AM–7PM</div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-surface-container-low border-t border-outline-variant">
+    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Brand & Copyright -->
+      <div class="flex flex-col md:flex-row items-baseline gap-2 md:gap-4 text-center md:text-left">
+        <span class="text-headline-sm font-headline-sm font-semibold text-on-surface">Doc JS</span>
+        <span class="font-body-sm text-body-sm text-secondary">© 2026 Doc JS. Laundry management software. All rights reserved.</span>
       </div>
-      <div class="footer-links">
-        <a href="#services">Services</a>
-        <a href="#pricing">Pricing</a>
-        <a href="/policies">Policies</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Doc JS Laundry and Dry Cleaning Services · Warri, Delta State</p>
+      
+      <!-- Footer Navigation Links -->
+      <nav class="flex flex-wrap items-center justify-center gap-6 font-body-sm text-body-sm">
+        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="#product">Product</a>
+        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="#how-it-works">How it works</a>
+        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
+        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/login">Log in</a>
+        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/signup">Contact</a>
+      </nav>
     </div>
   </footer>
-
-  <!-- BOOKING MODAL -->
-  <div id="booking-modal" class="modal-overlay" style="display:none;">
-    <div class="modal-box">
-      <div class="modal-header">
-        <div>
-          <p class="modal-brand">Doc JS Laundry</p>
-          <p class="modal-title" id="modal-step-title">Select your items</p>
-        </div>
-        <button class="modal-close" onclick="closeBookingModal()">✕</button>
-      </div>
-
-      <!-- Step 1 -->
-      <div id="step-1" class="modal-body">
-        <p class="modal-hint">Tap + to add items. Total updates instantly.</p>
-        <div id="items-list" class="items-list"></div>
-        <div class="total-bar">
-          <span>Estimated total</span>
-          <span id="booking-total" class="total-amount">₦0</span>
-        </div>
-        <button class="btn-primary full-width" onclick="goToStep2()">Continue →</button>
-      </div>
-
-      <!-- Step 2 -->
-      <div id="step-2" class="modal-body" style="display:none;">
-        <p class="modal-hint">We'll confirm on WhatsApp before coming.</p>
-        <div class="form-fields">
-          <div class="field">
-            <label>Full Name</label>
-            <input id="b-name" type="text" placeholder="Your full name">
-          </div>
-          <div class="field">
-            <label>WhatsApp Number</label>
-            <input id="b-phone" type="tel" placeholder="08012345678">
-          </div>
-          <div class="field">
-            <label>Pickup Address</label>
-            <input id="b-address" type="text" placeholder="Your address in Warri">
-          </div>
-          <div class="field">
-            <label>Preferred Pickup Date</label>
-            <input id="b-date" type="date">
-          </div>
-          <div class="field">
-            <label>Notes <span style="opacity:0.5">(optional)</span></label>
-            <input id="b-notes" type="text" placeholder="Any special instructions?">
-          </div>
-        </div>
-        <div id="b-error" class="form-error" style="display:none;"></div>
-        <div class="form-actions">
-          <button class="btn-ghost" onclick="goToStep1()">← Back</button>
-          <button class="btn-primary" id="submit-btn" onclick="submitBooking()">Book Pickup</button>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div id="step-3" class="modal-body" style="display:none;text-align:center;">
-        <div class="success-icon">✓</div>
-        <h3 class="success-title">Booking received.</h3>
-        <p id="success-message" class="success-msg"></p>
-        <button class="btn-primary full-width" onclick="closeBookingModal()">Done</button>
-      </div>
-    </div>
-  </div>
-
-  <input type="text" id="hp-field" style="display:none;" tabindex="-1" autocomplete="off">
-  <script src="script.js"></script>
-  <script>lucide.createIcons();</script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": "https://docjslaundry.com",
-    "name": "Doc J's Laundry & Dry Cleaning",
-    "alternateName": "Doc J's Laundry Service",
-    "description": "Professional laundry and dry cleaning service in Warri, Delta State, Nigeria. Services include Wash & Iron, Iron Only, and Dry Cleaning. Pickup and delivery across Warri and Effurun.",
-    "url": "https://docjslaundry.com",
-    "telephone": "+2347044680174",
-    "priceRange": "₦₦",
-    "currenciesAccepted": "NGN",
-    "paymentAccepted": "Cash, Bank Transfer",
-    "areaServed": [
-      { "@type": "City", "name": "Warri" },
-      { "@type": "City", "name": "Effurun" }
-    ],
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-        "opens": "08:00",
-        "closes": "19:00"
-      }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Laundry Services",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Wash & Iron" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Iron Only" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dry Cleaning" } }
-      ]
-    },
-    "sameAs": ["https://wa.me/2347044680174"]
-  }
-  </script>
 </body>
 </html>
