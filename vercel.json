@@ -1,12 +1,4 @@
 {
-  "buildCommand": "bash build.sh",
-  "outputDirectory": "public",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/app/:path((?!.*\\.).*)",
-      "destination": "/app/index.html"
-    }
-  ]
+  "trailingSlash": false
 }
