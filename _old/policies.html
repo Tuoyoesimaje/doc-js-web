@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doc JS — Terms of Service &amp; Privacy Policy</title>
+  <link rel="icon" href="logo.jpg" type="image/jpeg">
+  
+  <!-- Google Fonts: Manrope & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS v3 with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#5e625d",
+            "on-secondary-fixed-variant": "#444844",
+            "outline-variant": "#bfc9c1",
+            "background": "#f4fbf2",
+            "primary-container": "#2d6a4f",
+            "tertiary-fixed-dim": "#ffb3b3",
+            "on-primary-fixed": "#002114",
+            "surface-container-highest": "#dde5db",
+            "primary-fixed": "#b1f0ce",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "outline": "#707973",
+            "tertiary": "#713638",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f4fbf2",
+            "inverse-on-surface": "#ebf3e9",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#ffcfce",
+            "surface-container-high": "#e3eae1",
+            "secondary-fixed-dim": "#c4c7c2",
+            "on-background": "#161d18",
+            "on-secondary": "#ffffff",
+            "inverse-surface": "#2b322c",
+            "on-surface": "#161d18",
+            "tertiary-fixed": "#ffdad9",
+            "secondary": "#5b5f5b",
+            "primary-fixed-dim": "#95d4b3",
+            "on-tertiary-fixed": "#390b0e",
+            "surface": "#f4fbf2",
+            "surface-dim": "#d5dcd3",
+            "surface-container-low": "#eef6ec",
+            "on-secondary-fixed": "#191d19",
+            "secondary-container": "#dbded8",
+            "on-surface-variant": "#404943",
+            "surface-tint": "#2c694e",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#6f3537",
+            "surface-container": "#e9f0e6",
+            "on-error": "#ffffff",
+            "tertiary-container": "#8d4d4e",
+            "surface-variant": "#dde5db",
+            "primary": "#0f5238",
+            "secondary-fixed": "#e0e3de",
+            "inverse-primary": "#95d4b3",
+            "on-primary-container": "#a8e7c5",
+            "on-error-container": "#93000a",
+            "on-primary-fixed-variant": "#0e5138"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-2xl": "4rem",
+            "margin-md": "3rem",
+            "margin-lg": "5rem",
+            "space-xs": "0.5rem",
+            "space-sm": "0.75rem",
+            "space-3xl": "6rem",
+            "margin": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-xxs": "0.25rem",
+            "space-xl": "2.5rem",
+            "gutter-sm": "1rem",
+            "space-md": "1rem",
+            "gutter-lg": "2rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Manrope"],
+            "label-md": ["Manrope"],
+            "headline-sm": ["Manrope"],
+            "display-lg": ["Manrope"],
+            "headline-lg": ["Manrope"],
+            "label-mono": ["JetBrains Mono"],
+            "headline-xl-mobile": ["Manrope"],
+            "body-sm": ["Manrope"],
+            "body-md": ["Manrope"],
+            "headline-md": ["Manrope"],
+            "headline-xl": ["Manrope"],
+            "body-lg": ["Manrope"],
+            "display-lg-mobile": ["Manrope"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+            "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" }],
+            "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "500" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+            "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::selection {
+      background-color: #2D6A4F;
+      color: #F8F8F4;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased font-body-md selection:bg-primary-container selection:text-surface">
+  <!-- Top Navigation Bar -->
+  <header class="w-full bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline sticky top-0 z-50">
+    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand Anchor -->
+      <div class="flex items-baseline space-x-3">
+        <a class="text-headline-sm font-headline-sm font-semibold text-on-surface dark:text-inverse-on-surface tracking-tight" href="/">Doc JS</a>
+        <span class="hidden sm:inline-block text-label-mono font-label-mono text-secondary dark:text-secondary-fixed-dim text-xs border-l border-outline-variant pl-3">Laundry management software</span>
+      </div>
+      
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a class="text-secondary dark:text-secondary-fixed-dim hover:text-on-surface dark:hover:text-inverse-on-surface font-normal text-label-lg font-label-lg transition-colors duration-150" href="/#product">Product</a>
+        <a class="text-secondary dark:text-secondary-fixed-dim hover:text-on-surface dark:hover:text-inverse-on-surface font-normal text-label-lg font-label-lg transition-colors duration-150" href="/#how-it-works">How it works</a>
+        <a class="text-primary dark:text-inverse-primary font-medium border-b-2 border-primary dark:border-inverse-primary pb-1 text-label-lg font-label-lg transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
+      </nav>
+      
+      <!-- Trailing Action Cluster -->
+      <div class="flex items-center space-x-4">
+        <a class="text-label-lg font-label-lg text-on-surface hover:text-primary dark:text-inverse-on-surface dark:hover:text-inverse-primary transition-colors duration-150 px-2 py-1" href="https://doc-js-operations.vercel.app/login">Log in</a>
+        <a class="text-label-lg font-label-lg bg-primary-container hover:bg-primary text-on-primary px-4 py-2 rounded transition-colors duration-150 shadow-none" href="https://doc-js-operations.vercel.app/signup">Join early access</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-12 lg:py-16">
+    <!-- Page Header / Metadata Deck -->
+    <div class="border-b border-outline-variant pb-10 mb-12">
+      <div class="flex items-center space-x-2 text-label-mono font-label-mono text-secondary uppercase tracking-wider mb-3">
+        <span class="inline-block w-2 h-2 rounded-full bg-primary-container"></span>
+        <span>Early Access Terms &amp; Privacy</span>
+      </div>
+      <h1 class="text-headline-xl font-headline-xl text-on-surface tracking-tight mb-4">Terms of Service &amp; Privacy Policy</h1>
+      <div class="flex flex-wrap items-center gap-y-2 gap-x-6 text-label-mono font-label-mono text-secondary mb-6">
+        <span>Last revised: 2026</span>
+        <span class="text-outline-variant">•</span>
+        <span class="text-primary font-medium">Early Access Version</span>
+      </div>
+      <div class="p-6 bg-surface-container-low border border-outline-variant rounded max-w-4xl">
+        <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Early-access agreement for laundry business owners and operators.</p>
+      </div>
+    </div>
+
+    <!-- Asymmetric Two-Column Architecture -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Left Column: Sticky Anchor Navigation (Table of Contents) -->
+      <aside class="lg:col-span-4 sticky top-24 self-start space-y-6">
+        <div class="bg-surface-container border border-outline-variant rounded p-6">
+          <div class="flex items-center justify-between pb-4 border-b border-outline-variant mb-4">
+            <span class="text-label-mono font-label-mono uppercase text-secondary">Document Outline</span>
+            <span class="material-symbols-outlined text-secondary" style="font-size: 18px;">menu_book</span>
+          </div>
+          <nav class="space-y-1">
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-1">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">01.</span>
+              <span class="font-medium group-hover:text-primary transition-colors">Overview</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-2">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">02.</span>
+              <span class="group-hover:text-primary transition-colors">Using Doc JS</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-3">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">03.</span>
+              <span class="group-hover:text-primary transition-colors">Early access and changes</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-4">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">04.</span>
+              <span class="group-hover:text-primary transition-colors">Business Records</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-5">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">05.</span>
+              <span class="group-hover:text-primary transition-colors">Privacy</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-6">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">06.</span>
+              <span class="group-hover:text-primary transition-colors">Security</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-7">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">07.</span>
+              <span class="group-hover:text-primary transition-colors">Availability and responsibilities</span>
+            </a>
+            <a class="toc-link group flex items-start py-2 px-2 rounded text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high transition-colors" href="#section-8">
+              <span class="text-label-mono font-label-mono text-secondary mr-2 group-hover:text-primary">08.</span>
+              <span class="group-hover:text-primary transition-colors">Contact and updates</span>
+            </a>
+          </nav>
+        </div>
+        
+        <!-- System Architecture Specification Pill / Card -->
+        <div class="border border-outline-variant bg-surface-container-low rounded p-5 space-y-3">
+          <div class="flex items-center space-x-2">
+            <span class="material-symbols-outlined text-primary" style="font-size: 16px;">verified_user</span>
+            <span class="text-label-mono font-label-mono text-on-surface font-medium text-xs">EARLY ACCESS NOTICE</span>
+          </div>
+          <p class="text-body-sm font-body-sm text-secondary leading-snug">Doc JS is provided free during the early-access period through 31 December 2026. Important pricing and policy updates will be shared before this period ends.</p>
+        </div>
+      </aside>
+
+      <!-- Right Column: Main Legal Prose -->
+      <section class="lg:col-span-8 space-y-16 max-w-3xl">
+        <!-- Section 1: Overview -->
+        <article class="scroll-mt-24 space-y-5" id="section-1">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>01</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 1</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Overview</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Doc JS is laundry-management software that helps businesses organise customer orders, garment details, order progress and payment records. Doc JS provides software, not physical laundry or dry-cleaning services.</p>
+          
+          <!-- Clarification Ledger Card -->
+          <div class="border border-outline-variant bg-surface-container-lowest p-6 rounded space-y-3">
+            <div class="text-label-mono font-label-mono text-xs uppercase text-primary font-medium tracking-wide">CLARIFICATION OF SERVICE</div>
+            <p class="text-body-sm font-body-sm text-secondary">Doc JS provides software tools for administrative record-keeping. Doc JS does not provide physical laundry, pressing, dry-cleaning, pickup, or delivery services, and does not accept custody of any customer garments.</p>
+          </div>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 2: Using Doc JS -->
+        <article class="scroll-mt-24 space-y-6" id="section-2">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>02</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 2</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Using Doc JS</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Provide accurate account information, keep your sign-in details private and use the service lawfully. You are responsible for the accuracy of the business records you enter and for activity carried out through your account.</p>
+          <div class="border-l-2 border-primary-container pl-4 space-y-1">
+            <h3 class="text-headline-sm font-headline-sm text-on-surface">Staff Access</h3>
+            <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">When granting staff access to your Doc JS account or shared counters, ensure credentials remain secure. You are responsible for revoking access when staff leave your business.</p>
+          </div>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 3: Early Access & Changes -->
+        <article class="scroll-mt-24 space-y-6" id="section-3">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>03</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 3</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Early access and changes</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Doc JS is offered free during early access through 31 December 2026. Features may change as the software is improved, and temporary interruptions may occur. We will communicate planned pricing changes before the free period ends.</p>
+          <div class="p-6 bg-surface-container-low border border-outline-variant rounded space-y-2">
+            <div class="text-label-mono font-label-mono text-xs uppercase text-primary font-medium tracking-wide">Notice on Pricing</div>
+            <p class="text-body-sm font-body-sm text-secondary">Users will receive advance notice of future pricing structure before any fees apply, allowing you to choose whether you wish to continue using the platform.</p>
+          </div>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 4: Business Records & Customer Information -->
+        <article class="scroll-mt-24 space-y-6" id="section-4">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>04</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 4</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Business records</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Your business remains responsible for the information it enters into Doc JS. You retain your rights to your business records. You authorise Doc JS to store and process information as needed to provide and maintain the service. A laundry business is responsible for having an appropriate reason to enter its customers' personal information.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 5: Privacy -->
+        <article class="scroll-mt-24 space-y-6" id="section-5">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>05</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 5</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Privacy</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Doc JS uses account details and the operational information entered into the software solely to provide and support the service. We do not sell your records or customer directories to third parties. Any sharing with service providers is strictly limited to infrastructure necessary to maintain and deliver the application.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 6: Security -->
+        <article class="scroll-mt-24 space-y-6" id="section-6">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>06</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 6</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Security</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">We take reasonable steps to protect the service and the information it handles. No internet service can guarantee absolute security. Keep your account credentials private and contact us if you suspect unauthorised access.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 7: Availability and Responsibilities -->
+        <article class="scroll-mt-24 space-y-6" id="section-7">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>07</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 7</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Availability and responsibilities</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">Early-access software may contain errors, change as it is developed or be temporarily unavailable. Keep any additional records your business needs, and check important order and payment information carefully.</p>
+        </article>
+
+        <hr class="border-outline-variant">
+
+        <!-- Section 8: Contact and Updates -->
+        <article class="scroll-mt-24 space-y-6 pb-8" id="section-8">
+          <div class="flex items-center space-x-3 text-label-mono font-label-mono text-secondary">
+            <span>08</span>
+            <span class="w-8 h-[1px] bg-outline-variant"></span>
+            <span>SECTION 8</span>
+          </div>
+          <h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Contact and updates</h2>
+          <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">If you have questions about these terms or need support with your account, please reach out through the application's support features. Terms and contact details will be updated once formal business registration is complete.</p>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <!-- Minimalist Footer -->
+  <footer class="w-full bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
+    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Brand & Copyright -->
+      <div class="flex flex-col md:flex-row items-center md:items-baseline gap-2 md:gap-4 text-center md:text-left">
+        <span class="text-headline-sm font-headline-sm font-semibold text-on-surface dark:text-inverse-on-surface">Doc JS</span>
+        <span class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim">© 2026 Doc JS. Laundry management software. All rights reserved.</span>
+      </div>
+      
+      <!-- Links Cluster -->
+      <nav class="flex flex-wrap items-center justify-center gap-6">
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="/#product">Product</a>
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="/#how-it-works">How it works</a>
+        <a class="text-body-sm font-body-sm text-on-surface dark:text-inverse-on-surface font-medium hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/login">Log in</a>
+        <a class="text-body-sm font-body-sm text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-inverse-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/signup">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Subtle Scrollspy / Active State Highlighter for TOC -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.toc-link').forEach(link => {
+              if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('bg-surface-container-high', 'text-primary');
+                link.querySelector('span:first-child')?.classList.add('text-primary');
+              } else {
+                link.classList.remove('bg-surface-container-high', 'text-primary');
+                link.querySelector('span:first-child')?.classList.remove('text-primary');
+              }
+            });
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      document.querySelectorAll('article[id]').forEach((article) => {
+        observer.observe(article);
+      });
+    });
+  </script>
+</body>
+</html>

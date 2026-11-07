@@ -1,514 +1,206 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en">
+<html lang="en-NG">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Doc JS | Laundry Management Software for Nigerian Laundries</title>
-  <meta name="description" content="Laundry management software for Nigerian laundry businesses. Keep customer orders, garment details, work progress and payment balance organized in one place.">
-  <link rel="icon" href="logo.jpg" type="image/jpeg">
-  <link rel="canonical" href="https://docjslaundry.com/">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          "colors": {
-            "on-secondary-container": "#5e625d",
-            "on-secondary-fixed-variant": "#444844",
-            "outline-variant": "#bfc9c1",
-            "background": "#f4fbf2",
-            "primary-container": "#2d6a4f",
-            "tertiary-fixed-dim": "#ffb3b3",
-            "on-primary-fixed": "#002114",
-            "surface-container-highest": "#dde5db",
-            "primary-fixed": "#b1f0ce",
-            "error": "#ba1a1a",
-            "on-primary": "#ffffff",
-            "outline": "#707973",
-            "tertiary": "#713638",
-            "surface-container-lowest": "#ffffff",
-            "surface-bright": "#f4fbf2",
-            "inverse-on-surface": "#ebf3e9",
-            "error-container": "#ffdad6",
-            "on-tertiary-container": "#ffcfce",
-            "surface-container-high": "#e3eae1",
-            "secondary-fixed-dim": "#c4c7c2",
-            "on-background": "#161d18",
-            "on-secondary": "#ffffff",
-            "inverse-surface": "#2b322c",
-            "on-surface": "#161d18",
-            "tertiary-fixed": "#ffdad9",
-            "secondary": "#5b5f5b",
-            "primary-fixed-dim": "#95d4b3",
-            "on-tertiary-fixed": "#390b0e",
-            "surface": "#f4fbf2",
-            "surface-dim": "#d5dcd3",
-            "surface-container-low": "#eef6ec",
-            "on-secondary-fixed": "#191d19",
-            "secondary-container": "#dbded8",
-            "on-surface-variant": "#404943",
-            "surface-tint": "#2c694e",
-            "on-tertiary": "#ffffff",
-            "on-tertiary-fixed-variant": "#6f3537",
-            "surface-container": "#e9f0e6",
-            "on-error": "#ffffff",
-            "tertiary-container": "#8d4d4e",
-            "surface-variant": "#dde5db",
-            "primary": "#0f5238",
-            "secondary-fixed": "#e0e3de",
-            "inverse-primary": "#95d4b3",
-            "on-primary-container": "#a8e7c5",
-            "on-error-container": "#93000a",
-            "on-primary-fixed-variant": "#0e5138"
-          },
-          "borderRadius": {
-            "DEFAULT": "0.125rem",
-            "lg": "0.25rem",
-            "xl": "0.5rem",
-            "full": "0.75rem"
-          },
-          "spacing": {
-            "space-2xl": "4rem",
-            "margin-md": "3rem",
-            "margin-lg": "5rem",
-            "space-xs": "0.5rem",
-            "space-sm": "0.75rem",
-            "space-3xl": "6rem",
-            "margin": "1.5rem",
-            "space-lg": "1.5rem",
-            "space-xxs": "0.25rem",
-            "space-xl": "2.5rem",
-            "gutter-sm": "1rem",
-            "space-md": "1rem",
-            "gutter-lg": "2rem",
-            "gutter": "1.5rem"
-          },
-          "fontFamily": {
-            "label-lg": ["Manrope"],
-            "label-md": ["Manrope"],
-            "headline-sm": ["Manrope"],
-            "display-lg": ["Manrope"],
-            "headline-lg": ["Manrope"],
-            "label-mono": ["JetBrains Mono"],
-            "headline-xl-mobile": ["Manrope"],
-            "body-sm": ["Manrope"],
-            "body-md": ["Manrope"],
-            "headline-md": ["Manrope"],
-            "headline-xl": ["Manrope"],
-            "body-lg": ["Manrope"],
-            "display-lg-mobile": ["Manrope"]
-          },
-          "fontSize": {
-            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
-            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }],
-            "headline-sm": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-            "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
-            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "500" }],
-            "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }],
-            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
-            "body-sm": ["13px", { "lineHeight": "20px", "letterSpacing": "0.005em", "fontWeight": "400" }],
-            "body-md": ["15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
-            "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "500" }],
-            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" }],
-            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
-            "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "600" }]
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
-      display: inline-block;
-      vertical-align: middle;
-      line-height: 1;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Doc JS | Know your laundry business, even when you are not there</title>
+<meta name="description" content="See every order, payment and expense in your laundry from your phone. Doc JS is free for now while we test it with real laundries.">
+<meta name="theme-color" content="#0c3b2a">
+<meta property="og:title" content="Doc JS | Know your business, even when you are not there">
+<meta property="og:description" content="See every order, payment and expense in your laundry from your phone. Free for now.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://docjslaundry.com/">
+<link rel="icon" href="logo.jpg" type="image/jpeg">
+<link rel="canonical" href="https://docjslaundry.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add("js")</script>
 </head>
-<body class="bg-surface text-on-surface font-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
-  <!-- Header / Top Navigation -->
-  <header class="w-full bg-surface border-b border-outline-variant sticky top-0 z-50">
-    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-      <!-- Wordmark + Subtitle -->
-      <div class="flex items-baseline space-x-3">
-        <a class="text-headline-sm font-headline-sm font-semibold text-on-surface tracking-tight hover:text-primary transition-colors duration-150" href="/">Doc JS</a>
-        <span class="hidden sm:inline-block font-label-mono text-label-mono text-secondary border-l border-outline-variant pl-3">Laundry management software</span>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="/"><img class="logo-mark" src="/logo.jpg" alt="">Doc JS</a>
+    <nav aria-label="Account">
+      <a href="https://doc-js-operations.vercel.app/login">Log in</a>
+      <a class="btn" href="https://doc-js-operations.vercel.app/signup">Start free</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Know your business, even when you are not there.</h1>
+        <p class="hero-lead">Every order, payment and expense in your laundry, on your phone as it happens.</p>
+        <div class="hero-cta">
+          <a class="btn" href="https://doc-js-operations.vercel.app/signup">Start free</a>
+          <a class="btn btn-line" href="https://doc-js-operations.vercel.app/login">Log in</a>
+        </div>
+        <p class="hero-note">Free for now while we test it with real laundries.</p>
       </div>
-      <!-- Links -->
-      <nav class="hidden md:flex items-center space-x-8">
-        <a class="text-primary font-medium border-b-2 border-primary pb-1 font-label-lg text-label-lg transition-colors duration-150" href="#product">Product</a>
-        <a class="text-secondary hover:text-on-surface font-normal font-label-lg text-label-lg transition-colors duration-150" href="#how-it-works">How it works</a>
-        <a class="text-secondary hover:text-on-surface font-normal font-label-lg text-label-lg transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
-      </nav>
-      <!-- Actions -->
-      <div class="flex items-center space-x-4">
-        <a class="text-secondary hover:text-on-surface font-label-lg text-label-lg transition-colors duration-150 px-2 py-1" href="https://doc-js-operations.vercel.app/login">Log in</a>
-        <a class="bg-primary text-on-primary rounded-lg px-4 py-2 font-label-lg text-label-lg hover:bg-[#0c402c] transition-colors duration-150" href="https://doc-js-operations.vercel.app/signup">Join early access</a>
+
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="screen" role="img" aria-label="Sample phone screen showing a laundry owner's day: orders received, a payment recorded, work moved to ironing and a customer collecting.">
+            <p class="screen-title">Your laundry today</p>
+            <div class="stats">
+              <div><span>Orders in</span><b id="orders">2</b></div>
+              <div class="owed"><span>Owed to you</span><b id="owed">₦8,000</b></div>
+            </div>
+            <ol class="feed" id="feed">
+              <li data-orders="1" data-owed="9500"><time>09:12</time><span>Tunde received 3 shirts for Mrs Adebayo <span class="tag">ADE-014</span></span></li>
+              <li data-orders="1" data-owed="4500"><time>09:40</time><span>Mrs Adebayo paid ₦5,000</span></li>
+              <li data-orders="1" data-owed="4500"><time>10:05</time><span><span class="tag">ADE-014</span> moved to Ironing</span></li>
+              <li data-orders="2" data-owed="8000"><time>10:31</time><span>Tunde received a senator outfit for Alhaji Ibrahim</span></li>
+              <li data-orders="2" data-owed="8000"><time>11:02</time><span>Chidi Okafor collected his shirts and paid in full</span></li>
+            </ol>
+          </div>
+        </div>
+        <p class="phone-note">Sample data</p>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 pt-16 pb-20 md:pt-24 md:pb-28">
-      <div class="max-w-3xl mb-12">
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container border border-outline-variant text-label-mono font-label-mono text-secondary mb-6">
-          <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>For laundry owners who cannot be everywhere at once
-        </div>
-        <h1 class="font-headline-xl md:font-display-lg text-headline-xl md:text-display-lg text-on-surface mb-6">Know what's happening in your laundry, even when you're not at the counter.</h1>
-        <p class="font-body-lg text-body-lg text-secondary max-w-2xl leading-relaxed">Keep customer orders, garment details, receipts, payments and business expenses in one place, so you can check what's been recorded without chasing every detail yourself.</p>
-        <div class="flex flex-wrap items-center gap-4 mt-8">
-          <a class="bg-primary text-on-primary rounded-lg px-5 py-2.5 font-label-lg text-label-lg hover:bg-[#0c402c] transition-colors duration-150 inline-flex items-center gap-2" href="https://doc-js-operations.vercel.app/signup">
-            Join early access
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </a>
-          <a class="inline-flex items-center gap-1.5 text-on-surface hover:text-primary transition-colors duration-150 font-label-lg text-label-lg px-3 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest" href="https://doc-js-operations.vercel.app/login">
-            Log in
-            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Product Preview Frame -->
-      <div class="border border-outline-variant bg-surface-container-lowest rounded-lg overflow-hidden">
-        <!-- Window Title Bar -->
-        <div class="border-b border-outline-variant bg-surface-container px-4 py-2.5 flex items-center justify-between">
-          <div class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
-            <span class="ml-3 font-label-mono text-label-mono text-secondary">Illustrative sample data</span>
-          </div>
-          <div class="flex items-center gap-3 font-label-mono text-label-mono text-secondary">
-            <span class="flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-primary"></span> Active preview
-            </span>
-          </div>
-        </div>
-        
-        <!-- Simulated Active Order Ledger -->
-        <div class="p-6 md:p-8 overflow-x-auto">
-          <!-- Summary Bar -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pb-6 mb-6 border-b border-outline-variant">
-            <div>
-              <div class="font-label-mono text-label-mono text-secondary">Active Orders</div>
-              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">3 sample orders</div>
-            </div>
-            <div>
-              <div class="font-label-mono text-label-mono text-secondary">Garments</div>
-              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">7 items listed</div>
-            </div>
-            <div>
-              <div class="font-label-mono text-label-mono text-secondary">Pickup Status</div>
-              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">1 order ready for pickup</div>
-            </div>
-            <div>
-              <div class="font-label-mono text-label-mono text-secondary">Unsettled Balance</div>
-              <div class="font-headline-sm text-headline-sm text-on-surface mt-1">₦8,000 outstanding</div>
-            </div>
-          </div>
-
-          <!-- Queue Table -->
-          <div class="w-full min-w-[700px]">
-            <div class="grid grid-cols-12 pb-3 border-b border-on-surface text-secondary font-label-mono text-label-mono uppercase tracking-wider">
-              <span class="col-span-2">Ticket ID</span>
-              <span class="col-span-3">Customer &amp; Description</span>
-              <span class="col-span-2">Garments</span>
-              <span class="col-span-3">Stage Status</span>
-              <span class="col-span-2 text-right">Balance &amp; Settlement</span>
-            </div>
-            <div class="grid grid-cols-12 py-3.5 border-b border-outline-variant items-center hover:bg-surface-container-low transition-colors duration-150">
-              <span class="col-span-2 font-label-mono text-label-mono text-secondary">#TK-8021</span>
-              <div class="col-span-3">
-                <p class="font-label-lg text-label-lg text-on-surface">Alhaji Ibrahim</p>
-                <p class="font-body-sm text-body-sm text-secondary">Traditional wear • Starch standard</p>
-              </div>
-              <span class="col-span-2 font-body-sm text-body-sm text-on-surface">1 Senator outfit</span>
-              <div class="col-span-3 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-primary-fixed-dim"></span>
-                <span class="font-label-md text-label-md text-on-surface">Washing</span>
-              </div>
-              <div class="col-span-2 text-right font-label-mono text-label-mono">
-                <span class="text-secondary">Total: ₦8,500 (₦5,000 Paid)</span>
-                <span class="block text-error">• ₦3,500 Balance</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-12 py-3.5 border-b border-outline-variant items-center hover:bg-surface-container-low transition-colors duration-150">
-              <span class="col-span-2 font-label-mono text-label-mono text-secondary">#TK-8022</span>
-              <div class="col-span-3">
-                <p class="font-label-lg text-label-lg text-on-surface">Mrs Adebayo</p>
-                <p class="font-body-sm text-body-sm text-secondary">Special care • Delicate wash</p>
-              </div>
-              <span class="col-span-2 font-body-sm text-body-sm text-on-surface">2 Ankara gowns and 1 wrapper</span>
-              <div class="col-span-3 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-outline"></span>
-                <span class="font-label-md text-label-md text-on-surface">Ready for pickup</span>
-              </div>
-              <div class="col-span-2 text-right font-label-mono text-label-mono">
-                <span class="text-secondary">Total: ₦12,000 (₦12,000 Paid)</span>
-                <span class="block text-primary">• ₦0 Balance</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-12 py-3.5 items-center hover:bg-surface-container-low transition-colors duration-150">
-              <span class="col-span-2 font-label-mono text-label-mono text-secondary">#TK-8023</span>
-              <div class="col-span-3">
-                <p class="font-label-lg text-label-lg text-on-surface">Chidi Okafor</p>
-                <p class="font-body-sm text-body-sm text-secondary">Office shirts • Medium starch</p>
-              </div>
-              <span class="col-span-2 font-body-sm text-body-sm text-on-surface">3 shirts</span>
-              <div class="col-span-3 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-outline-variant"></span>
-                <span class="font-label-md text-label-md text-on-surface">Received</span>
-              </div>
-              <div class="col-span-2 text-right font-label-mono text-label-mono">
-                <span class="text-secondary">Total: ₦4,500 (₦0 Paid)</span>
-                <span class="block text-error">• ₦4,500 Balance</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Main Benefits Section -->
-    <section class="w-full border-t border-outline-variant bg-surface-container-low py-20 md:py-28" id="product">
-      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
-        <div class="max-w-xl mb-16">
-          <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-3">Running a laundry business</span>
-          <h2 class="font-headline-xl text-headline-xl text-on-surface mb-4">Running a laundry is more than washing clothes.</h2>
-          <p class="font-body-md text-body-md text-secondary leading-relaxed">Customers, garments, payments, staff and running costs all need attention. The difficult part is keeping the different parts of the business in order while the work continues.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 border-t border-outline-variant pt-12">
-          <div class="flex flex-col">
-            <span class="font-label-mono text-label-mono text-secondary mb-4">01 / Keeping the shop in view</span>
-            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">You cannot be at the counter every minute.</h3>
-            <p class="font-body-md text-body-md text-secondary leading-relaxed">When someone else receives clothes or records an order, you still need to know what was entered and what happened. Doc JS is being built to let authorised staff handle their permitted tasks while the owner retains control of restricted areas.</p>
-            <div class="mt-8 pt-6 border-t border-outline-variant font-label-mono text-label-mono text-secondary">Staff access • Order records • Owner oversight</div>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-label-mono text-label-mono text-secondary mb-4">02 / Customer balances</span>
-            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">A regular customer still owes you, but brings more clothes.</h3>
-            <p class="font-body-md text-body-md text-secondary leading-relaxed">It can be difficult to insist on payment when you know the customer well. Keep previous orders, recorded payments and outstanding balances together, so you can see what is owed before deciding how to handle the next order.</p>
-            <div class="mt-8 pt-6 border-t border-outline-variant font-label-mono text-label-mono text-secondary">Customer history • Payments • Outstanding balances</div>
-          </div>
-          <div class="flex flex-col">
-            <span class="font-label-mono text-label-mono text-secondary mb-4">03 / Business costs</span>
-            <h3 class="font-headline-md text-headline-md text-on-surface mb-3">The shop is busy, but what remains after the bills?</h3>
-            <p class="font-body-md text-body-md text-secondary leading-relaxed">Power, fuel, detergent, packaging and other costs add up. Record your business expenses and review them alongside the orders and payments recorded in Doc JS, so you have a clearer picture of the business.</p>
-            <div class="mt-8 pt-6 border-t border-outline-variant font-label-mono text-label-mono text-secondary">Expense records • Recorded payments • Business overview</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Product Spotlight: Order Creation Flow -->
-    <section class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-20 md:py-28">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        <!-- Left: Editorial Statement (5 cols) -->
-        <div class="lg:col-span-5">
-          <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-3">Order Creation</span>
-          <h2 class="font-headline-xl text-headline-xl text-on-surface mb-6">Every order needs a clear record.</h2>
-          <p class="font-body-lg text-body-lg text-secondary mb-6 leading-relaxed">Record who brought the clothes, what was received, the agreed price and any special care instructions. Keep the garment details, tags and order information together so the team has something reliable to refer back to.</p>
-          <ul class="space-y-4 border-t border-outline-variant pt-6 mb-8 font-body-md text-body-md text-on-surface">
-            <li class="flex items-start gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
-              <span>Keep garment details and care instructions with the order.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
-              <span>Generate or share the appropriate order receipt.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-primary mt-2"></span>
-              <span>Return to the customer record when a question comes up.</span>
-            </li>
-          </ul>
-          <div class="font-label-mono text-label-mono text-secondary bg-surface-container p-3 rounded border border-outline-variant inline-block">Clear order details your team can check later.</div>
-        </div>
-        
-        <!-- Right: Framed Ticket Creation View (7 cols) -->
-        <div class="lg:col-span-7">
-          <div class="border border-outline-variant bg-surface-container-lowest rounded-lg p-6 shadow-none">
-            <div class="border-b border-outline-variant pb-4 mb-5 flex items-center justify-between">
-              <div>
-                <span class="font-label-mono text-label-mono text-secondary">NEW ORDER FORM</span>
-                <h4 class="font-headline-sm text-headline-sm text-on-surface">Ticket #TK-8025</h4>
-              </div>
-              <span class="font-label-mono text-label-mono px-2 py-1 bg-surface-container rounded border border-outline-variant text-secondary">Auto-Save: Synchronized</span>
-            </div>
-            <div class="mb-5">
-              <label class="block font-label-md text-label-md text-on-surface mb-1.5">Customer Profile</label>
-              <div class="border border-outline-variant rounded p-2.5 flex items-center justify-between bg-surface-container-low">
-                <div>
-                  <div class="font-label-lg text-label-lg text-on-surface">Tunde Bakare</div>
-                  <div class="font-label-mono text-label-mono text-secondary">+234 803 456 7890 • tunde.bakare@email.ng</div>
-                </div>
-                <span class="font-label-mono text-label-mono text-primary bg-surface px-2 py-0.5 rounded border border-outline-variant">Account: In Good Standing</span>
-              </div>
-            </div>
-            <div class="mb-5">
-              <label class="block font-label-md text-label-md text-on-surface mb-1.5">Garment &amp; Treatment Line Items</label>
-              <div class="border border-outline-variant rounded overflow-hidden">
-                <div class="p-3 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
-                  <div>
-                    <div class="font-label-lg text-label-lg text-on-surface">2x Senator Outfits</div>
-                    <div class="font-body-sm text-body-sm text-secondary">Starch medium • Crease trousers • Hanger</div>
-                  </div>
-                  <span class="font-label-mono text-label-mono text-on-surface">₦8,000</span>
-                </div>
-                <div class="p-3 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
-                  <div>
-                    <div class="font-label-lg text-label-lg text-on-surface">1x Linen Kaftan</div>
-                    <div class="font-body-sm text-body-sm text-secondary">Gentle wash • Hand steam press • Folded</div>
-                  </div>
-                  <span class="font-label-mono text-label-mono text-on-surface">₦3,500</span>
-                </div>
-                <div class="p-3 flex items-center justify-between bg-surface-container-low text-secondary font-label-mono text-label-mono cursor-pointer hover:bg-surface-container">
-                  <span>+ Add garment item or service code</span>
-                  <span>[F2 Quick Add]</span>
-                </div>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant items-end">
-              <div>
-                <span class="block font-label-mono text-label-mono text-secondary mb-1">PROMISED READY DATE</span>
-                <span class="font-label-lg text-label-lg text-on-surface">Thursday, Oct 24 • 4:00 PM</span>
-              </div>
-              <div class="text-right">
-                <div class="font-label-mono text-label-mono text-secondary">Subtotal: ₦11,500 • Paid: ₦5,000</div>
-                <div class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-0.5">Balance: ₦6,500</div>
-              </div>
-            </div>
-            <div class="mt-6 flex gap-3">
-              <button class="flex-1 bg-primary text-on-primary py-2.5 rounded font-label-lg text-label-lg text-center font-medium" type="button">Print Ticket &amp; Tags</button>
-              <button class="px-4 py-2.5 border border-outline-variant rounded font-label-lg text-label-lg text-on-surface bg-surface-container-lowest" type="button">Record Payment</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="w-full border-t border-outline-variant bg-surface-container-lowest py-20 md:py-28" id="how-it-works">
-      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-outline-variant">
-          <div>
-            <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-2">How it works</span>
-            <h2 class="font-headline-xl text-headline-xl text-on-surface">Keep the work connected, from the counter to the back of the shop.</h2>
-          </div>
-          <p class="font-body-md text-body-md text-secondary max-w-md mt-4 md:mt-0">Doc JS brings the everyday records of a laundry business into one place.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="p-8 border border-outline-variant rounded-lg bg-surface flex flex-col justify-between h-full">
-            <div>
-              <div class="font-label-mono text-label-mono text-primary font-semibold mb-6">STEP 01</div>
-              <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Receive and record</h3>
-              <p class="font-body-md text-body-md text-secondary leading-relaxed">Record the customer, garments, services, agreed price and the details needed for the order.</p>
-            </div>
-            <div class="mt-8 pt-4 border-t border-outline-variant text-label-mono font-label-mono text-secondary">Customer • Garments • Tags • Order details</div>
-          </div>
-          <div class="p-8 border border-outline-variant rounded-lg bg-surface flex flex-col justify-between h-full">
-            <div>
-              <div class="font-label-mono text-label-mono text-primary font-semibold mb-6">STEP 02</div>
-              <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Let the work move</h3>
-              <p class="font-body-md text-body-md text-secondary leading-relaxed">Keep the order organised as the work progresses, so the details do not depend only on somebody remembering what happened.</p>
-            </div>
-            <div class="mt-8 pt-4 border-t border-outline-variant text-label-mono font-label-mono text-secondary">Order progress • Garment details • Ready for pickup</div>
-          </div>
-          <div class="p-8 border border-outline-variant rounded-lg bg-surface flex flex-col justify-between h-full">
-            <div>
-              <div class="font-label-mono text-label-mono text-primary font-semibold mb-6">STEP 03</div>
-              <h3 class="font-headline-md text-headline-md text-on-surface mb-3">Keep an eye on the business</h3>
-              <p class="font-body-md text-body-md text-secondary leading-relaxed">Record payments, send receipts when needed, log expenses and review the information entered into the system.</p>
-            </div>
-            <div class="mt-8 pt-4 border-t border-outline-variant text-label-mono font-label-mono text-secondary">Receipts • Payments • Expenses • Daily activity</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Early-Access Closing Section -->
-    <section class="w-full border-t border-outline-variant py-20 md:py-28 bg-surface-container-low" id="early-access">
-      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
-        <div class="border border-outline-variant bg-surface p-8 md:p-16 rounded-lg max-w-4xl mx-auto">
-          <div class="max-w-2xl">
-            <span class="font-label-mono text-label-mono text-primary uppercase tracking-wider block mb-3">Early access</span>
-            <h2 class="font-headline-xl text-headline-xl text-on-surface mb-4">Try Doc JS with your real laundry work.</h2>
-            <p class="font-body-lg text-body-lg text-secondary mb-8 leading-relaxed">Use Doc JS during your normal work, see where it helps, and tell us what should improve. We want to build around the realities of running a laundry business, not add features just to make the system look bigger.</p>
-            <div class="flex flex-col sm:flex-row gap-3 max-w-xl mb-4">
-              <a href="https://doc-js-operations.vercel.app/signup" class="flex-1 bg-primary text-on-primary font-label-lg text-label-lg font-medium px-6 py-3 rounded hover:bg-[#0c402c] transition-colors duration-150 whitespace-nowrap text-center">Join early access</a>
-            </div>
-            <p class="font-label-mono text-label-mono text-secondary">Free through 31 December 2026. We will share details about future pricing before the free period ends.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Frequently Asked Questions -->
-    <section class="w-full border-t border-outline-variant bg-surface py-20 md:py-28">
-      <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8">
-        <div class="max-w-2xl mb-12">
-          <span class="font-label-mono text-label-mono text-secondary uppercase tracking-wider block mb-2">Inquiries</span>
-          <h2 class="font-headline-lg text-headline-lg text-on-surface">Frequently asked questions</h2>
-        </div>
-        
-        <div class="max-w-3xl divide-y border-y border-outline-variant">
-          <details class="group py-5 cursor-pointer">
-            <summary class="flex justify-between items-center font-headline-sm text-headline-sm text-on-surface list-none">
-              <span>Is Doc JS really free?</span>
-              <span class="material-symbols-outlined text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
-            </summary>
-            <p class="mt-4 font-body-md text-body-md text-secondary leading-relaxed">Yes. Early access is free through 31 December 2026. You do not need to enter card details to begin.</p>
-          </details>
-          <details class="group py-5 cursor-pointer">
-            <summary class="flex justify-between items-center font-headline-sm text-headline-sm text-on-surface list-none">
-              <span>What can I use Doc JS for?</span>
-              <span class="material-symbols-outlined text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
-            </summary>
-            <p class="mt-4 font-body-md text-body-md text-secondary leading-relaxed">Doc JS helps you organise customer orders, garment details, work progress, receipts, payments and other business records supported by the application.</p>
-          </details>
-          <details class="group py-5 cursor-pointer">
-            <summary class="flex justify-between items-center font-headline-sm text-headline-sm text-on-surface list-none">
-              <span>Do I need a laptop?</span>
-              <span class="material-symbols-outlined text-secondary transition-transform duration-200 group-open:rotate-180">expand_more</span>
-            </summary>
-            <p class="mt-4 font-body-md text-body-md text-secondary leading-relaxed">Doc JS runs in a web browser and can be added to your phone's home screen. The printing options available to you may depend on your device and setup.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="w-full bg-surface-container-low border-t border-outline-variant">
-    <div class="w-full max-w-[1280px] mx-auto px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
-      <!-- Brand & Copyright -->
-      <div class="flex flex-col md:flex-row items-baseline gap-2 md:gap-4 text-center md:text-left">
-        <span class="text-headline-sm font-headline-sm font-semibold text-on-surface">Doc JS</span>
-        <span class="font-body-sm text-body-sm text-secondary">© 2026 Doc JS. Laundry management software. All rights reserved.</span>
-      </div>
-      
-      <!-- Footer Navigation Links -->
-      <nav class="flex flex-wrap items-center justify-center gap-6 font-body-sm text-body-sm">
-        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="#product">Product</a>
-        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="#how-it-works">How it works</a>
-        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="/policies">Terms &amp; Privacy</a>
-        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/login">Log in</a>
-        <a class="text-secondary hover:text-primary underline underline-offset-4 transition-colors duration-150" href="https://doc-js-operations.vercel.app/signup">Contact</a>
-      </nav>
+  <section class="know">
+    <div class="wrap">
+      <h2 data-reveal>Open your phone. Know where things stand.</h2>
+      <ul>
+        <li data-reveal>
+          <h3>What came in</h3>
+          <p>Every order and every garment tag, with who received it and when.</p>
+        </li>
+        <li data-reveal>
+          <h3>Who owes you</h3>
+          <p>Check a customer’s balance before you take their next order.</p>
+        </li>
+        <li data-reveal>
+          <h3>Where the money went</h3>
+          <p>Payments and expenses side by side, so you see what is left after the bills.</p>
+        </li>
+        <li data-reveal>
+          <h3>Who did what</h3>
+          <p>Staff record orders and move the work along. Prices, reports and settings stay with you.</p>
+        </li>
+      </ul>
     </div>
-  </footer>
+  </section>
+
+  <section class="flow">
+    <div class="wrap">
+      <h2 data-reveal>From the counter to the customer</h2>
+      <ol data-draw>
+        <li data-reveal style="--i:0"><h3>Receive</h3><p>Add the customer and the clothes. Each piece gets a tag.</p></li>
+        <li data-reveal style="--i:1"><h3>Work</h3><p>Move every order through washing, ironing and ready.</p></li>
+        <li data-reveal style="--i:2"><h3>Hand over</h3><p>Collect the balance and send the receipt.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="join">
+    <div class="wrap">
+      <div class="join-box" data-reveal>
+        <h2>Free for now.</h2>
+        <p>We are still testing Doc JS and learning from the laundries that use it. Join early and help shape it.</p>
+        <a class="btn" href="https://doc-js-operations.vercel.app/signup">Start free</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <details>
+        <summary>Is it really free?</summary>
+        <p>Yes, for now. We are testing with real laundries and learning what owners need. If that ever changes, we will tell you well before it does. No card needed.</p>
+      </details>
+      <details>
+        <summary>Do I need a laptop?</summary>
+        <p>No. Doc JS runs in your phone’s browser and you can add it to your home screen. Printing depends on your device and printer.</p>
+      </details>
+      <details>
+        <summary>What can I record in it?</summary>
+        <p>Customers, orders, garment tags, work progress, payments, receipts and business expenses.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>© 2026 Doc JS</span>
+    <nav aria-label="Footer">
+      <a href="/policies">Terms and Privacy</a>
+      <a href="https://doc-js-operations.vercel.app/login">Log in</a>
+      <a href="https://doc-js-operations.vercel.app/signup">Start free</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* Hero: replay a sample morning at the shop. Without JS or with reduced motion, the finished state is shown. */
+(function () {
+  var items = document.querySelectorAll("#feed li");
+  var ordersEl = document.getElementById("orders");
+  var owedEl = document.getElementById("owed");
+  var naira = function (n) { return "₦" + Math.round(n).toLocaleString("en-NG"); };
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    items.forEach(function (li) { li.classList.add("in"); });
+    return;
+  }
+
+  ordersEl.textContent = "0";
+  owedEl.textContent = naira(0);
+
+  function tween(el, from, to, format) {
+    var start = null;
+    function frame(now) {
+      start = start || now;
+      var p = Math.min(1, (now - start) / 600);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = format(from + (to - from) * eased);
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  var step = 0, orders = 0, owed = 0;
+  function next() {
+    if (step >= items.length) return;
+    var li = items[step++];
+    li.classList.add("in");
+    var o = +li.dataset.orders, d = +li.dataset.owed;
+    if (o !== orders) tween(ordersEl, orders, o, function (n) { return String(Math.round(n)); });
+    if (d !== owed) tween(owedEl, owed, d, naira);
+    orders = o; owed = d;
+    setTimeout(next, 1500);
+  }
+  setTimeout(next, 700);
+})();
+</script>
+<script>
+/* Scroll reveal: add .in when an element enters the screen. */
+(function () {
+  var els = document.querySelectorAll("[data-reveal], [data-draw]");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || !("IntersectionObserver" in window)) {
+    document.documentElement.classList.add("reveal-static");
+    els.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("in");
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.25, rootMargin: "0px 0px -8% 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>
