@@ -6,6 +6,7 @@ mkdir -p .vercel/output/static
 # Copy all static files to output directory
 cp index.html .vercel/output/static/
 cp policies.html .vercel/output/static/
+cp site.css .vercel/output/static/
 cp logo.jpg .vercel/output/static/
 cp robots.txt .vercel/output/static/
 cp sitemap.xml .vercel/output/static/
